@@ -1,0 +1,25 @@
+department_id,college_id,name,code,building_id,chair_id
+1,1,Biology,BIOL,3,9
+2,1,Chemistry,CHEM,4,24
+3,1,English,ENGL,7,34
+4,1,History,HIST,7,40
+5,1,Mathematics and Statistics,MATH,2,46
+6,1,Philosophy,PHIL,7,56
+7,1,Psychology,PSY,2,59
+8,1,Sociology and Anthropology,SOC,2,69
+9,1,Political Science,POLS,7,72
+10,1,Theological Studies,THEO,7,78
+11,1,Classics,CLAS,7,84
+12,1,Communication,CMM,2,86
+13,1,Fine and Performing Arts,FPA,5,92
+14,2,Accounting,ACCT,5,98
+15,2,Finance,FIN,5,104
+16,2,Marketing,MKT,5,110
+17,2,Management,MGT,5,116
+18,3,Computer Science,CSCI,8,122
+19,3,Aerospace and Mechanical Engineering,AME,6,137
+20,3,Physics,PHYS,3,147
+21,4,Nursing,NURS,15,150
+22,4,Health Sciences,HSCI,15,160
+23,1,Interdisciplinary Studies,IDS,,
+24,3,Data Science Institute,DSCI,,

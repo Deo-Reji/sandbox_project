@@ -1,0 +1,11 @@
+scholarship_id,name,sponsor,amount,min_gpa,is_need_based
+1,Presidential Scholarship,University,12000,3.7,0
+2,Dean's Scholarship,University,8000,3.4,0
+3,Jesuit Mission Grant,University,5000,,1
+4,Missouri Bright Flight,State of Missouri,3000,3.0,0
+5,Federal Pell Grant,Federal,3450,,1
+6,STEM Excellence Award,Alumni Association,2500,3.5,0
+7,Nursing Workforce Grant,State of Missouri,4000,2.8,1
+8,Fine Arts Talent Award,University,1500,,0
+9,First-Generation Scholars,Foundation,2000,2.5,1
+10,Billiken Legacy Award,Alumni Association,1000,,0

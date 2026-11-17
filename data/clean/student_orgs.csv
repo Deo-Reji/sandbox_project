@@ -1,0 +1,26 @@
+org_id,name,category,advisor_id,founded_year
+1,Student Government Association,governance,43,1988
+2,Biology Club,academic,140,2003
+3,Chess Club,hobby,133,1995
+4,Women in Computing,academic,66,2001
+5,Debate Society,academic,129,2018
+6,Hispanic Student Union,cultural,106,1976
+7,Black Student Alliance,cultural,42,1973
+8,Campus Ministry,service,12,1974
+9,Habitat for Humanity,service,,1985
+10,Investment Club,academic,16,2019
+11,Robotics Team,academic,120,2010
+12,Ultimate Frisbee,sports,106,1983
+13,Club Soccer,sports,76,2006
+14,Jazz Ensemble,arts,120,2015
+15,Theatre Guild,arts,134,2001
+16,Pre-Med Society,academic,75,1978
+17,Nursing Student Association,academic,132,1970
+18,Philosophy Circle,academic,,2020
+19,Photography Club,hobby,112,2010
+20,Esports Club,hobby,114,1985
+21,International Student Association,cultural,,2002
+22,Outdoor Adventure Club,hobby,14,1972
+23,Model United Nations,academic,58,2012
+24,Engineering Society,academic,41,2005
+25,Running Club,sports,113,1968

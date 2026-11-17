@@ -1,0 +1,137 @@
+course_id,department_id,course_code,title,credits,level
+1,1,BIOL 1580,Principles of Biology I,4,1000
+2,1,BIOL 1270,Principles of Biology II,3,1000
+3,1,BIOL 1720,Cell Biology,3,1000
+4,1,BIOL 2170,Genetics,4,2000
+5,1,BIOL 2300,Ecology,3,2000
+6,1,BIOL 2310,Microbiology,3,2000
+7,1,BIOL 2540,Human Anatomy,3,2000
+8,1,BIOL 3860,Human Physiology,3,3000
+9,1,BIOL 3870,Evolution,3,3000
+10,1,BIOL 3400,Immunology,3,3000
+11,1,BIOL 4340,Developmental Biology,3,4000
+12,1,BIOL 4500,Neurobiology,3,4000
+13,1,BIOL 4540,Molecular Biology,3,4000
+14,1,BIOL 4150,Biology Senior Seminar,3,4000
+15,2,CHEM 1660,General Chemistry I,3,1000
+16,2,CHEM 1650,General Chemistry II,3,1000
+17,2,CHEM 2770,Organic Chemistry I,4,2000
+18,2,CHEM 2840,Organic Chemistry II,3,2000
+19,2,CHEM 3610,Analytical Chemistry,3,3000
+20,2,CHEM 3690,Physical Chemistry,3,3000
+21,2,CHEM 4280,Biochemistry,3,4000
+22,2,CHEM 4450,Inorganic Chemistry,3,4000
+23,3,ENGL 1110,Introduction to Literature,3,1000
+24,3,ENGL 1540,Academic Writing,3,1000
+25,3,ENGL 2470,Shakespeare,3,2000
+26,3,ENGL 3620,American Novel,3,3000
+27,3,ENGL 4750,Creative Writing Workshop,3,4000
+28,3,ENGL 4700,Modern Poetry,3,4000
+29,4,HIST 1590,World History I,3,1000
+30,4,HIST 1640,World History II,3,1000
+31,4,HIST 3010,History of St. Louis,3,3000
+32,4,HIST 4650,US Civil War,3,4000
+33,4,HIST 4820,Modern Europe,3,4000
+34,5,MATH 1020,College Algebra,3,1000
+35,5,MATH 1700,Calculus I,4,1000
+36,5,MATH 2350,Calculus II,4,2000
+37,5,MATH 2090,Calculus III,4,2000
+38,5,MATH 2750,Linear Algebra,3,2000
+39,5,MATH 3570,Differential Equations,3,3000
+40,5,MATH 3190,Probability,3,3000
+41,5,MATH 4280,Mathematical Statistics,3,4000
+42,5,MATH 4560,Real Analysis,3,4000
+43,5,MATH 4540,Introduction to Proofs,3,4000
+44,6,PHIL 1310,Introduction to Philosophy,3,1000
+45,6,PHIL 1020,Ethics,3,1000
+46,6,PHIL 3780,Logic,3,3000
+47,6,PHIL 4680,Philosophy of Mind,3,4000
+48,7,PSY 1140,General Psychology,3,1000
+49,7,PSY 1470,Research Methods,3,1000
+50,7,PSY 2390,Cognitive Psychology,3,2000
+51,7,PSY 3470,Abnormal Psychology,3,3000
+52,7,PSY 3310,Developmental Psychology,3,3000
+53,7,PSY 4210,Social Psychology,3,4000
+54,7,PSY 4720,Statistics for Psychology,3,4000
+55,8,SOC 1710,Introduction to Sociology,3,1000
+56,8,SOC 1550,Cultural Anthropology,3,1000
+57,8,SOC 4180,Urban Sociology,3,4000
+58,9,POLS 1840,American Government,3,1000
+59,9,POLS 1420,Comparative Politics,3,1000
+60,9,POLS 3250,International Relations,3,3000
+61,9,POLS 4830,Constitutional Law,3,4000
+62,10,THEO 1130,Theological Foundations,3,1000
+63,10,THEO 1230,World Religions,3,1000
+64,10,THEO 3700,Ethics and Society,3,3000
+65,10,THEO 4580,Scripture,3,4000
+66,11,CLAS 1570,Latin I,3,1000
+67,11,CLAS 1820,Greek Mythology,3,1000
+68,11,CLAS 4110,Roman History,3,4000
+69,12,CMM 1460,Public Speaking,3,1000
+70,12,CMM 1780,Media and Society,3,1000
+71,12,CMM 3660,Journalism,3,3000
+72,12,CMM 4120,Strategic Communication,3,4000
+73,13,FPA 1510,Drawing I,3,1000
+74,13,FPA 1770,Music Theory,3,1000
+75,13,FPA 3850,Art History,3,3000
+76,13,FPA 4280,Studio Painting,3,4000
+77,13,FPA 4220,University Choir,1,4000
+78,14,ACCT 1680,Financial Accounting,3,1000
+79,14,ACCT 1010,Managerial Accounting,3,1000
+80,14,ACCT 3820,Intermediate Accounting,3,3000
+81,14,ACCT 4420,Auditing,3,4000
+82,14,ACCT 4250,Taxation,3,4000
+83,15,FIN 1350,Principles of Finance,3,1000
+84,15,FIN 1840,Investments,3,1000
+85,15,FIN 3140,Corporate Finance,3,3000
+86,15,FIN 4380,Financial Markets,3,4000
+87,16,MKT 1420,Principles of Marketing,3,1000
+88,16,MKT 1490,Consumer Behavior,3,1000
+89,16,MKT 3810,Digital Marketing,3,3000
+90,16,MKT 4820,Marketing Research,3,4000
+91,17,MGT 1220,Principles of Management,3,1000
+92,17,MGT 1590,Organizational Behavior,3,1000
+93,17,MGT 3000,Operations Management,3,3000
+94,17,MGT 4100,Strategic Management,3,4000
+95,18,CSCI 1430,Introduction to Computer Science,3,1000
+96,18,CSCI 1690,Object-Oriented Programming,3,1000
+97,18,CSCI 1780,Data Structures,4,1000
+98,18,CSCI 2470,Discrete Mathematics,4,2000
+99,18,CSCI 2640,Computer Architecture,3,2000
+100,18,CSCI 2710,Algorithms,3,2000
+101,18,CSCI 2020,Databases,3,2000
+102,18,CSCI 3760,Operating Systems,3,3000
+103,18,CSCI 3770,Software Engineering,3,3000
+104,18,CSCI 3350,Machine Learning,3,3000
+105,18,CSCI 4250,Computer Networks,3,4000
+106,18,CSCI 4550,Artificial Intelligence,3,4000
+107,18,CSCI 4620,Compilers,3,4000
+108,18,CSCI 4580,Senior Capstone,3,4000
+109,19,AME 1810,Statics,3,1000
+110,19,AME 1530,Dynamics,3,1000
+111,19,AME 2710,Thermodynamics,3,2000
+112,19,AME 2470,Fluid Mechanics,3,2000
+113,19,AME 3320,Materials Science,3,3000
+114,19,AME 3100,Aerodynamics,3,3000
+115,19,AME 4460,Machine Design,3,4000
+116,19,AME 4630,Propulsion,3,4000
+117,20,PHYS 1250,Physics I,3,1000
+118,20,PHYS 1530,Physics II,3,1000
+119,20,PHYS 3780,Modern Physics,4,3000
+120,20,PHYS 4470,Quantum Mechanics,4,4000
+121,21,NURS 1680,Foundations of Nursing,3,1000
+122,21,NURS 1730,Pharmacology,3,1000
+123,21,NURS 2390,Adult Health Nursing,3,2000
+124,21,NURS 3500,Pediatric Nursing,3,3000
+125,21,NURS 3040,Mental Health Nursing,3,3000
+126,21,NURS 4790,Community Health,3,4000
+127,21,NURS 4740,Nursing Leadership,3,4000
+128,22,HSCI 1800,Introduction to Health Sciences,3,1000
+129,22,HSCI 1160,Epidemiology,3,1000
+130,22,HSCI 3240,Health Policy,3,3000
+131,22,HSCI 4560,Global Health,3,4000
+132,22,HSCI 4500,Nutrition,3,4000
+133,23,IDS 1600,Interdisciplinary Inquiry,3,1000
+134,23,IDS 1830,Capstone Project,3,1000
+135,24,DSCI 1580,Introduction to Data Science,3,1000
+136,24,DSCI 1410,Data Visualization,3,1000

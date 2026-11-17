@@ -1,0 +1,17 @@
+building_id,name,abbreviation,address,year_built,building_type
+1,DuBourg Hall,DUB,221 N Grand Blvd,1888,admin
+2,Ritter Hall,RIT,220 N Grand Blvd,1938,academic
+3,Macelwane Hall,MAC,3507 Laclede Ave,1960,academic
+4,Monsanto Hall,MON,3507 Laclede Ave,1965,academic
+5,Cook Hall,COO,3674 Lindell Blvd,2001,academic
+6,McDonnell Douglas Hall,MDH,3450 Lindell Blvd,1991,academic
+7,Morrissey Hall,MOR,3700 Lindell Blvd,2009,academic
+8,Interdisciplinary Science Building,ISB,3400 Lindell Blvd,2020,academic
+9,Pius XII Memorial Library,LIB,3650 Lindell Blvd,1959,academic
+10,Griesedieck Hall,GRI,3630 West Pine Mall,1964,residence
+11,Reinert Hall,REI,3601 Olive St,1974,residence
+12,Spring Hall,SPR,3701 Laclede Ave,2017,residence
+13,Marguerite Hall,MAR,3520 Laclede Ave,1965,residence
+14,Fusz Hall,FUS,3700 West Pine Mall,1965,residence
+15,Trudy Busch Valentine Hall,TBV,3525 Caroline St,1972,academic
+16,Student Center,STC,20 N Grand Blvd,2008,admin

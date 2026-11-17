@@ -1,0 +1,118 @@
+{
+  "seed": 7,
+  "tables": {
+    "students_raw": {
+      "source_rows": 500,
+      "gpa_missing_or_placeholder": 116,
+      "gpa_impossible_over_4": 4,
+      "gpa_impossible_ids": [
+        1063,
+        1130,
+        1167,
+        1469
+      ],
+      "birth_year_impossible": 3,
+      "home_state_nonstandard_values": 177,
+      "advisor_orphans": 9,
+      "exact_duplicate_extra_rows": 6,
+      "near_duplicate_groups": 8,
+      "duplicate_student_ids": [
+        1138,
+        1145,
+        1164,
+        1170,
+        1207,
+        1213,
+        1219,
+        1233,
+        1279,
+        1281,
+        1354,
+        1374,
+        1388,
+        1454
+      ],
+      "shifted_rows": 4,
+      "shifted_student_ids": [
+        1026,
+        1214,
+        1296,
+        1367
+      ],
+      "total_rows": 514,
+      "distinct_student_ids": 500,
+      "students_per_canonical_state": {
+        "AR": 7,
+        "CA": 25,
+        "CO": 8,
+        "FL": 6,
+        "GA": 4,
+        "IA": 10,
+        "IL": 111,
+        "IN": 12,
+        "KS": 22,
+        "KY": 2,
+        "MI": 6,
+        "MN": 20,
+        "MO": 187,
+        "NE": 4,
+        "NY": 13,
+        "OH": 10,
+        "OK": 6,
+        "TN": 9,
+        "TX": 18,
+        "WI": 16
+      }
+    },
+    "employees_raw": {
+      "source_rows": 179,
+      "salary_stored_as_text": 55,
+      "salary_missing_or_placeholder": 7,
+      "salary_true_total": 16821000,
+      "department_orphans": 5,
+      "department_orphan_ids": [
+        31,
+        62,
+        113,
+        119,
+        147
+      ],
+      "manager_placeholder": 4,
+      "exact_duplicate_extra_rows": 5,
+      "total_rows": 184
+    },
+    "enrollments_raw": {
+      "source_rows": 1500,
+      "section_orphans": 12,
+      "section_orphan_enrollment_ids": [
+        404,
+        1010,
+        1248,
+        2043,
+        2402,
+        2508,
+        2997,
+        3305,
+        4888,
+        5960,
+        6060,
+        7264
+      ],
+      "grade_nonstandard_values": 273,
+      "grade_points_placeholder": 20,
+      "exact_duplicate_extra_rows": 15,
+      "total_rows": 1515,
+      "distinct_enrollments_with_grade_A": 235
+    },
+    "payments_raw": {
+      "source_rows": 1200,
+      "amount_stored_as_text": 495,
+      "negative_amounts": 6,
+      "amount_missing_or_placeholder": 8,
+      "student_orphans": 7,
+      "exact_duplicate_extra_rows": 10,
+      "total_rows": 1210,
+      "posted_amount_total_clean": 13405175.0
+    }
+  }
+}

@@ -1,0 +1,515 @@
+student_id,first_name,last_name,email,birth_date,home_state,home_city,enrollment_year,gpa,advisor_id,status
+1387,Elena,Hall,elena.hall1387@students.slu-fictional.edu,2006/09/22,MO,Kirkwood,2024,3.0,17,active
+1228,Mia,Williams,mia.williams1228@students.slu-fictional.edu,"Jun 13, 2006",IL,Belleville,2024,,74,withdrew
+1358, Omar,Jackson,omar.jackson1358@students.slu-fictional.edu,2004-11-22,IA,Des Moines,2022,3.75,153,active
+1354,Rosa,Sullivan,rosa.sullivan1354@students.slu-fictional.edu,3/13/2007,Missouri,Springfield,2024,,57,active
+1259,Caleb,Hayes,caleb.hayes1259@students.slu-fictional.edu,2005-10-04,IL,Belleville,2023,-1,157,active
+1069,Naomi,Rossi,naomi.rossi1069@students.slu-fictional.edu,2005-03-02,Ill.,Chicago,2024,,93,active
+1311,Yara,CAMPBELL,yara.campbell1311@students.slu-fictional.edu,2002-03-14,MO ,St. Louis,2021,3.51,162,active
+1095,Jada,Williams,jada.williams1095@students.slu-fictional.edu,2006-01-28,IL,Belleville,2024,,128,active 
+1385,Noah,white,noah.white1385@students.slu-fictional.edu,2004-04-24,MO,Chesterfield,2022,2.74,,active
+1078,Olivia,Ortiz,olivia.ortiz1078@students.slu-fictional.edu,11/2/2007,MO,Chesterfield,2024,,127,active
+1495,Elena,STEWART,elena.stewart1495@students.slu-fictional.edu,2003-06-13,Ohio,Columbus,2021,2.64,113,withdrawn
+1065,Asha,Scott,asha.scott1065@students.slu-fictional.edu,2005-11-21,MO,Springfield,2022,3.29,12,ACTIVE
+1283,Owen,Garcia,owen.garcia1283@students.slu-fictional.edu,2005-07-12,MI,Detroit,2024,,87,active
+1499,Daniel,Delgado,daniel.delgado1499@students.slu-fictional.edu,2003-01-13,IL,Naperville,2021,-1,64,active
+1483,Zoe,Nakamura,zoe.nakamura1483@students.slu-fictional.edu,2007-08-30,IL,Edwardsville,2024,3.44,8888,active
+1100,CAMILA,  Silva,camila.silva1100@students.slu-fictional.edu,2006-04-08,IA,Des Moines,2024,3.45,43,leave
+1282,Amara,Stewart,amara.stewart1282@students.slu-fictional.edu,2003-01-03,IL,Chicago,2022,3.52,20,active
+1106,Diego,Bennett,diego.bennett1106@students.slu-fictional.edu,2003-06-12,MO,Columbia,2020,2.35,62,graduated
+1002,David ,Hoffman,david.hoffman1002@students.slu-fictional.edu,2002-10-19,Tennessee,Memphis,2021,3.02,,graduated
+1373,ethan,Ramirez,ethan.ramirez1373@students.slu-fictional.edu,2005/08/01,Indiana,Indianapolis,2024,3.31,153,active
+1192,Ava,Owens,ava.owens1192@students.slu-fictional.edu,2006-02-03,mo.,St. Louis,2023,2.79,149,Leave
+1443,Mila,Hayes,mila.hayes1443@students.slu-fictional.edu,2005-06-17,il,Belleville,2022,3.23,17,active
+1402,Naomi,Smith,naomi.smith1402@students.slu-fictional.edu,2004-11-04,Wisconsin,Milwaukee,2022,3.06,100,active
+1118,Valeria, Martin,valeria.martin1118@students.slu-fictional.edu,2005-06-04,Ill.,Naperville,2022,3.24,30,active
+1044,Ava,Howard,ava.howard1044@students.slu-fictional.edu,17-Jun-2003,IL,Chicago,2021,2.92,88,active
+1352,Amelia,Ruiz,amelia.ruiz1352@students.slu-fictional.edu,09/21/2003,IL,Belleville,2020,3.1,125,graduated
+1028,Henry,Owens,henry.owens1028@students.slu-fictional.edu,2002-12-25,MO,Springfield,2021,3.05,TBD,active
+1140,Liam,White,liam.white1140@students.slu-fictional.edu,2005-09-30,FL,Tampa,2024,,54,active
+1146,Felix, Ibrahim,felix.ibrahim1146@students.slu-fictional.edu,2004/05/24,Wisconsin,Madison,2022,2.14,152,active
+1264,Emma, Baker,emma.baker1264@students.slu-fictional.edu,4/20/2007,MO,Columbia,2024,,94,active
+1276,Fatima,Carter,fatima.carter1276@students.slu-fictional.edu,21-Sep-2004,MO,Kansas City,2022,3.13,19,leave
+1292,Mila,Wilson,mila.wilson1292@students.slu-fictional.edu,"Jan 2, 2005",OH,Columbus,2022,3.4,73,active
+1369,Grace,Garcia,grace.garcia1369@students.slu-fictional.edu,"Oct 20, 2005",MO,Columbia,2024,,139,active
+1316,Isaac,Santos,isaac.santos1316@students.slu-fictional.edu,2004/01/02,NY,Buffalo,2021,3.64,76,Withdrawn
+1102,Mila,Cruz,mila.cruz1102@students.slu-fictional.edu,2004-09-12,ca,Sacramento,2023,3.3,10,active
+1017,Yara,Ibrahim,yara.ibrahim1017@students.slu-fictional.edu,2003-10-02,Indiana,Indianapolis,2021,3.25,60,Active
+1205,Xavier, Gupta,xavier.gupta1205@students.slu-fictional.edu,2002-07-22,il,Belleville,2021,2.75,134,act.
+1343,Samuel,Ward,samuel.ward1343@students.slu-fictional.edu,2005-03-14,Minnesota,Minneapolis,2024,,106,Withdrawn
+1031, Riley,Hughes,riley.hughes1031@students.slu-fictional.edu,2005-01-17,il,Belleville,2024,3.44,144,withdrawn
+1287,Jamal,Delgado,jamal.delgado1287@students.slu-fictional.edu,2005-10-29,Kansas,Overland Park,2024,3.63,,Active
+1351,Elijah,Sanders,elijah.sanders1351@students.slu-fictional.edu,14-Apr-2004,NY,Buffalo,2022,unknown,64,active
+1006,Nia,Moore,nia.moore1006@students.slu-fictional.edu,19-Jun-2006,MO ,Columbia,2023,3.03,145,active
+1492,Jasmine,Nakamura,jasmine.nakamura1492@students.slu-fictional.edu,2002-04-18,Texas,Austin,2021,3.15,9999,graduated
+1125,Liam,Gupta,liam.gupta1125@students.slu-fictional.edu,2006-07-13,Ill.,Chicago,2023,2.79,29,active
+1050,Javier,Williams,javier.williams1050@students.slu-fictional.edu,2004-07-15,IL,Edwardsville,2023,2.63,82,ACTIVE
+1159,julia,Lee,julia.lee1159@students.slu-fictional.edu,2007/03/28,Illinois,Chicago,2024,3.06,58,act.
+1049,Carter,Alvarez,carter.alvarez1049@students.slu-fictional.edu,3/7/2007,MO,Kansas City,2024,3.17,118,Active
+1258,Evelyn ,Cole,evelyn.cole1258@students.slu-fictional.edu,2002-03-02,IL,Naperville,2020,2.69,7,graduated
+1315,Benjamin, Chen,benjamin.chen1315@students.slu-fictional.edu,1/5/2002,IL,Belleville,2020,2.9,51,graduated
+1374,Benjamin,Lee,benjamin.lee1374@students.slu-fictional.edu,23-Jul-2002,TX,Austin,2020,2.97,111,withdrew
+1110,Gabriel,Nguyen,gabriel.nguyen1110@students.slu-fictional.edu,2004-01-14,Missouri,St. Louis,2021,2.83,100,active
+1074,Leah,Jenkins,leah.jenkins1074@students.slu-fictional.edu,2004-09-10,IL,Naperville,2023,2.79,21,active
+1337,Naomi,Murphy,naomi.murphy1337@students.slu-fictional.edu,11/07/2005,MO,St. Louis,2022,2.47,135,active
+1250,Daniel,Cole,daniel.cole1250@students.slu-fictional.edu,2006-04-22,Wisconsin,Madison,2023,3.12,114,active
+1261,Grace,Moore,grace.moore1261@students.slu-fictional.edu,3/2/2002,MO,Kirkwood,2021,3.2,130,active
+1154,Wei,SILVA,wei.silva1154@students.slu-fictional.edu,10/20/2005,IL,Naperville,2024,3.11,29,active
+1042,Deja,Cole,deja.cole1042@students.slu-fictional.edu,2005-06-05,TX,Houston,2022,3.21,153,active
+1497,Asha ,Wright,asha.wright1497@students.slu-fictional.edu,04/02/2006, MO,Columbia,2024,3.52,95,active
+1218,Maya,Evans,maya.evans1218@students.slu-fictional.edu,02/19/2000, MO,Kirkwood,2019,-1,62,graduated
+1116,Rahul,Wilson,rahul.wilson1116@students.slu-fictional.edu,2006-08-28,KS,Overland Park,2023,2.35,10,active
+1335,Mia,Mitchell,mia.mitchell1335@students.slu-fictional.edu,2003-05-10,Tennessee,Memphis,2021,N/A,156,graduated
+1242,Nia,Evans,nia.evans1242@students.slu-fictional.edu,2004-03-05,Illinois,Edwardsville,2023,3.18,13,leave
+1472,Isabella,Young,isabella.young1472@students.slu-fictional.edu,2006-06-15,IL,Belleville,2023,3.15,20,withdrawn
+1376,Owen,Evans,owen.evans1376@students.slu-fictional.edu,2004/12/19,MO,Kirkwood,2023,unknown,35,active
+1207,Deja,Khan,deja.khan1207@students.slu-fictional.edu,05/05/2001,CA,San Diego,2020,2.88,124,active
+1456,Naomi,Delgado,naomi.delgado1456@students.slu-fictional.edu,2003-08-29,NY,Buffalo,2021,2.85,164,act.
+1377,Aiden,King,aiden.king1377@students.slu-fictional.edu,08/30/2003,il,Chicago,2022,,81,ACTIVE
+1458,Rosa,Howard,rosa.howard1458@students.slu-fictional.edu,2004-12-07,TX,Austin,2023,3.5,29,active
+1445,Chloe,MITCHELL,chloe.mitchell1445@students.slu-fictional.edu,"May 14, 2003",MO,St. Louis,2022,3.32,,active
+1059,Victor,Zhang,victor.zhang1059@students.slu-fictional.edu,2005-10-12,il,Edwardsville,2022,3.27,99,active
+1142,David,King,david.king1142@students.slu-fictional.edu,5/14/2003,IL,Naperville,2021,3.5,27,graduated
+1275,Rahul,Robinson,rahul.robinson1275@students.slu-fictional.edu,2006-10-01,GA,Atlanta,2024,,19,active
+1273,Noah,Ward,noah.ward1273@students.slu-fictional.edu,10/21/2005,MO,Columbia,2023,2.24,17,active
+1336,Kenji,Perez,kenji.perez1336@students.slu-fictional.edu,2007-07-11,MN,Minneapolis,2024,3.15,129,active
+1189,Henry,Cole,henry.cole1189@students.slu-fictional.edu,2002-06-23,MO,St. Louis,2021,2.0,88,graduated
+1367,Tomas,Evans,tomas.evans1367@students.slu-fictional.edu,2002-01-01,IL,2021,2.54,12,active,
+1256,Leo,  Anderson,leo.anderson1256@students.slu-fictional.edu,2007-07-19,MO,Kansas City,2024,,118,active
+1062,Theo,Zhang,theo.zhang1062@students.slu-fictional.edu,2005-08-23,MO,Kirkwood,2023,2.78,,active
+1178,Tariq,  Wilson,tariq.wilson1178@students.slu-fictional.edu,2004-07-04,TX,Austin,2021,2.45,22,graduated
+1450,  Theo,Turner,theo.turner1450@students.slu-fictional.edu,2002-08-19,Illinois,Peoria,2019,3.36,57,active
+1279,Darius,Hoffman,darius.hoffman1279@students.slu-fictional.edu,2003-06-30,MO,Kirkwood,2021,2.79,126,active
+1355,Isabella,Wang,isabella.wang1355@students.slu-fictional.edu,19-Aug-2005,IL,Peoria,2023,3.19,50,active
+1007,Darius,Rossi,darius.rossi1007@students.slu-fictional.edu,"Jan 10, 2004",GA,Atlanta,2021,3.01,20,Graduated
+1093,Diego,Walker,diego.walker1093@students.slu-fictional.edu,2007-09-03,WI,Madison,2024,2.58,100, active
+1020,Sara,Nguyen,sara.nguyen1020@students.slu-fictional.edu,2005-07-08,MN,Minneapolis,2024,,48,active
+1171,Julia,Owens,julia.owens1171@students.slu-fictional.edu,3/12/2006,Illinois,Edwardsville,2023,3.39,50,active
+1386,Andre,Foster,andre.foster1386@students.slu-fictional.edu,12/09/2006,MO,St. Louis,2023,3.81,58,active
+1493,Asha,hernandez,asha.hernandez1493@students.slu-fictional.edu,2002-03-30,MO,Chesterfield,2020,3.37,114,active 
+1168,Riley,Peterson,riley.peterson1168@students.slu-fictional.edu,2004-03-24,MO,Kirkwood,2022,2.57,120,active
+1281,Javier,Wilson,javier.wilson1281@students.slu-fictional.edu,2002-05-23,Illinois,Naperville,2021,2.89,,ACTIVE
+1235,Deja,Martin,deja.martin1235@students.slu-fictional.edu,6/1/2005,Minnesota,Minneapolis,2022,,124,active
+1127, Luna,Nelson,luna.nelson1127@students.slu-fictional.edu,2002-09-22,MO,Springfield,2021,3.62,14,active
+1348,Andre,Khan,andre.khan1348@students.slu-fictional.edu,2005-04-17,MO,Springfield,2022,3.16,67,active
+1425,Wei,Taylor,wei.taylor1425@students.slu-fictional.edu,2006-05-31,MO,Columbia,2024,,30,active
+1184,Carter,Moore,carter.moore1184@students.slu-fictional.edu,2006-07-14,MI,Detroit,2024,,18,active
+1160,Luis,Ellis,luis.ellis1160@students.slu-fictional.edu,2002/12/22,MO ,Kirkwood,2019,2.88,112,graduated
+1475,Hannah,Ibrahim,hannah.ibrahim1475@students.slu-fictional.edu,19-Mar-2006,IL,Peoria,2024,3.05,,Active
+1222,Deja,Green,deja.green1222@students.slu-fictional.edu,2006-10-16,Illinois,Peoria,2024,2.39,,active
+1108,Felix,Carter,felix.carter1108@students.slu-fictional.edu,2005-09-01,Ohio,Columbus,2022,2.99,,ACTIVE
+1163,Carter ,Kim,carter.kim1163@students.slu-fictional.edu,2007-08-15,TX,Austin,2024,3.34,119,active
+1400,Miguel,Jones,miguel.jones1400@students.slu-fictional.edu,"Jan 16, 2006",MI,Detroit,2024,,158,active
+1310,Sofia,Ramirez,sofia.ramirez1310@students.slu-fictional.edu,2005/03/03,mo.,St. Louis,2024,3.12,155,active
+1404,Rahul,Morgan,rahul.morgan1404@students.slu-fictional.edu,2004-10-07,AR,Little Rock,2022,3.29,27,active
+1399,Camila,Park,camila.park1399@students.slu-fictional.edu,2006-01-28,OK,Tulsa,2024,,96,active
+1174,Xavier,Martin,xavier.martin1174@students.slu-fictional.edu,2006-04-07,MO,Kansas City,2023,3.43,107,act.
+1353,Leo,Wang,leo.wang1353@students.slu-fictional.edu,2004-07-06,IA,Des Moines,2022,3.21,89,act.
+1208, Luis,Sullivan,luis.sullivan1208@students.slu-fictional.edu,2003-01-08,MO ,St. Louis,2022,2.47,126, active
+1230,  Leo,Garcia,leo.garcia1230@students.slu-fictional.edu,2003-05-19,il,Edwardsville,2020,3.25,149,graduated
+1012,Ava,Carter,ava.carter1012@students.slu-fictional.edu,2005-01-01,MO,Columbia,2023,3.1,27,active 
+1064,ISABELLA,Mitchell,isabella.mitchell1064@students.slu-fictional.edu,2006-10-28,MO,Chesterfield,2023,3.53,21,active
+1330,Xavier,Clark,xavier.clark1330@students.slu-fictional.edu,2007-10-29,MO ,Kirkwood,2024,,95,leave
+1097,Theo,Shah,theo.shah1097@students.slu-fictional.edu,2002-09-20,ca,Sacramento,2021,3.8,154,Graduated
+1318,Leah,Evans,leah.evans1318@students.slu-fictional.edu,2003/06/21,MO,St. Louis,2020,3.67,20,graduated
+1489,Sophia,Cruz,sophia.cruz1489@students.slu-fictional.edu,2006-10-19,MO,Springfield,2024,,93,Withdrawn
+1429,Elijah,Taylor,elijah.taylor1429@students.slu-fictional.edu,2006-11-23,IL,Belleville,2023,2.7,48,LEAVE
+1233,Zara,Cruz,zara.cruz1233@students.slu-fictional.edu,2005-10-28,IA,Des Moines,2022,3.98,106,active
+1359,Omar,Lee,omar.lee1359@students.slu-fictional.edu,2006-10-22,mo,Kirkwood,2024,3.27,131,active
+1391,Xavier,Green,xavier.green1391@students.slu-fictional.edu,2004-09-29,MO,Springfield,2022,3.17,,active
+1068,  Jack,Morgan,jack.morgan1068@students.slu-fictional.edu,2006-01-08,Ill.,Naperville,2023,3.76,94,active
+1147,Mila,OWENS,mila.owens1147@students.slu-fictional.edu,2006-06-06,IA,Des Moines,2023,-1,140,active
+1260,Kai,Reed,kai.reed1260@students.slu-fictional.edu,1/11/2005,WI,Milwaukee,2024,,,active
+1134,Jada,Foster,jada.foster1134@students.slu-fictional.edu,2002-07-25,mo,Springfield,2021,3.59,131,active
+1085,Riley,Sullivan,riley.sullivan1085@students.slu-fictional.edu,2003-04-03,ca,Sacramento,2022,N/A,8, active
+1016,Sophia,Bennett,sophia.bennett1016@students.slu-fictional.edu,2003-12-16,IL,Edwardsville,2021,2.72,134,graduated
+1321,Benjamin,Dawson,benjamin.dawson1321@students.slu-fictional.edu,2005-08-11,CO,Denver,2023,2.81,,active
+1244,Ava,Cole,ava.cole1244@students.slu-fictional.edu,2006-12-02,Ill.,Naperville,2024,3.3,164,leave
+1308,Santiago,Clark,santiago.clark1308@students.slu-fictional.edu,"Sep 3, 2003",ks,Overland Park,2021,2.98,7,active
+1378,Sophia,Torres,sophia.torres1378@students.slu-fictional.edu,2005-12-13,FL,Tampa,2024,2.85,16,active 
+1354,Rosa,Sullivan,rosa.sullivan1354@students.slu-fictional.edu,3/13/2007,Missouri,Springfield,2024,,57,active
+1086,Elena,Green,elena.green1086@students.slu-fictional.edu,2003-11-12,MO ,St. Louis,2022,2.97,29,active
+1288,  Grace,Kelly,grace.kelly1288@students.slu-fictional.edu,2005-04-19,MO,Columbia,2024,2.64,25,Active
+1048,Santiago,Edwards,santiago.edwards1048@students.slu-fictional.edu,08/03/2003,MO,Springfield,2021,3.27,,active
+1363,Ethan, Flores,ethan.flores1363@students.slu-fictional.edu,9/30/2005,Missouri,Chesterfield,2023,3.59,18,active
+1145,FATIMA,Brooks,fatima.brooks1145@students.slu-fictional.edu,2005-02-22,MO,Kansas City,2023,2.84,99,active
+1051,Evelyn,Park,evelyn.park1051@students.slu-fictional.edu,2004/03/23,MO,Kirkwood,2023,3.08,,active
+1240,Liam,Price,liam.price1240@students.slu-fictional.edu,2006-08-12,IL,Naperville,2023,3.9,143,Active
+1371, Kiara,Ruiz,kiara.ruiz1371@students.slu-fictional.edu,9/28/2003,CA,Sacramento,2021,3.91,6,active
+1212,Amelia,Sanders,amelia.sanders1212@students.slu-fictional.edu,"Aug 5, 2004",MI,Detroit,2023,3.43,unknown,active
+1462,Elena,White,elena.white1462@students.slu-fictional.edu,2003-01-23,Illinois,Naperville,2022,2.61,107,active
+1274,Imani, Ward,imani.ward1274@students.slu-fictional.edu,2004-06-08,MO ,Springfield,2023,2.83,81, active
+1148,Camila,Kim,camila.kim1148@students.slu-fictional.edu,2004-12-25,MO,Springfield,2023,2.67,108,active
+1009,Quinn,Ward,quinn.ward1009@students.slu-fictional.edu,2004-10-20, MO,Kansas City,2023,2.73,156,active
+1101,Noah,Park,noah.park1101@students.slu-fictional.edu,"Nov 16, 2006",CA,Sacramento,2024,2.07,144,active
+1416,Hannah,Morgan,hannah.morgan1416@students.slu-fictional.edu,"Aug 19, 2005",NY,Buffalo,2023,3.0,128,active
+1039,Henry,THOMAS,henry.thomas1039@students.slu-fictional.edu,27-Jan-2005,MO ,St. Louis,2022,,16,active
+1464,Sofia,Garcia,sofia.garcia1464@students.slu-fictional.edu,2007-09-25,TN,Nashville,2024,3.86,63,active
+1327,Daniel,Chen,daniel.chen1327@students.slu-fictional.edu,2006-11-12,MO,Springfield,2023,3.28,124,active
+1084,Ava,Shah,ava.shah1084@students.slu-fictional.edu,01-Sep-2006,AR,Little Rock,2023,2.69,119,active
+1414,Sofia,Delgado,sofia.delgado1414@students.slu-fictional.edu,2006-04-25,IL,Chicago,2023,3.32,47,active
+1080,Elena, Evans,elena.evans1080@students.slu-fictional.edu,"Apr 10, 2005",il,Naperville,2024,3.37,31,withdrawn
+1162,Kai,Owens,kai.owens1162@students.slu-fictional.edu,2005-07-25,Illinois,Peoria,2024,3.2,102,active 
+1433,Asha,Ward,asha.ward1433@students.slu-fictional.edu,2005-09-24,NY,Buffalo,2022,3.24,,active
+1082,Nadia,Flores,nadia.flores1082@students.slu-fictional.edu,2005-07-02,IL,Naperville,2024,,41, active
+1390,Owen,Abbott,owen.abbott1390@students.slu-fictional.edu,03/26/2006,AR,Little Rock,2023,,25,withdrawn
+1060,Priya,SMITH,priya.smith1060@students.slu-fictional.edu,2006-09-26,Ohio,Cincinnati,2023,3.2,99,active
+1180,Riley,Patel,riley.patel1180@students.slu-fictional.edu,2003-10-03,KS,Overland Park,2021,3.51,36,active
+1474,Diego,Nakamura,diego.nakamura1474@students.slu-fictional.edu,2002-08-25,IA,Des Moines,2020,3.49,144,GRADUATED
+1177,Riley,Green,riley.green1177@students.slu-fictional.edu,2/10/2003,TN,Nashville,2022,3.42,14,active
+1011,Willa,Nguyen,willa.nguyen1011@students.slu-fictional.edu,2005/04/08,OH,Columbus,2022,2.88,21,leave
+1035,Diego,Jenkins,diego.jenkins1035@students.slu-fictional.edu,11/2/2003,CA,Sacramento,2021,unknown,73,Graduated
+1299,Lucas,Nakamura,lucas.nakamura1299@students.slu-fictional.edu,8/8/2006,MO ,Columbia,2023,2.59,8,active
+1294,Quinn,Peterson,quinn.peterson1294@students.slu-fictional.edu,23-Apr-2005,mo.,St. Louis,2024,,107,active
+1109,Josephine,Foster,josephine.foster1109@students.slu-fictional.edu,2001-03-28,OK,Tulsa,2020,3.65,81,graduated
+1439,Tomas,Wang,tomas.wang1439@students.slu-fictional.edu,2005-05-30,AR,Little Rock,2024,3.19,79,active
+1394,Kiara, Delgado,kiara.delgado1394@students.slu-fictional.edu,25-Dec-2007,IL,Edwardsville,2024,,5,act.
+1407,nadia,Foster,nadia.foster1407@students.slu-fictional.edu,31-Mar-2007,MO,Kirkwood,2024,,81,Active
+1107,Theo,Martin,theo.martin1107@students.slu-fictional.edu,11/26/2005,MO,Chesterfield,2022,3.06,145,active
+1491,Benjamin,Ruiz,benjamin.ruiz1491@students.slu-fictional.edu,2005-07-02,MO,Chesterfield,2024,,,active 
+1024,Luna,Johnson,luna.johnson1024@students.slu-fictional.edu,2005-11-25,IN,Indianapolis,2024,,20,act.
+1219,  Darius,Reyes,darius.reyes1219@students.slu-fictional.edu,2003-04-05,MO,Columbia,2021,3.5,21, active
+1025,Miguel,Owens,miguel.owens1025@students.slu-fictional.edu,2005-02-17,MO,Columbia,2023,-1,47,active
+1120,Felix,White,felix.white1120@students.slu-fictional.edu,2004-07-16,MO,Kirkwood,2022,2.94,128,ACTIVE
+1478,Willa,Schmidt,willa.schmidt1478@students.slu-fictional.edu,2007-08-11,MO,Springfield,2024,,76, active
+1379,Deja,King,deja.king1379@students.slu-fictional.edu,11-Aug-2002,NY,Buffalo,2020,3.35,32,graduated
+1200,Owen,Taylor,owen.taylor1200@students.slu-fictional.edu,2002-11-01,CA,Sacramento,2021,2.85,777,active
+1038,Jack,Kelly,jack.kelly1038@students.slu-fictional.edu,2005-09-24,IL,Naperville,2024,3.29,32,active
+1331,Mila,Lee,mila.lee1331@students.slu-fictional.edu,2004-08-23,CA,Sacramento,2022,3.73,141,withdrawn
+1223,Ruby,Rivera,ruby.rivera1223@students.slu-fictional.edu,26-Dec-2006,KS,Overland Park,2023,3.14,94, active
+1055,Evelyn,Clark,evelyn.clark1055@students.slu-fictional.edu,2006-06-16,WI,Madison,2024,3.45,5,Active
+1076,Sofia,Gupta,sofia.gupta1076@students.slu-fictional.edu,2007-07-20,Ill.,Chicago,2024,,16,ACTIVE
+1428,  Javier,Lee,javier.lee1428@students.slu-fictional.edu,2005-07-30,IL,Belleville,2024,,123,active
+1173,Sara,Dawson,sara.dawson1173@students.slu-fictional.edu,10-Feb-2006,MO,Kansas City,2023,3.61,148,leave
+1215,Mia,Ibrahim,mia.ibrahim1215@students.slu-fictional.edu,"Apr 4, 2005",Indiana,Indianapolis,2022,2.45,108,active
+1401,Maya,Ward,maya.ward1401@students.slu-fictional.edu,"Aug 5, 2004",MO,Kirkwood,2021,3.48,7,active
+1043,Isabella,Rossi,isabella.rossi1043@students.slu-fictional.edu,2004-10-08,Missouri,Chesterfield,2022,3.2,27,active
+1144,Gabriel,Santos ,gabriel.santos1144@students.slu-fictional.edu,2002-05-24,OH,Columbus,2020,3.02,93, active
+1185,javier,Smith,javier.smith1185@students.slu-fictional.edu,2005/07/15,KS,Wichita,2024,,99,ACTIVE
+1272,Diego,Singh,diego.singh1272@students.slu-fictional.edu,2004-10-15,Mo,Springfield,2022,3.14,,active
+1342,jordan,Foster,jordan.foster1342@students.slu-fictional.edu,07/17/2006,Missouri,St. Louis,2023,2.39,54,active
+1257,Leo,Jenkins,leo.jenkins1257@students.slu-fictional.edu,2004-06-18,MO,St. Louis,2023,2.7,19,Withdrawn
+1309,Bianca,Foster,bianca.foster1309@students.slu-fictional.edu,2007-12-31,MO,Chesterfield,2024,,,active
+1019,Zara,Hayes,zara.hayes1019@students.slu-fictional.edu,2004-11-26,Kansas,Overland Park,2022,2.78,114,active
+1036,Amelia,Scott,amelia.scott1036@students.slu-fictional.edu,2005-04-13,Minnesota,Minneapolis,2023,3.4,29,withdrew
+1013,Omar,Price,omar.price1013@students.slu-fictional.edu,2004-10-16,IN,Indianapolis,2021,3.09,96,active
+1032,Willa,Okafor,willa.okafor1032@students.slu-fictional.edu,2005-06-14,mo,Columbia,2024,,71,active
+1164,Miguel,Zhang,miguel.zhang1164@students.slu-fictional.edu,"Feb 24, 2002",il,Chicago,2019,3.18,156,Active
+1254,Ava,Silva,ava.silva1254@students.slu-fictional.edu,3/10/2005,MN,Minneapolis,2022,3.54,75,LEAVE
+1388,Kai ,cruz, kai.cruz1388@students.slu-fictional.edu,"Mar 18, 2006",Ohio,Cincinnati,2023,3.65,127,active
+1015,Yara,Schmidt ,yara.schmidt1015@students.slu-fictional.edu,2006-08-20,ca,Sacramento,2023,3.42,88,active
+1201,Leo,Okafor,leo.okafor1201@students.slu-fictional.edu,2005-04-18,TN,Memphis,2023,2.99,12,active
+1291,Felix,Jackson,felix.jackson1291@students.slu-fictional.edu,2/13/2003,tx,Dallas,2021,3.59,96,active
+1295,David,SINGH,david.singh1295@students.slu-fictional.edu,2004-04-18,IA,Des Moines,2023,2.5,100,Active
+1313,Amelia,Schmidt,amelia.schmidt1313@students.slu-fictional.edu,2006/02/11,IL,Chicago,2023,2.72,76,active
+1361, Maya,Nguyen,maya.nguyen1361@students.slu-fictional.edu,2002-06-10,MO,Kirkwood,2019,2.97,154,withdrawn
+1494,Gabriel,Wilson,gabriel.wilson1494@students.slu-fictional.edu,2002-01-10, MO,Columbia,2021,3.25,161,Withdrawn
+1403,Omar,Hayes,omar.hayes1403@students.slu-fictional.edu,3/9/2006,Mo,Kirkwood,2023,3.98,,Active
+1350,Deja,Sullivan,deja.sullivan1350@students.slu-fictional.edu,2004-02-13,CO,Denver,2023,N/A,,active
+1138,  Daniel, Mitchell, daniel.mitchell1138@students.slu-fictional.edu,03-Apr-2005,Missouri,Springfield,2022,3.35,37,active
+1246,Naomi,Evans,naomi.evans1246@students.slu-fictional.edu,2004-08-20,IL,Belleville,2023,2.97,79,active
+1238,Valeria,Williams,valeria.williams1238@students.slu-fictional.edu,11/15/2004,IL ,Edwardsville,2021,3.17,,graduated
+1415,IMANI,Jenkins,imani.jenkins1415@students.slu-fictional.edu,6/29/2005,TN,Memphis,2022,3.36,47,active
+1277,Naomi,GREEN,naomi.green1277@students.slu-fictional.edu,23-Dec-2005,IL,Belleville,2022,3.03,75,active
+1113,Valeria,Park,valeria.park1113@students.slu-fictional.edu,2005-08-31,MO,Chesterfield,2024,,32,active 
+1346,James,Watson,james.watson1346@students.slu-fictional.edu,03/14/2006,OK,Tulsa,2023,2.78,154,active
+1057,Andre,Hayes,andre.hayes1057@students.slu-fictional.edu,2005/05/10,MO,Chesterfield,2023,2.98,140,active
+1071,JONAH,Martinez,jonah.martinez1071@students.slu-fictional.edu,2002-12-16,MO,Chesterfield,2019,3.38,155,grad
+1384,Javier,  Foster,javier.foster1384@students.slu-fictional.edu,2003-02-14,MO,Springfield,2022,2.7,130,active
+1083, Willa,Cole,willa.cole1083@students.slu-fictional.edu,2005-02-20,NY,Buffalo,2024,,100,active
+1211,Leah,Lewis,leah.lewis1211@students.slu-fictional.edu,2002-06-25,NY,Buffalo,2020,2.64,13, active
+1145,FATIMA,Brooks,fatima.brooks1145@students.slu-fictional.edu,2005-02-22,MO,Kansas City,2023,2.84,99,active
+1281,Javier,Wilson,javier.wilson1281@students.slu-fictional.edu,2002-05-23,Illinois,Naperville,2021,2.89,,ACTIVE
+1018,Naomi,Ward,naomi.ward1018@students.slu-fictional.edu,2007-11-21,ca,San Diego,2024,3.04,106,withdrawn
+1485,Jordan,Nakamura,jordan.nakamura1485@students.slu-fictional.edu,2005-02-06,CA,San Diego,2022,3.38,31,active
+1003,Miguel,bennett,miguel.bennett1003@students.slu-fictional.edu,2004-11-17,MO ,Columbia,2021,3.39,158,active
+1081,Bianca,Bennett,bianca.bennett1081@students.slu-fictional.edu,2004-09-26,CA,San Diego,2022,3.71,129, active
+1422,Xavier, Ibrahim,xavier.ibrahim1422@students.slu-fictional.edu,23-Jul-2004,NY,Buffalo,2021,3.45,132,active
+1247,Fatima,Ortiz,fatima.ortiz1247@students.slu-fictional.edu,2004-12-06,MI,Detroit,2023,2.83,36,active
+1300,Willa,Wang,willa.wang1300@students.slu-fictional.edu,30-Jun-2007,MN,Minneapolis,2024,,,Active
+1143,Mila,Lopez,mila.lopez1143@students.slu-fictional.edu,2002/03/23,Illinois,Edwardsville,2021,3.27,,active
+1344,Olivia,Green,olivia.green1344@students.slu-fictional.edu,2005-09-27,MO ,Kirkwood,2024,,,active
+1117,Mia,Murphy,mia.murphy1117@students.slu-fictional.edu,2005/06/05,Illinois,Edwardsville,2023,3.67,16,active
+1249,Tariq,Foster,tariq.foster1249@students.slu-fictional.edu,8/6/2005,Ill.,Edwardsville,2023,3.33,75,active
+1088, Jack,Campbell,jack.campbell1088@students.slu-fictional.edu,04/13/2005,TX,Dallas,2022,2.8,114,active
+1290,Wei,nakamura,wei.nakamura1290@students.slu-fictional.edu,2004-06-19,MO,Chesterfield,2022,3.76,30,Withdrawn
+1094,andre,Watson,andre.watson1094@students.slu-fictional.edu,2004/12/23, MO,Kirkwood,2022,2.71,148,leave
+1482,Elijah,Gupta,elijah.gupta1482@students.slu-fictional.edu,2003-01-03,WI,Madison,2021,3.28,162,grad
+1150,Olivia,King,olivia.king1150@students.slu-fictional.edu,2004-05-25,CA,Sacramento,2023,3.8,32,active
+1490,Felix,Khan,felix.khan1490@students.slu-fictional.edu,2007-04-08,Illinois,Naperville,2024,3.31,111,active
+1126,Evelyn,Hall,evelyn.hall1126@students.slu-fictional.edu,2002-08-05,IL,Peoria,2020,2.99,64,graduated
+1164,  Miguel,ZHANG, miguel.zhang1164@students.slu-fictional.edu,"Feb 24, 2002",il,Chicago,2019,3.18,156,Active
+1307,Fatima, Hayes,fatima.hayes1307@students.slu-fictional.edu,22-Oct-2006,IL,Belleville,2023,2.29,100,active
+1239,Zoe,Bennett,zoe.bennett1239@students.slu-fictional.edu,4/26/2004,Indiana,Indianapolis,2023,3.15,151,active
+1451,Sara,Hall,sara.hall1451@students.slu-fictional.edu,9/23/2002,KS,Wichita,2021,3.51,128,graduated
+1167,Javier,Campbell,javier.campbell1167@students.slu-fictional.edu,2006-03-05,Mo,Kirkwood,2023,4.8,63,Leave
+1138,Daniel,Mitchell,daniel.mitchell1138@students.slu-fictional.edu,03-Apr-2005,Missouri,Springfield,2022,3.35,37,active
+1054,Yara,Price,yara.price1054@students.slu-fictional.edu,2004-03-15,MO,Springfield,2021,N/A,129,active
+1207,Deja,Khan , deja.khan1207@students.slu-fictional.edu,05/05/2001,CA,San Diego,2020,2.88,124,active
+1473,Samuel,Sanders,samuel.sanders1473@students.slu-fictional.edu,2002-06-05,Minnesota,Minneapolis,2021,2.06,107,ACTIVE
+1052,Willa,  Ruiz,willa.ruiz1052@students.slu-fictional.edu,"Jun 15, 2003",il,Edwardsville,2020,3.23,,graduated
+1432,Jordan,  Scott,jordan.scott1432@students.slu-fictional.edu,2005-03-16,MO,Columbia,2023,2.81,28,act.
+1426,Riley,Ibrahim,riley.ibrahim1426@students.slu-fictional.edu,2005-10-27,Ohio,Cincinnati,2022,3.18,133,Active
+1139,Asha,Carter,asha.carter1139@students.slu-fictional.edu,2006-09-10,IL,Peoria,2024,3.78,162,act.
+1430,Jonah,Perez,jonah.perez1430@students.slu-fictional.edu,2005-03-16,CA,Sacramento,2022,2.51,164,active
+1112,Zara,  Ellis,zara.ellis1112@students.slu-fictional.edu,2003-08-16,NE,Omaha,2022,3.38,80,active
+1305,Nadia,Murphy,nadia.murphy1305@students.slu-fictional.edu,"Feb 14, 2003",Minnesota,Minneapolis,2021,,9999,active
+1329,Asha,Khan,asha.khan1329@students.slu-fictional.edu,2005-02-22,ca,Sacramento,2024,2.86,139,active
+1128,Yusuf,Ramirez,yusuf.ramirez1128@students.slu-fictional.edu,2003-09-28,California,San Diego,2021,2.48,8888,Active
+1156,Grace,Green,grace.green1156@students.slu-fictional.edu,2003-01-10,KY,Louisville,2021,3.55,76,GRADUATED
+1158,Chloe,Hernandez,chloe.hernandez1158@students.slu-fictional.edu,"Feb 8, 2006",MO,Springfield,2023,3.83,,active
+1027,Sara,Roberts,sara.roberts1027@students.slu-fictional.edu,12-Dec-2007,ks,Wichita,2024,,21,active
+1216,Asha,Edwards,asha.edwards1216@students.slu-fictional.edu,7/3/2003,MO ,St. Louis,2021,3.01,6,active
+1411,Darius,Sullivan,darius.sullivan1411@students.slu-fictional.edu,2006-05-17,MO ,Kirkwood,2024,,10,active
+1153,camila,Rossi,camila.rossi1153@students.slu-fictional.edu,2005-12-06,il,Naperville,2024,2.5,95,active
+1465,Wei,Dawson,wei.dawson1465@students.slu-fictional.edu,2006-07-19,MO,Columbia,2024,,120,withdrawn
+1197,Deja,Lewis,deja.lewis1197@students.slu-fictional.edu,2007-03-30,MI,Detroit,2024,,66,active
+1161,  Wei,lewis,wei.lewis1161@students.slu-fictional.edu,2000-04-03,IL,Naperville,2019,2.39,123,withdrawn
+1045,Darius,Evans,darius.evans1045@students.slu-fictional.edu,2003-02-22, MO,Kirkwood,2021,,777,withdrawn
+1470,Wei,Jenkins,wei.jenkins1470@students.slu-fictional.edu,2006-03-05,MO,Springfield,2024,,131,active
+1393,Yusuf,Nguyen,yusuf.nguyen1393@students.slu-fictional.edu,2004-09-12,MO,Springfield,2022,3.11,158,Active
+1372,Noah,  Nelson,noah.nelson1372@students.slu-fictional.edu,2002-06-03,Tennessee,Nashville,2020,2.62,102,grad
+1096,Theo,Hayes,theo.hayes1096@students.slu-fictional.edu,2002-03-22,Minnesota,Minneapolis,2019,unknown,89,graduated
+1398,Anika,Evans,anika.evans1398@students.slu-fictional.edu,2004-07-26,CO,Denver,2023,4.0,162,active
+1266,Jordan,Howard,jordan.howard1266@students.slu-fictional.edu,2005-08-03,IL,Chicago,2023,2.93,108,active
+1098,Isaac,Williams,isaac.williams1098@students.slu-fictional.edu,2004-01-05,IL,Chicago,2023,3.82,164,withdrawn
+1301,Rahul,Nakamura,rahul.nakamura1301@students.slu-fictional.edu,"Nov 6, 2004",MO,Kansas City,2023,3.05,139,active
+1435,SAMUEL,Cole,samuel.cole1435@students.slu-fictional.edu,2004-06-17,IL,Chicago,2022,3.64,125,active
+1075,Sofia,Shah,sofia.shah1075@students.slu-fictional.edu,2006-12-28,MN,Minneapolis,2023,3.16,143,active
+1026,Amelia,CAMPBELL,amelia.campbell1026@students.slu-fictional.edu,2006-10-05,MO,2024,,,active,
+1397,Riley,Cruz,riley.cruz1397@students.slu-fictional.edu,2004-10-07,Mo,Kirkwood,2021,2.95,43,active 
+1072,Xavier,Nguyen,xavier.nguyen1072@students.slu-fictional.edu,2005/06/22,mo.,Kansas City,2024,3.46,131,active
+1214,Fatima,Shah,fatima.shah1214@students.slu-fictional.edu,2005-01-04,CO,2023,3.79,28,active,
+1286,Zara,Martinez,zara.martinez1286@students.slu-fictional.edu,2007-05-05,Ill.,Peoria,2024,3.32,145,withdrawn
+1248,Javier,Roberts,javier.roberts1248@students.slu-fictional.edu,2007-10-20,MO,Columbia,2024,,93,active
+1172,Jordan,Singh,jordan.singh1172@students.slu-fictional.edu,2006-09-15,MO,Kansas City,2024,3.54,26, active
+1306,Fatima,Cole,fatima.cole1306@students.slu-fictional.edu,7/16/2004,MN,Minneapolis,2023,3.45,71,active
+1029,Nia,WILLIAMS,nia.williams1029@students.slu-fictional.edu,2002-10-24,MO,Columbia,2021,3.55,144,active
+1233,Zara,Cruz,zara.cruz1233@students.slu-fictional.edu,2005-10-28,IA,Des Moines,2022,3.98,106,active
+1111,Kiara,Bennett,kiara.bennett1111@students.slu-fictional.edu,2006/02/10,MO,Kansas City,2024,3.1,43,act.
+1362,Quinn,Williams,quinn.williams1362@students.slu-fictional.edu,2004-01-31,WI,Milwaukee,2021,3.12,,active
+1405,Jamal,Scott,jamal.scott1405@students.slu-fictional.edu,2007-02-08,mo.,Kansas City,2024,2.48,37,withdrawn
+1496, Amara,ORTIZ,amara.ortiz1496@students.slu-fictional.edu,7/24/2006,Illinois,Peoria,2024,3.37,44,active
+1008,Mila,Hoffman,mila.hoffman1008@students.slu-fictional.edu,26-May-2006,MO ,Springfield,2023,3.08,148,Active
+1380,Kenji,Singh ,kenji.singh1380@students.slu-fictional.edu,2005/12/07,FL,Tampa,2022,3.4,145,active
+1040,Liam,  Young,liam.young1040@students.slu-fictional.edu,2004-06-08,Wisconsin,Madison,2022,,,act.
+1459,Tomas,Owens,tomas.owens1459@students.slu-fictional.edu,2005-04-11,MO,Chesterfield,2024,,157,on leave
+1366,  Liam,Lopez,liam.lopez1366@students.slu-fictional.edu,2005-07-21,CA,San Diego,2023,3.07,,on leave
+1061,Willa,Martinez,willa.martinez1061@students.slu-fictional.edu,2003-02-12,IL ,Edwardsville,2022,3.15,82,active
+1441,Yusuf,Hall,yusuf.hall1441@students.slu-fictional.edu,12/28/2006,CA,San Diego,2024,,32,withdrawn
+1199,Jamal, Reyes,jamal.reyes1199@students.slu-fictional.edu,2002-05-23,Illinois,Edwardsville,2020,3.08,20,graduated
+1170,Eli,Zhang,eli.zhang1170@students.slu-fictional.edu,2003-04-06,CO,Denver,2021,3.98,87,GRADUATED
+1284,Jasmine,Young,jasmine.young1284@students.slu-fictional.edu,9/18/2005,KS,Overland Park,2022,2.85,71,Active
+1151,Leah,Wright,leah.wright1151@students.slu-fictional.edu,05/19/2003,IL ,Edwardsville,2020,3.35,10,active
+1021,  Caleb,Wang,caleb.wang1021@students.slu-fictional.edu,2006-09-07,KS,Wichita,2024,,70,active
+1278,Chloe ,Brooks,chloe.brooks1278@students.slu-fictional.edu,15-May-2006,CO,Denver,2023,3.75,49, active
+1206,Isaac,Scott,isaac.scott1206@students.slu-fictional.edu,08-Jul-2007,IL,Naperville,2024,3.01,85,active 
+1382,Gabriel,Jenkins,gabriel.jenkins1382@students.slu-fictional.edu,2002-03-06,MO,Kansas City,2021,2.43,113,withdrawn
+1119,Owen,Robinson,owen.robinson1119@students.slu-fictional.edu,2005-07-20,MO,Columbia,2023,2.77,15,withdrawn
+1005,Bianca,Cruz,bianca.cruz1005@students.slu-fictional.edu,01/29/2005,GA,Atlanta,2024,,,ACTIVE
+1263,Olivia, Park,olivia.park1263@students.slu-fictional.edu,2006-07-11,IL ,Belleville,2024,,74,Active
+1070,  Anika,Ward,anika.ward1070@students.slu-fictional.edu,4/29/2005,MO ,Chesterfield,2024,,154,leave
+1252,Leah,Hoffman,leah.hoffman1252@students.slu-fictional.edu,2005-06-25,MO,Springfield,2023,,, active
+1204,Henry,Wang,henry.wang1204@students.slu-fictional.edu,2005/02/25,California,San Diego,2022,2.46,113,active
+1226,Elijah,Anderson,elijah.anderson1226@students.slu-fictional.edu,2002-06-11,MO,Springfield,2021,3.03,145,act.
+1457,Zoe,Hoffman,zoe.hoffman1457@students.slu-fictional.edu,2006-12-26,MO,Chesterfield,2024,,94,active
+1469,Chloe,Khan,chloe.khan1469@students.slu-fictional.edu,2007-07-25,Missouri,Kansas City,2024,5.5,,ACTIVE
+1467,Daniel,Smith,daniel.smith1467@students.slu-fictional.edu,2005-07-21,IN,Indianapolis,2024,3.15,157,active
+1364,Bianca,Martinez,bianca.martinez1364@students.slu-fictional.edu,2005-12-07,MO ,Springfield,2023,3.42,153, active
+1224,Amelia,Moore,amelia.moore1224@students.slu-fictional.edu,2091-11-30,MO,Kansas City,2023,3.29,149,active
+1320,Rosa,Martinez,rosa.martinez1320@students.slu-fictional.edu,2006-11-20,WI,Milwaukee,2024,,106,withdrawn
+1237,Kiara,Mitchell,kiara.mitchell1237@students.slu-fictional.edu,"Aug 2, 2003",MO ,Kansas City,2020,2.8,N/A,graduated
+1289,Samuel,Flores,samuel.flores1289@students.slu-fictional.edu,2006-07-09,NY,Buffalo,2024,,161,act.
+1500,Jonah,Bennett,jonah.bennett1500@students.slu-fictional.edu,"Nov 30, 2005", MO,Columbia,2023,2.97,30,active
+1056,Yara,Sullivan ,yara.sullivan1056@students.slu-fictional.edu,2006-01-08,Mo,Kansas City,2023,,17, active
+1014,Mila,Peterson,mila.peterson1014@students.slu-fictional.edu,2002-09-13,mo,Kansas City,2020,3.5,75,active
+1255,Lucas,Torres,lucas.torres1255@students.slu-fictional.edu,11/22/2005,tx,Dallas,2024,4.0,75,Withdrawn
+1213,Hannah,Lewis,hannah.lewis1213@students.slu-fictional.edu,2005-03-20,CA,Sacramento,2022,3.2,157,active
+1486, Ethan,Roberts,ethan.roberts1486@students.slu-fictional.edu,2002-03-04,Illinois,Chicago,2021,3.05,,Graduated
+1487,Evelyn,smith,evelyn.smith1487@students.slu-fictional.edu,10/16/2006,MO,Kirkwood,2023,3.44,80,active
+1374,Benjamin,LEE,BENJAMIN.LEE1374@STUDENTS.SLU-FICTIONAL.EDU,23-Jul-2002,TX,Austin,2020,2.97,111,withdrew
+1477,Caleb,Wilson,caleb.wilson1477@students.slu-fictional.edu,2003-05-21,Tennessee,Memphis,2021,2.37,18,graduated
+1041,Owen,Thomas,owen.thomas1041@students.slu-fictional.edu,2005-01-29,Illinois,Peoria,2022,N/A,11,ACTIVE
+1479,Samuel,Wang,samuel.wang1479@students.slu-fictional.edu,2003-09-04,IL ,Edwardsville,2020,3.5,129, active
+1169,Owen,Wilson,owen.wilson1169@students.slu-fictional.edu,2004-09-06,NY,Buffalo,2021,3.28,51,graduated
+1452,Yara,Kim,yara.kim1452@students.slu-fictional.edu,2005-11-30,il,Edwardsville,2022,3.6,,active
+1488,Bianca,Martin,bianca.martin1488@students.slu-fictional.edu,2003-05-06,MO ,Springfield,2021,3.6,140,leave
+1408,Maya,Okafor,maya.okafor1408@students.slu-fictional.edu,2003-04-05,MO,Springfield,2021,1.99,130,active
+1298,  Wei,Alvarez,wei.alvarez1298@students.slu-fictional.edu,2003-05-08,KY,Louisville,2021,3.09,N/A,active
+1099,Quinn,Price,quinn.price1099@students.slu-fictional.edu,03/30/2004,KS,Wichita,2023,3.17,79,withdrew
+1357,Elena,Torres,elena.torres1357@students.slu-fictional.edu,2005-12-13,MO,Kansas City,2024,,16,act.
+1396,James,Mitchell,james.mitchell1396@students.slu-fictional.edu,2004-10-26,IL,Edwardsville,2022,2.91,20,active
+1297,David,Kim,david.kim1297@students.slu-fictional.edu,4/26/2004, MO,Chesterfield,2022,3.83,144,active
+1198,Owen,ADEYEMI,owen.adeyemi1198@students.slu-fictional.edu,2005-04-17,MO,Kirkwood,2024,2.22,,active
+1447,Gabriel,Ward,gabriel.ward1447@students.slu-fictional.edu,2005-04-29,MN,Minneapolis,2022,2.89,27,active
+1181,Grace,Ellis,grace.ellis1181@students.slu-fictional.edu,2006-01-05,MO,St. Louis,2023,3.09,74,active
+1132,Jordan,Okafor,jordan.okafor1132@students.slu-fictional.edu,02/29/2004,MO,Kirkwood,2022,,15,active
+1312,Owen,Hoffman,owen.hoffman1312@students.slu-fictional.edu,09/05/2006,IL ,Chicago,2023,3.31,41,active
+1170,Eli,Zhang,eli.zhang1170@students.slu-fictional.edu,2003-04-06,CO,Denver,2021,3.98,87,GRADUATED
+1221,Caleb,Abbott,caleb.abbott1221@students.slu-fictional.edu,2005-10-28,MO,St. Louis,2024,2.99,14,Active
+1209,Rahul,Jenkins,rahul.jenkins1209@students.slu-fictional.edu,2004-08-29,MO,Columbia,2022,2.88,42,active
+1152,Isabella,Sullivan,isabella.sullivan1152@students.slu-fictional.edu,2003-10-29,Ohio,Cincinnati,2022,2.29,6,active
+1022,Victor, Young,victor.young1022@students.slu-fictional.edu,2006-10-19,Missouri,Columbia,2023,4.0,81,ACTIVE
+1395,Asha,Diaz,asha.diaz1395@students.slu-fictional.edu,2007-01-22,IL,Edwardsville,2024,,74,active
+1438,Anika,Roberts,anika.roberts1438@students.slu-fictional.edu,05-Oct-2007,Illinois,Chicago,2024,3.27,100,ACTIVE
+1227,Jasmine,Ramirez,jasmine.ramirez1227@students.slu-fictional.edu,2005-06-28,IL,Chicago,2022,3.0,154,active
+1436,Kiara,Perez,kiara.perez1436@students.slu-fictional.edu,"Jan 13, 2006",MO,Columbia,2024,2.94,,ACTIVE
+1191,Rahul,Williams,rahul.williams1191@students.slu-fictional.edu,2006-07-07,WI,Milwaukee,2023,2.75,154,leave
+1317,Jonah,Wright,jonah.wright1317@students.slu-fictional.edu,2004-04-20,MO,Kansas City,2023,2.25,16,active
+1410,Felix,Lewis,felix.lewis1410@students.slu-fictional.edu,2002-03-05,Missouri,Kirkwood,2021,2.06,43,active
+1217,Noah,Shah,noah.shah1217@students.slu-fictional.edu,2006-09-22,Missouri,St. Louis,2024,3.73,21,active
+1066,Tomas,Dawson,tomas.dawson1066@students.slu-fictional.edu,2007-11-05,MO,Columbia,2024,,158,active
+1104,Yara,Thomas,yara.thomas1104@students.slu-fictional.edu,2002/08/08,IL,Chicago,2019,2.64,112,active
+1413,Benjamin,Khan,benjamin.khan1413@students.slu-fictional.edu,03/23/2005,CO,Denver,2024,,118,act.
+1253,Eli,Morgan,eli.morgan1253@students.slu-fictional.edu,2006-10-13,KS,Overland Park,2024,,,active
+1326,Harper,Campbell,harper.campbell1326@students.slu-fictional.edu,1899-01-01,MO,Kirkwood,2024,,96,Active
+1453,sofia,Baker,sofia.baker1453@students.slu-fictional.edu,2005-04-09,IL,Chicago,2024,,114,active
+1047,Eli,Anderson,eli.anderson1047@students.slu-fictional.edu,2003-09-10,NY,Buffalo,2020,,,grad
+1225,Hannah,Campbell,hannah.campbell1225@students.slu-fictional.edu,2005-10-21,Mo,Chesterfield,2024,3.52,119,active
+1471,Carter,Lopez,carter.lopez1471@students.slu-fictional.edu,2004-04-11,TX,Austin,2022,2.77,161, active
+1124,Santiago,Baker,santiago.baker1124@students.slu-fictional.edu,11/8/2006,MO,Chesterfield,2024,,,active
+1131,Elijah,Jones,elijah.jones1131@students.slu-fictional.edu,2006-08-21,TX,Houston,2024,2.99,,active
+1166,  Isabella,Delgado,isabella.delgado1166@students.slu-fictional.edu,2003-07-02,MO,Chesterfield,2022,2.89,,active
+1468,Sara,Rossi,sara.rossi1468@students.slu-fictional.edu,6/4/2003,il,Belleville,2020,2.72,101,graduated
+1476,Fatima,Okafor,fatima.okafor1476@students.slu-fictional.edu,2004-03-29,Kansas,Wichita,2021,3.89,63,GRADUATED
+1368,Owen,Diaz,owen.diaz1368@students.slu-fictional.edu,12-Feb-2004,IL,Peoria,2021,3.01,54,GRADUATED
+1157,Jada,CARTER,jada.carter1157@students.slu-fictional.edu,2004-04-25,CA,Sacramento,2022,3.87,13,active 
+1092,Owen,Lee,owen.lee1092@students.slu-fictional.edu,2006-06-20,IL,Edwardsville,2024,,119,leave
+1303,Valeria,Nguyen,valeria.nguyen1303@students.slu-fictional.edu,2001-11-22,MO,Kansas City,2020,2.87,57,graduated
+1030,Theo,Baker,theo.baker1030@students.slu-fictional.edu,2005-04-22,Indiana,Indianapolis,2024,,99, active
+1133,Fatima, Nelson,fatima.nelson1133@students.slu-fictional.edu,2001-08-23,MO,St. Louis,2020,3.53,81,ACTIVE
+1460,Isaac,Young,isaac.young1460@students.slu-fictional.edu,2005-03-03,MO ,Kansas City,2023,2.31,71,withdrawn
+1454,noah,Reed , noah.reed1454@students.slu-fictional.edu,04/11/2007,mo,Kirkwood,2024,2.74,49,active
+1103,Mila,Campbell,mila.campbell1103@students.slu-fictional.edu,2005-06-03,MN,Minneapolis,2022,2.88,65,active
+1285,Miguel,Moore,miguel.moore1285@students.slu-fictional.edu,2003-02-01,MO,Columbia,2021,2.5,9999,withdrawn
+1010,Julia,Hall,julia.hall1010@students.slu-fictional.edu,2004-09-08,IL ,Edwardsville,2023,2.03,88,active
+1130,Ethan,Ortiz,ethan.ortiz1130@students.slu-fictional.edu,"Jun 3, 2004",Minnesota,Minneapolis,2021,7.2,,active
+1434,Julia,jones,julia.jones1434@students.slu-fictional.edu,05-Aug-2005,IL,Naperville,2023,3.58,138,active
+1175,Carter,Price,carter.price1175@students.slu-fictional.edu,2007-02-22,IN,Indianapolis,2024,,21,active
+1418,Priya,Rossi,priya.rossi1418@students.slu-fictional.edu,2003-12-15,Minnesota,Minneapolis,2022,2.77,93,leave
+1190,Zara,Sanders,zara.sanders1190@students.slu-fictional.edu,2004-01-29,IL ,Peoria,2023,3.71,126,active
+1319,  Camila,Campbell,camila.campbell1319@students.slu-fictional.edu,2005-02-25,Wisconsin,Madison,2022,3.39,36,active
+1122,Sophia,Schmidt,sophia.schmidt1122@students.slu-fictional.edu,2007-08-03,CO,Denver,2024,2.98,74,active
+1442,Bianca,Lewis,bianca.lewis1442@students.slu-fictional.edu,2006/03/04,MO,Kansas City,2024,3.16,,active
+1449,Rosa,Murphy,rosa.murphy1449@students.slu-fictional.edu,12/12/2007,CO,Denver,2024,2.95,14,active
+1251,Grace,Hoffman,grace.hoffman1251@students.slu-fictional.edu,02/20/2007,TX,Houston,2024,,,active
+1448,Javier,Nguyen,javier.nguyen1448@students.slu-fictional.edu,10/19/2005,Missouri,Springfield,2023,3.25,8,active
+1067,Chloe,Flores,chloe.flores1067@students.slu-fictional.edu,2004-10-09,IL,Belleville,2023,3.45,5,active
+1349, Hannah,Martin,hannah.martin1349@students.slu-fictional.edu,2005-09-23,MO ,Kansas City,2023,2.8,154,ACTIVE
+1004,Amara,Cruz,amara.cruz1004@students.slu-fictional.edu,2006-02-25,Wisconsin,Madison,2024,3.07,132,active
+1077,Nia,Hernandez,nia.hernandez1077@students.slu-fictional.edu,2005-12-13,Illinois,Naperville,2022,unknown,138,active
+1265,Kenji, Ibrahim,kenji.ibrahim1265@students.slu-fictional.edu,"Feb 1, 2003",Indiana,Indianapolis,2020,3.28,21,graduated
+1389,Diego,Nguyen,diego.nguyen1389@students.slu-fictional.edu,2007/05/20,MO,Kirkwood,2024,,120,active 
+1090,Samuel,Perez,samuel.perez1090@students.slu-fictional.edu,2002-08-16,il,Naperville,2020,2.91,13,graduated
+1375,Jonah,Young,jonah.young1375@students.slu-fictional.edu,2004-01-21,California,San Diego,2021,3.52,120,active
+1461,Willa,Ortiz,willa.ortiz1461@students.slu-fictional.edu,"May 24, 2004",MO,Kansas City,2022,2.43,unknown,active
+1325,Deja,Howard,deja.howard1325@students.slu-fictional.edu,2004-04-11,mo.,Kirkwood,2023,3.04,31,active
+1231,rosa,Dawson,rosa.dawson1231@students.slu-fictional.edu,2001-01-23,WI,Milwaukee,2020,3.23,99,active
+1058,Amelia,Delgado,amelia.delgado1058@students.slu-fictional.edu,2004-06-30,MO,Columbia,2021,N/A,35,on leave
+1356,  Leah,Santos,leah.santos1356@students.slu-fictional.edu,2005-04-03,il,Belleville,2023,3.54,135,active
+1229,Luis,Thomas,luis.thomas1229@students.slu-fictional.edu,2002/01/12,IL,Peoria,2020,2.79,,active
+1149,Nia,Hall,nia.hall1149@students.slu-fictional.edu,2002-01-09, MO,Columbia,2021,3.22,129,active
+1203,olivia,Moore,olivia.moore1203@students.slu-fictional.edu,2003-07-18,MO,Kirkwood,2022,2.83,777,active 
+1141,Sofia,Perez,sofia.perez1141@students.slu-fictional.edu,4/21/2004,MN,Minneapolis,2022,3.08,6,active
+1046,Aiden,Ruiz,aiden.ruiz1046@students.slu-fictional.edu,2007-05-03,MO,Kirkwood,2024,2.93,50,Withdrawn
+1420,  David,Wang,david.wang1420@students.slu-fictional.edu,2004-07-29,Kansas,Overland Park,2021,3.08,143,active
+1232, Santiago,Bennett,santiago.bennett1232@students.slu-fictional.edu,2006-09-17,OK,Tulsa,2023,2.72,62,act.
+1155,Maya,Ruiz,maya.ruiz1155@students.slu-fictional.edu,2005-06-01,MO,Kansas City,2022,2.47,127,active
+1267,Jonah,Hall,jonah.hall1267@students.slu-fictional.edu,2004-10-18,KS,Overland Park,2021,3.09,21,active
+1463,Naomi,Flores,naomi.flores1463@students.slu-fictional.edu,2002-12-01,AR,Little Rock,2020,3.05,,Active
+1412,Maya,Jenkins,maya.jenkins1412@students.slu-fictional.edu,09/05/2005,TX,Austin,2024,,,active
+1340,PRIYA,  Garcia,priya.garcia1340@students.slu-fictional.edu,2001-02-03,mo,Chesterfield,2019,3.17,164,graduated
+1183,Elijah,Ortiz,elijah.ortiz1183@students.slu-fictional.edu,2007-06-08,IL,Chicago,2024,,48,active
+1219,darius,Reyes,DARIUS.REYES1219@STUDENTS.SLU-FICTIONAL.EDU,2003-04-05,MO,Columbia,2021,3.5,21, active
+1053,Caleb,Bennett,caleb.bennett1053@students.slu-fictional.edu,20-May-2006,KS,Wichita,2023,2.78,129,active
+1193,Victor,Shah,victor.shah1193@students.slu-fictional.edu,2005-11-21,MO,Chesterfield,2022,3.66,81,active
+1129,Josephine,Shah,josephine.shah1129@students.slu-fictional.edu,2007-08-06,IL,Naperville,2024,,154,active
+1360,Amara,Foster,amara.foster1360@students.slu-fictional.edu,2004-12-06,MO,Kansas City,2023,3.26,88,active
+1444,Gabriel,Diaz,gabriel.diaz1444@students.slu-fictional.edu,2007-01-04,IA,Des Moines,2024,3.52,17,active
+1210,Jada,Ellis,jada.ellis1210@students.slu-fictional.edu,2003-04-16,OK,Tulsa,2022,3.04,144,active
+1063,Carter,Watson,carter.watson1063@students.slu-fictional.edu,2005-02-12,MO,Springfield,2023,12,140,act.
+1220,Tariq,GREEN,tariq.green1220@students.slu-fictional.edu,2005-09-09,MO,St. Louis,2023,3.01,154,active
+1419,Noah,Gomez,noah.gomez1419@students.slu-fictional.edu,2004-01-30,Illinois,Edwardsville,2023,2.68,38,active
+1427,Ethan ,Carter,ethan.carter1427@students.slu-fictional.edu,16-Sep-2006,Ohio,Cincinnati,2024,,124,active
+1186,liam,Green,liam.green1186@students.slu-fictional.edu,12/24/2005,IA,Des Moines,2022,3.41,70,active
+1196,Felix,Delgado,felix.delgado1196@students.slu-fictional.edu,2002-10-01,MO,Springfield,2021,3.09,35,active
+1480,Diego,Nelson,diego.nelson1480@students.slu-fictional.edu,27-Sep-2003,IL,Belleville,2021,3.63,58,active
+1023,Victor,Campbell,victor.campbell1023@students.slu-fictional.edu,"Aug 5, 2006",IL,Naperville,2023,3.49,75,active
+1334,Felix,Green,felix.green1334@students.slu-fictional.edu,2005-12-08,MO,St. Louis,2024,2.21,22,active
+1481,Zoe,Smith,zoe.smith1481@students.slu-fictional.edu,2003-04-19,mo.,Chesterfield,2022,2.99,,act.
+1328,Jamal,Evans,jamal.evans1328@students.slu-fictional.edu,2002/01/07,Wisconsin,Madison,2019,3.64,TBD,graduated
+1091,Victor,Hernandez,victor.hernandez1091@students.slu-fictional.edu,2005-07-30,ks,Overland Park,2023,3.08,67,active
+1236,Santiago,Torres,santiago.torres1236@students.slu-fictional.edu,2005-01-31,mo,St. Louis,2024,,141,active
+1339,Jamal,garcia,jamal.garcia1339@students.slu-fictional.edu,2004-09-23,MO,Columbia,2021,N/A,50,active
+1421,josephine,Roberts,josephine.roberts1421@students.slu-fictional.edu,2001-06-12,TX,Austin,2020,3.07,101,withdrawn
+1079,Elijah,Scott,elijah.scott1079@students.slu-fictional.edu,2005-04-16,MO,Columbia,2022,2.88,21,active
+1089,Xavier ,Edwards,xavier.edwards1089@students.slu-fictional.edu,2005-07-02,Illinois,Edwardsville,2022,2.93,,active
+1345,Gabriel,Young,gabriel.young1345@students.slu-fictional.edu,2003-06-23,IL,Edwardsville,2021,3.06,42,Graduated
+1123,Sara,Edwards,sara.edwards1123@students.slu-fictional.edu,2003-01-20,IA,Des Moines,2022,2.91,9999,active
+1188,Jamal,Jones,jamal.jones1188@students.slu-fictional.edu,2006-04-14,KS,Wichita,2024,,,active
+1417,James,Nakamura,james.nakamura1417@students.slu-fictional.edu,2003-02-27,MO,Chesterfield,2022,2.59,26,active 
+1087,LIAM,Cruz,liam.cruz1087@students.slu-fictional.edu,2004-10-25,IL ,Peoria,2022,3.71,107, active
+1455,Olivia,Schmidt,olivia.schmidt1455@students.slu-fictional.edu,2004-12-02,MO,Columbia,2022,2.76,139,ACTIVE
+1105,Sophia,Gupta,sophia.gupta1105@students.slu-fictional.edu,2001-05-19,MO,Columbia,2020,3.61,90,graduated
+1269,Maya,Kim,maya.kim1269@students.slu-fictional.edu,2004-12-09,AR,Little Rock,2022,3.91,54,active
+1187,Yara,Edwards ,yara.edwards1187@students.slu-fictional.edu,07/02/2003,ca,Sacramento,2021,2.94,43,active
+1271,Riley,Abbott,riley.abbott1271@students.slu-fictional.edu,2090-04-12,Mo,St. Louis,2024,3.13,52,withdrawn
+1388,Kai,Cruz,kai.cruz1388@students.slu-fictional.edu,"Mar 18, 2006",Ohio,Cincinnati,2023,3.65,127,active
+1034,Victor,King,victor.king1034@students.slu-fictional.edu,"Aug 15, 2003",MO ,Kansas City,2022,,134,active
+1073,Javier,Rossi,javier.rossi1073@students.slu-fictional.edu,11/24/2003,MN,Minneapolis,2022,3.52,145,active
+1114,Imani,Bennett,imani.bennett1114@students.slu-fictional.edu,2006-01-23,ca,San Diego,2024,3.31,49,active
+1293,Diego,Taylor,diego.taylor1293@students.slu-fictional.edu,2006-05-12,NE,Omaha,2024,2.47,12,active
+1245,Sara,Nakamura,sara.nakamura1245@students.slu-fictional.edu,2006-02-11,TX,Austin,2024,,57,active
+1302,Willa,Reed,willa.reed1302@students.slu-fictional.edu,2004-01-05,IL,Peoria,2022,2.74,,Active
+1268,Amelia ,Kelly,amelia.kelly1268@students.slu-fictional.edu,10-Jan-2000,NE,Omaha,2019,2.95,156,Withdrawn
+1179,Anika,Clark,anika.clark1179@students.slu-fictional.edu,2006-09-04,Kansas,Overland Park,2024,,164,ACTIVE
+1370,Andre,Moore,andre.moore1370@students.slu-fictional.edu,2006-12-10,FL,Tampa,2024,2.74,161,active 
+1440,Miguel,Alvarez,miguel.alvarez1440@students.slu-fictional.edu,2003-01-14,MO,Columbia,2022,3.08,27,act.
+1213,  Hannah,Lewis ,HANNAH.LEWIS1213@STUDENTS.SLU-FICTIONAL.EDU,2005-03-20,CA,Sacramento,2022,3.2,157,active
+1431, Willa,Ellis,willa.ellis1431@students.slu-fictional.edu,07/16/2006,FL,Tampa,2024,,128,active
+1466,Hannah,SMITH,hannah.smith1466@students.slu-fictional.edu,2003-08-01,MO,Chesterfield,2022,3.91,108,leave
+1135,Mila,Mitchell,mila.mitchell1135@students.slu-fictional.edu,2002-03-12,NY,Buffalo,2021,2.68,114,withdrawn
+1136, Leo,Hall,leo.hall1136@students.slu-fictional.edu,2006-05-04,il,Edwardsville,2024,-1,6,active
+1392,Camila,Martinez,camila.martinez1392@students.slu-fictional.edu,08-Apr-2006,MO,Kansas City,2023,3.02,54,active
+1484,Willa,TURNER,willa.turner1484@students.slu-fictional.edu,2001-07-12,IL,Chicago,2020,3.34,108,graduated
+1115,Nia,Ward,nia.ward1115@students.slu-fictional.edu,2006-11-07,MO,Chesterfield,2023,3.37,133,Active
+1341,Darius,Zhang,darius.zhang1341@students.slu-fictional.edu,2006-06-29,MO,Kansas City,2023,3.04,17,withdrawn
+1279,Darius,Hoffman,darius.hoffman1279@students.slu-fictional.edu,2003-06-30,MO,Kirkwood,2021,2.79,126,active
+1409,Leah,Alvarez,leah.alvarez1409@students.slu-fictional.edu,2007-03-09,OK,Tulsa,2024,,28,active
+1322,Leo,price,leo.price1322@students.slu-fictional.edu,2005/09/28,MO,Chesterfield,2024,,,withdrawn
+1037,leah,GARCIA,leah.garcia1037@students.slu-fictional.edu,2005-01-29,MO,Springfield,2024,3.07,,active
+1165,Josephine,Hoffman,josephine.hoffman1165@students.slu-fictional.edu,2005-05-13,FL,Tampa,2024,3.44,131,Active
+1424,Camila,Ramirez,camila.ramirez1424@students.slu-fictional.edu,2003-03-17,Texas,Dallas,2021,3.1,157,ACTIVE
+1347,Ethan,Price,ethan.price1347@students.slu-fictional.edu,2005-08-21,Indiana,Indianapolis,2024,-1,154,active
+1338,Rahul, Singh,rahul.singh1338@students.slu-fictional.edu,"Aug 7, 2005",IL,Belleville,2023,3.01,143,active
+1314,Henry,Howard,henry.howard1314@students.slu-fictional.edu,04/11/2002,MO,Chesterfield,2020,3.31,142,graduated
+1137,Chloe,Watson,chloe.watson1137@students.slu-fictional.edu,"Apr 1, 2002",MO ,Chesterfield,2021,-1,32,active
+1270,Willa,Diaz,willa.diaz1270@students.slu-fictional.edu,"Jul 30, 2005",Minnesota,Minneapolis,2024,3.32,125,active
+1202,Jonah,Brooks,jonah.brooks1202@students.slu-fictional.edu,2002-04-17,MO,Springfield,2021,3.19,50,graduated
+1033,Isabella,Roberts,isabella.roberts1033@students.slu-fictional.edu,2002-11-01,IL ,Belleville,2020,-1,12,GRADUATED
+1365,Rosa,WALKER,rosa.walker1365@students.slu-fictional.edu,2004-11-08,MO,Columbia,2023,2.97,30,active
+1182,Camila,Jackson,camila.jackson1182@students.slu-fictional.edu,2004-10-20,Tennessee,Nashville,2023,3.74,,active
+1194,Jasmine,Mitchell,jasmine.mitchell1194@students.slu-fictional.edu,2002-01-17,IL,Peoria,2020,3.57,94,graduated
+1446,Jada, Walker,jada.walker1446@students.slu-fictional.edu,2005-10-16,MO,Kansas City,2024,2.83,93,active
+1381,Liam,Flores,liam.flores1381@students.slu-fictional.edu,2006-06-07,mo,Chesterfield,2023,3.4,126,active
+1406,Kenji,Hernandez,kenji.hernandez1406@students.slu-fictional.edu,"Jul 25, 2004",WI,Madison,2022,2.61,19,active
+1323,Jack,Ward,jack.ward1323@students.slu-fictional.edu,2003-01-26,IN,Indianapolis,2022,2.81,57,active
+1423,Gabriel,Howard,gabriel.howard1423@students.slu-fictional.edu,2004-09-04,GA,Atlanta,2021,3.08,139,active
+1121,Luis,Nguyen,luis.nguyen1121@students.slu-fictional.edu,2005-01-25,AR,Little Rock,2024,,27,active
+1195,Lucas,Morgan,lucas.morgan1195@students.slu-fictional.edu,2004-01-09,IL,Naperville,2022,-1,76,active 
+1280,Jack,Rivera,jack.rivera1280@students.slu-fictional.edu,2003-02-21,NE,Omaha,2021,3.05,107, active
+1304,Liam,Ortiz,liam.ortiz1304@students.slu-fictional.edu,2006-05-28,mo.,Columbia,2024,,134,active
+1176,Sophia,Silva,sophia.silva1176@students.slu-fictional.edu,2006-07-15,Illinois,Naperville,2024,3.41,66,act.
+1262, Xavier,Khan ,xavier.khan1262@students.slu-fictional.edu,2005-06-12,KS,Wichita,2022,2.9,124,active 
+1241,Felix,Nguyen,felix.nguyen1241@students.slu-fictional.edu,2004-12-02,IL,Naperville,2022,2.47,49,on leave
+1437,Luna,Owens,luna.owens1437@students.slu-fictional.edu,2003-04-09,KS,Wichita,2022,3.33,90,active
+1332,Luna,  Moore,luna.moore1332@students.slu-fictional.edu,2003/11/02,TX,Houston,2020,,139,graduated
+1383,Yara,Smith,yara.smith1383@students.slu-fictional.edu,8/3/2005,IL,Naperville,2024,,73,Active
+1243,Amelia,Williams,amelia.williams1243@students.slu-fictional.edu,2003-12-27,MO,Springfield,2022,3.51,128,active
+1001,Caleb,Delgado,caleb.delgado1001@students.slu-fictional.edu,2007-09-10,MO,Chesterfield,2024,,76,active
+1296,Aiden,Reyes,aiden.reyes1296@students.slu-fictional.edu,2004-08-22,MO,2023,3.61,43,act.,
+1498,Lucas,kelly,lucas.kelly1498@students.slu-fictional.edu,2005-06-19,Mo,Kansas City,2023,3.74,144,active
+1234,Zoe,Price,zoe.price1234@students.slu-fictional.edu,07/11/2001,MN,Minneapolis,2020,N/A,26,Withdrawn
+1324,Anika,Mitchell,anika.mitchell1324@students.slu-fictional.edu,2005/03/22,TX,Houston,2023,2.97,99,active
+1454,Noah,Reed,noah.reed1454@students.slu-fictional.edu,04/11/2007,mo,Kirkwood,2024,2.74,49,active
+1333,Luna,White,luna.white1333@students.slu-fictional.edu,2005-06-17,MO,St. Louis,2023,3.49,21,ACTIVE

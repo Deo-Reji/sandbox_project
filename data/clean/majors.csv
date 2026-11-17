@@ -1,0 +1,32 @@
+major_id,department_id,name,degree,total_credits
+1,1,Biology,BS,120
+2,1,Neuroscience,BS,122
+3,2,Chemistry,BS,120
+4,2,Biochemistry,BS,124
+5,3,English,BA,120
+6,4,History,BA,120
+7,5,Mathematics,BS,120
+8,5,Statistics,BS,120
+9,6,Philosophy,BA,120
+10,7,Psychology,BA,120
+11,7,Psychology,BS,122
+12,8,Sociology,BA,120
+13,9,Political Science,BA,120
+14,10,Theological Studies,BA,120
+15,11,Classics,BA,120
+16,12,Communication,BA,120
+17,13,Studio Art,BFA,128
+18,13,Music,BA,120
+19,14,Accounting,BSBA,120
+20,15,Finance,BSBA,120
+21,16,Marketing,BSBA,120
+22,17,Management,BSBA,120
+23,18,Computer Science,BS,120
+24,18,Computer Science,BA,120
+25,19,Mechanical Engineering,BS,128
+26,19,Aerospace Engineering,BS,128
+27,20,Physics,BS,120
+28,21,Nursing,BSN,128
+29,22,Health Sciences,BS,120
+30,22,Public Health,BS,120
+31,23,Interdisciplinary Studies,BA,120

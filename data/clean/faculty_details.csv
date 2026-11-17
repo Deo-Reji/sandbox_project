@@ -1,0 +1,144 @@
+employee_id,rank,tenure_status,office_room_id,phd_year
+5,Professor,tenured,,1997
+6,Professor,tenured,,1999
+7,Professor,tenured,,1998
+8,Professor,tenured,,1997
+9,Professor,tenured,10,1993
+10,Lecturer,non-tenure,332,2015
+11,Assistant Professor,tenure-track,,2018
+12,Associate Professor,tenured,54,1996
+13,Associate Professor,tenured,,2012
+14,Lecturer,non-tenure,33,2006
+15,Associate Professor,tenured,15,2007
+16,Professor,tenured,,1994
+17,Adjunct Instructor,non-tenure,60,
+18,Associate Professor,tenured,71,2010
+19,Adjunct Instructor,non-tenure,66,
+20,Professor,tenured,329,1999
+21,Professor,tenured,60,2007
+22,Associate Professor,tenured,32,1994
+24,Professor,tenured,327,2007
+25,Associate Professor,tenured,69,2001
+26,Assistant Professor,tenure-track,64,2001
+27,Lecturer,non-tenure,60,1993
+28,Adjunct Instructor,non-tenure,326,
+29,Assistant Professor,tenure-track,332,2010
+30,Professor,tenured,332,1997
+31,Adjunct Instructor,non-tenure,16,
+32,Associate Professor,tenured,33,2001
+34,Professor,tenured,327,2002
+35,Lecturer,non-tenure,16,1993
+36,Associate Professor,tenured,2,1998
+37,Associate Professor,tenured,327,1992
+38,Adjunct Instructor,non-tenure,1,
+40,Professor,tenured,70,1994
+41,Assistant Professor,tenure-track,70,2007
+42,Adjunct Instructor,non-tenure,324,
+43,Assistant Professor,tenure-track,71,2005
+44,Associate Professor,tenured,70,2010
+46,Professor,tenured,10,2007
+47,Lecturer,non-tenure,64,1999
+48,Assistant Professor,tenure-track,64,2021
+49,Lecturer,non-tenure,2,1996
+50,Assistant Professor,tenure-track,327,2008
+51,Adjunct Instructor,non-tenure,328,
+52,Professor,tenured,3,2019
+53,Associate Professor,tenured,67,2007
+54,Lecturer,non-tenure,324,2001
+56,Professor,tenured,329,1999
+57,Adjunct Instructor,non-tenure,16,
+58,Professor,tenured,329,1997
+59,Professor,tenured,63,1997
+60,Assistant Professor,tenure-track,32,2000
+61,Assistant Professor,tenure-track,3,2006
+62,Adjunct Instructor,non-tenure,32,
+63,Lecturer,non-tenure,55,2003
+64,Assistant Professor,tenure-track,332,1992
+65,Assistant Professor,tenure-track,323,2020
+66,Associate Professor,tenured,60,2000
+67,Assistant Professor,tenure-track,327,2020
+69,Professor,tenured,66,1994
+70,Professor,tenured,69,2009
+71,Adjunct Instructor,non-tenure,329,
+72,Professor,tenured,326,1992
+73,Professor,tenured,,2017
+74,Assistant Professor,tenure-track,32,2003
+75,Assistant Professor,tenure-track,326,2003
+76,Professor,tenured,,2009
+78,Professor,tenured,61,2003
+79,Professor,tenured,331,2020
+80,Assistant Professor,tenure-track,,2014
+81,Adjunct Instructor,non-tenure,327,
+82,Lecturer,non-tenure,330,2006
+84,Professor,tenured,12,1991
+85,Associate Professor,tenured,61,2012
+86,Professor,tenured,331,1994
+87,Lecturer,non-tenure,70,2019
+88,Associate Professor,tenured,,1996
+89,Adjunct Instructor,non-tenure,1,
+90,Professor,tenured,332,1993
+92,Professor,tenured,42,2008
+93,Professor,tenured,324,2019
+94,Assistant Professor,tenure-track,33,2019
+95,Associate Professor,tenured,323,1994
+96,Associate Professor,tenured,55,2009
+98,Professor,tenured,69,1993
+99,Lecturer,non-tenure,331,2005
+100,Associate Professor,tenured,16,2002
+101,Assistant Professor,tenure-track,3,2018
+102,Professor,tenured,55,2022
+104,Professor,tenured,326,2003
+105,Lecturer,non-tenure,327,2010
+106,Assistant Professor,tenure-track,12,2019
+107,Assistant Professor,tenure-track,71,2009
+108,Adjunct Instructor,non-tenure,60,
+110,Professor,tenured,12,1990
+111,Professor,tenured,66,2012
+112,Adjunct Instructor,non-tenure,10,
+113,Professor,tenured,2,1996
+114,Professor,tenured,16,2007
+116,Professor,tenured,16,1993
+117,Associate Professor,tenured,331,2004
+118,Adjunct Instructor,non-tenure,,
+119,Lecturer,non-tenure,33,2015
+120,Associate Professor,tenured,54,2018
+122,Professor,tenured,324,1992
+123,Lecturer,non-tenure,16,2001
+124,Professor,tenured,64,2021
+125,Associate Professor,tenured,42,1994
+126,Associate Professor,tenured,3,2008
+127,Assistant Professor,tenure-track,12,2015
+128,Adjunct Instructor,non-tenure,330,
+129,Professor,tenured,,2012
+130,Assistant Professor,tenure-track,323,2010
+131,Assistant Professor,tenure-track,3,2007
+132,Assistant Professor,tenure-track,3,2001
+133,Assistant Professor,tenure-track,61,2019
+134,Adjunct Instructor,non-tenure,55,
+135,Assistant Professor,tenure-track,61,1998
+137,Professor,tenured,69,2000
+138,Adjunct Instructor,non-tenure,64,
+139,Assistant Professor,tenure-track,12,2021
+140,Associate Professor,tenured,61,2012
+141,Associate Professor,tenured,332,2015
+142,Lecturer,non-tenure,328,2021
+143,Associate Professor,tenured,326,1994
+144,Associate Professor,tenured,64,2018
+145,Adjunct Instructor,non-tenure,42,
+147,Professor,tenured,330,1997
+148,Adjunct Instructor,non-tenure,42,
+149,Lecturer,non-tenure,67,2011
+150,Professor,tenured,329,1995
+151,Lecturer,non-tenure,16,2003
+152,Assistant Professor,tenure-track,69,2006
+153,Associate Professor,tenured,12,2013
+154,Adjunct Instructor,non-tenure,329,
+155,Lecturer,non-tenure,61,2007
+156,Lecturer,non-tenure,327,2001
+157,Professor,tenured,16,1994
+158,Adjunct Instructor,non-tenure,2,
+160,Professor,tenured,1,2000
+161,Adjunct Instructor,non-tenure,2,
+162,Associate Professor,tenured,1,2020
+163,Professor,tenured,,2011
+164,Assistant Professor,tenure-track,331,2005

@@ -1,0 +1,185 @@
+employee_id,first_name,last_name,email,title,department_id,manager_id,salary,hire_date,employee_type,status
+31,Wei,Reyes,wei.reyes31@slu-fictional.edu,  Adjunct Instructor,99,24,43000,1/17/2006,faculty,active
+93,Hannah,Taylor,hannah.taylor93@slu-fictional.edu,Professor,13,92,"161,000.00",1998-12-22,faculty,active
+37,Jamal,Patel,jamal.patel37@slu-fictional.edu,Associate Professor,3,34,100000,2023-10-03,faculty,active
+145,Rahul,Cole,rahul.cole145@slu-fictional.edu,Adjunct Instructor,19,137,47000,28-Jun-2018,faculty,active
+119,Isaac,Khan,isaac.khan119@slu-fictional.edu,Lecturer,100,116,71000,2011-05-11,faculty,left
+170,Aiden,Taylor,aiden.taylor170@slu-fictional.edu,Bursar,,3,unknown,11/30/2017,staff,active
+84,Zoe,Morgan,zoe.morgan84@slu-fictional.edu,Department Chair,11,5,162000,2019-06-19,faculty,active
+134,Tomas,Stewart,tomas.stewart134@slu-fictional.edu,Adjunct Instructor,18,122,37000,2015-05-16,Faculty,active
+83,Mila,Hughes,mila.hughes83@slu-fictional.edu,Administrative Assistant,10,78,46000.00 USD,2010-03-24,staff,active
+32,Daniel,Foster,daniel.foster32@slu-fictional.edu,Associate Professor,2,24,118000,2011-05-25,faculty,active
+113,Jordan,Shah,jordan.shah113@slu-fictional.edu,Professor,100,110,148000,2011-05-17,faculty,retired
+6,Hannah,Nguyen,hannah.nguyen6@slu-fictional.edu,"Dean, School of Business",,2,205000,2015-06-08,faculty,active
+1,Camila,Hughes,camila.hughes1@slu-fictional.edu,President ,,,412000,2014-07-01,staff,active
+130,Santiago,Singh,santiago.singh130@slu-fictional.edu,Assistant Professor,18,122,90000,"Jan 25, 2014",FACULTY,left
+114,Zara,Clark,zara.clark114@slu-fictional.edu,Professor,16,110,$ 131000,2/8/2004,faculty,active
+36,Valeria,Rivera,valeria.rivera36@slu-fictional.edu,Associate Professor,3,34,"$108,000.00",2018-01-10,FACULTY,active
+46,Nadia,Sanders,nadia.sanders46@slu-fictional.edu,Department Chair,5,5,148000,2012-09-28,faculty,active
+24,Sophia,Ward,sophia.ward24@slu-fictional.edu,Department Chair,2,5,148000,2014-07-15,faculty,active
+159,Lucas,Roberts,lucas.roberts159@slu-fictional.edu,Administrative Assistant,21,150,"46,000.00",2013-04-15,staff,active
+176,Amelia,Nakamura,amelia.nakamura176@slu-fictional.edu,Admissions Counselor,,2,49000,2020-07-18,staff,active
+39,Ruby,Okafor,ruby.okafor39@slu-fictional.edu,Administrative Assistant,3,34,,2013-01-14,staff,active
+102,Chloe,Morgan,chloe.morgan102@slu-fictional.edu,Professor,14,98,"156,000.00",01-Dec-2000,faculty,active
+29,Sophia,Alvarez,sophia.alvarez29@slu-fictional.edu,Assistant Professor,2,24,87000,2021/02/24,faculty,active
+52,Julia,Thomas,julia.thomas52@slu-fictional.edu,Professor,5,46,145000,2013-07-15,STAFF,active
+168,Priya,Silva,priya.silva168@slu-fictional.edu,Systems Administrator,,4,$ 84000,2015-06-05,staff,active
+23,Zoe,Howard,zoe.howard23@slu-fictional.edu,Administrative Assistant,1,9,$ 46000,01/07/2022,staff,active
+27,Owen,Santos,owen.santos27@slu-fictional.edu,Lecturer,2,24,62000,2015-01-28,faculty,active
+155,Theo,Ellis,theo.ellis155@slu-fictional.edu,Lecturer ,21,150,71000,2023-07-31,faculty,active
+97,Jordan,Murphy,jordan.murphy97@slu-fictional.edu,Administrative Assistant,13,92,46000.00 USD,"Mar 5, 2018",staff,active
+118,Aiden,Hayes,aiden.hayes118@slu-fictional.edu,Adjunct Instructor,17,116,37000,2010-10-05,faculty,active
+109,Yara,Wilson,yara.wilson109@slu-fictional.edu,Administrative Assistant,15,104,46000,2008-08-25,fac,active
+85,David,Peterson,david.peterson85@slu-fictional.edu,Associate Professor,11,84,102000,2006-01-20,faculty,active
+10,Evelyn,Gupta,evelyn.gupta10@slu-fictional.edu,Lecturer,1,9,70000,2008-11-07,faculty,active
+77,Jordan,Taylor,jordan.taylor77@slu-fictional.edu,Administrative Assistant,9,72,"$44,000.00",2022/07/11,staff,active
+57,Jordan,Campbell,jordan.campbell57@slu-fictional.edu,Adjunct Instructor,6,56,37000,07/31/2010,faculty,active
+161,Xavier,Lopez,xavier.lopez161@slu-fictional.edu, Adjunct Instructor,22,160,48000,2021-09-30,faculty,active
+157,Jack,Perez,jack.perez157@slu-fictional.edu,Professor,21,150,139000,2009-07-07,faculty,active
+143,Yara,Nelson,yara.nelson143@slu-fictional.edu,Associate Professor,19,137,"$117,000.00",2006-11-22,fac,active
+100,Luis,Ortiz,luis.ortiz100@slu-fictional.edu,Associate Professor,14,98,111000,2020-05-12,faculty,active
+172,Evelyn,Watson,evelyn.watson172@slu-fictional.edu,Financial Aid Counselor,,3,52000,2024-12-27,STAFF,active
+69,Mila,Baker,mila.baker69@slu-fictional.edu,department chair,8,5,162000,2013-03-08,faculty,active
+14,Daniel,Adeyemi,daniel.adeyemi14@slu-fictional.edu,Lecturer,1,9,66000,2016-11-15,faculty,active
+173,Camila,Ruiz,camila.ruiz173@slu-fictional.edu,Financial Aid Counselor,,3,52000.00 USD,2018-02-02,staff,active
+132,Jada,Smith,jada.smith132@slu-fictional.edu,Assistant Professor,18,122,83000,2005-04-05,faculty,active
+48,Luna,Bennett,luna.bennett48@slu-fictional.edu,Assistant Professor,5,46,82000,2/19/2011,faculty,active
+73,Zara,White,zara.white73@slu-fictional.edu,professor,9,72,143000,30-Nov-2006,faculty,active
+175,Owen,Roberts,owen.roberts175@slu-fictional.edu,Admissions Counselor,,2,49000,06-Jun-2022,staff,active
+15,Isaac,Reed,isaac.reed15@slu-fictional.edu,Associate Professor,1,9,98000.00 USD,2006-07-23,faculty,active
+153,Javier,Ramirez,javier.ramirez153@slu-fictional.edu,Associate Professor,21,150,"104,000.00",2024-04-10,faculty,active
+147,Evelyn,Hernandez,evelyn.hernandez147@slu-fictional.edu,Department Chair,99,7,155000,2015-11-28,faculty,active
+47,Naomi,Lewis,naomi.lewis47@slu-fictional.edu,Lecturer,5,46,64000,2023-07-03,faculty,active
+138,Owen,Walker,owen.walker138@slu-fictional.edu,Adjunct Instructor,19,137,unknown,"Nov 14, 2007",FACULTY,active
+35,Aiden,Ward,aiden.ward35@slu-fictional.edu,Lecturer,3,34,72000,2023-07-01,faculty,active
+99,Ruby,Hernandez,ruby.hernandez99@slu-fictional.edu,Lecturer,14,TBD,69000,2013-08-24,faculty,active
+146,Kiara,Alvarez,kiara.alvarez146@slu-fictional.edu,Administrative Assistant,19,137,46000,2014/12/05,staff,active
+33,Yara,Nguyen,yara.nguyen33@slu-fictional.edu,Administrative Assistant,2,24,42000,03/14/2018,staff,active
+98,Owen,Sullivan,owen.sullivan98@slu-fictional.edu,Department Chair,14,6,$ 148000,"Mar 24, 2007",FACULTY,active
+49,Yara,Wang,yara.wang49@slu-fictional.edu,Lecturer,5,46,64000,31-May-2007,faculty,active
+16,Eli,Flores,eli.flores16@slu-fictional.edu,Professor,1,9,132000,2010-08-16,faculty,active
+71,Rahul,Roberts,rahul.roberts71@slu-fictional.edu,Adjunct Instructor,8,69,$ 42000,2024-06-27,faculty,active
+178,Leah,Jackson,leah.jackson178@slu-fictional.edu,Librarian,,2,64000,"May 14, 2010",FACULTY,active
+115,Theo,Patel,theo.patel115@slu-fictional.edu,Administrative Assistant,16,110,44000,2014-02-15,Faculty,active
+88,Tariq,Abbott,tariq.abbott88@slu-fictional.edu, Associate Professor,12,86,101000.00 USD,2010-03-21,faculty,active
+28,Theo,Jackson,theo.jackson28@slu-fictional.edu,Adjunct Instructor,2,24,"$41,000.00",2004-07-30,faculty,active
+74,Lucas,Adeyemi,lucas.adeyemi74@slu-fictional.edu,Assistant Professor,9,72,79000,2009-12-06,faculty,active
+136,Jordan,Sullivan,jordan.sullivan136@slu-fictional.edu,Administrative Assistant,18,122,$ 44000,2019-03-31,staff,active
+160,Liam,Clark,liam.clark160@slu-fictional.edu,Department Chair,22,8,155000,2010-01-14,faculty,active
+56,Wei,Young,wei.young56@slu-fictional.edu,Department Chair,6,5,$ 142000,2014-12-14,faculty,active
+79,Anika,Kim,anika.kim79@slu-fictional.edu,Professor,10,78,131000,01/18/2009,faculty,active
+35,Aiden,Ward,aiden.ward35@slu-fictional.edu,Lecturer,3,34,72000,2023-07-01,faculty,active
+82,Luna,Jones,luna.jones82@slu-fictional.edu,Lecturer,10,78,"68,000.00",2004-09-25,faculty,active
+60,Elena,Howard,elena.howard60@slu-fictional.edu,Assistant Professor,7,59,88000,2014-05-05,faculty,active
+58,Luna,Shah,luna.shah58@slu-fictional.edu,PROFESSOR,6,56,163000,2013-04-17,faculty,active
+91,Deja,Ortiz,deja.ortiz91@slu-fictional.edu,Administrative Assistant,12,86,"42,000.00",09/21/2024,staff,active
+87,Bianca,Schmidt,bianca.schmidt87@slu-fictional.edu,lecturer,12,86,61000,2008-08-24,faculty,active
+76,Nia,Anderson,nia.anderson76@slu-fictional.edu,Professor,9,72,143000,2011-11-24,STAFF,active
+103,Samuel,Scott,samuel.scott103@slu-fictional.edu,Administrative Assistant,14,98,46000,2023-01-10,staff,active
+13,Ruby,Khan,ruby.khan13@slu-fictional.edu,Associate Professor,1,9,"98,000.00",2019-08-23,faculty,active
+122,Asha,Park,asha.park122@slu-fictional.edu,Department Chair,18,7,142000,2015-04-25,faculty,active
+126,Julia,Hoffman,julia.hoffman126@slu-fictional.edu,Associate Professor,18,122,106000,2011-06-21,faculty,active
+40,Darius,Price,darius.price40@slu-fictional.edu,Department Chair,4,5,142000,2019-07-13,faculty,active
+128,Elena,Hughes,elena.hughes128@slu-fictional.edu,Adjunct Instructor,18,TBD,47000,2006-04-22,faculty,active
+3,Samuel,Hughes,samuel.hughes3@slu-fictional.edu,Chief Financial Officer,,1,$ 265000,2018-01-07,staff,active
+116,Grace,Robinson,grace.robinson116@slu-fictional.edu,Department Chair,17,6,$ 142000,2012-09-28,Faculty,active
+50,Josephine,Cruz,josephine.cruz50@slu-fictional.edu,Assistant Professor,5,46,88000,2023-08-10,faculty,active
+55,Harper,Cole,harper.cole55@slu-fictional.edu,Administrative Assistant,5,46,"$44,000.00",2010-03-17,staff,active
+123,Mia,Silva,mia.silva123@slu-fictional.edu,Lecturer,18,122,67000,1/26/2013,faculty,active
+165,Wei,Thomas,wei.thomas165@slu-fictional.edu,Administrative Assistant,22,160,44000,"May 29, 2009",FACULTY,active
+72,James,Martin,james.martin72@slu-fictional.edu,Department Chair,9,5,-1,07/04/2015,faculty,active
+154,Leo,Roberts,leo.roberts154@slu-fictional.edu,ADJUNCT INSTRUCTOR,21,150,43000,2015-10-30,faculty,active
+25,Jack,Evans,jack.evans25@slu-fictional.edu,Associate Professor,2,24,"101,000.00",2005-08-07,faculty,active
+19,Santiago,Thomas,santiago.thomas19@slu-fictional.edu,Adjunct Instructor,1,9,41000,08-May-2005,faculty,active
+63,Liam,Reed,liam.reed63@slu-fictional.edu,Lecturer,7,59,61000,2006-05-23,faculty,active
+65,Ava,Sullivan,ava.sullivan65@slu-fictional.edu,Assistant Professor,7,59,89000.00 USD,2020-09-17,faculty,active
+44,Jack,Abbott,jack.abbott44@slu-fictional.edu,associate professor,4,40,113000,2010-05-06,faculty,active
+110,Evelyn,Johnson,evelyn.johnson110@slu-fictional.edu,Department Chair,16,6,155000,2012-08-15,faculty,active
+94,Naomi,Walker,naomi.walker94@slu-fictional.edu,Assistant Professor,13,N/A,83000,2004-09-12,faculty,active
+151,Valeria,Garcia,valeria.garcia151@slu-fictional.edu,Lecturer,21,150,71000,2020/03/04,faculty,active
+105,Ava,Kelly,ava.kelly105@slu-fictional.edu, Lecturer,15,104,"70,000.00",2017-06-19,faculty,active
+90,Henry,Smith,henry.smith90@slu-fictional.edu,Professor,12,86,151000,2005-04-06,faculty,active
+129,Xavier,Chen,xavier.chen129@slu-fictional.edu, Professor,18,122,"$138,000.00",2001-12-22,faculty,active
+80,Naomi,Morgan,naomi.morgan80@slu-fictional.edu,Assistant Professor,10,78,84000,2019-01-14,faculty,active
+9,Isaac,Howard,isaac.howard9@slu-fictional.edu,Department Chair,1,5,"$142,000.00",2009-04-27,faculty,active
+125,Daniel,Ibrahim,daniel.ibrahim125@slu-fictional.edu,Associate Professor,18,122,110000,2013-10-09,Faculty,active
+107,Jada,Silva,jada.silva107@slu-fictional.edu,Assistant Professor,15,104,80000,2009/01/26,faculty,active
+21,Elijah,Abbott,elijah.abbott21@slu-fictional.edu,Professor,1,9,"142,000.00",2007-03-01,faculty,active
+111,Santiago,Ward,santiago.ward111@slu-fictional.edu,professor,16,110,137000,2006-12-28,faculty,active
+127,Priya,Gupta,priya.gupta127@slu-fictional.edu,Assistant Professor,18,122,87000,04/26/2024,faculty,active
+142,Eli,Lopez,eli.lopez142@slu-fictional.edu,Lecturer,19,137,68000,29-Oct-2005,faculty,active
+179,Kenji,Carter,kenji.carter179@slu-fictional.edu,Residence Life Coordinator,,2,$ 47000,2017-09-25,staff,active
+34,Carter,Lee,carter.lee34@slu-fictional.edu,Department Chair,3,5,155000,2012-04-02,faculty,active
+171,Henry,Silva,henry.silva171@slu-fictional.edu,Payroll Specialist,,TBD,56000,2019-05-06,staff,active
+62,Jasmine,Turner,jasmine.turner62@slu-fictional.edu,  Adjunct Instructor,-1,59,46000,2013-07-07,faculty,active
+96,Bianca,Edwards,bianca.edwards96@slu-fictional.edu,Associate Professor,13,92,101000,2010-03-02,faculty,active
+54,Valeria,Carter,valeria.carter54@slu-fictional.edu,Lecturer,5,46,59000,4/7/2009,faculty,active
+38,Henry,Young,henry.young38@slu-fictional.edu,  Adjunct Instructor,3,34,46000,2007-07-21,faculty,active
+41,James,Robinson,james.robinson41@slu-fictional.edu,Assistant Professor,4,40,90000,10/27/2019,faculty,active
+133,Benjamin,Morgan,benjamin.morgan133@slu-fictional.edu,Assistant Professor,18,122,79000,27-Aug-2022,Staff,active
+67,Yara,Williams,yara.williams67@slu-fictional.edu,Assistant Professor,7,59,90000,2022-10-20,faculty,active
+10,Evelyn,Gupta,evelyn.gupta10@slu-fictional.edu,Lecturer,1,9,70000,2008-11-07,faculty,active
+43,Diego,Carter,diego.carter43@slu-fictional.edu,Assistant Professor,4,40,90000,2010-03-13,faculty,active
+131,Jordan,Torres,jordan.torres131@slu-fictional.edu,Assistant Professor,18,122,88000,02-Feb-2011,faculty,active
+69,Mila,Baker,mila.baker69@slu-fictional.edu,department chair,8,5,162000,2013-03-08,faculty,active
+26,Santiago,Kelly,santiago.kelly26@slu-fictional.edu,Assistant Professor,2,24,92000,2013-11-06,faculty,active
+149,Rahul,Baker,rahul.baker149@slu-fictional.edu,Lecturer,20,147,72000,"Nov 5, 2018",faculty,active
+120,Leo,Sanders,leo.sanders120@slu-fictional.edu,Associate Professor,17,116,100000,13-Oct-2019,faculty,active
+11,Rahul,Stewart,rahul.stewart11@slu-fictional.edu,Assistant Professor,1,9,$ 90000,2010-05-07,Faculty,active
+163,Grace,Flores,grace.flores163@slu-fictional.edu,Professor,22,160,145000,2010-04-23,faculty,active
+7,Nia,Schmidt,nia.schmidt7@slu-fictional.edu,"Dean, School of Science and Engineering",,2,"$212,000.00",2016-10-08,faculty,active
+167,Riley,Alvarez,riley.alvarez167@slu-fictional.edu,IT Support Specialist,,4,58000.00 USD,2024-03-04,staff,active
+61,Nathan,Kelly,nathan.kelly61@slu-fictional.edu,assistant professor,7,59,91000,2019-03-13,faculty,active
+68,Victor,Walker,victor.walker68@slu-fictional.edu,Administrative Assistant,7,59,42000,2014-12-05,staff,active
+135,Asha,Perez,asha.perez135@slu-fictional.edu,Assistant Professor,18,122,91000,2024/05/21,Staff,active
+59,Camila,Taylor,camila.taylor59@slu-fictional.edu,Department Chair,7,5,148000.00 USD,2018/11/25,STAFF,active
+174,Bianca,Ruiz,bianca.ruiz174@slu-fictional.edu,REGISTRAR,,2,"88,000.00",2022-03-16,staff,active
+140,Julia,White,julia.white140@slu-fictional.edu,Associate Professor ,19,137,109000,2017-05-29,faculty,active
+131,Jordan,Torres,jordan.torres131@slu-fictional.edu,Assistant Professor,18,122,88000,02-Feb-2011,faculty,active
+22,Jamal,Young,jamal.young22@slu-fictional.edu,Associate Professor,1,9,"104,000.00",2010-05-05,faculty,active
+169,Elena,Khan,elena.khan169@slu-fictional.edu,Database Administrator,,4,91000,18-Aug-2019,fac,active
+2,Luna,Reyes,luna.reyes2@slu-fictional.edu,Provost,,1,"298,000.00",2016/08/15,staff,active
+18,Leo,Perez,leo.perez18@slu-fictional.edu,Associate Professor,1,9,132000,2024-05-17,faculty,active
+8,Kenji,Wright,kenji.wright8@slu-fictional.edu,"Dean, School of Nursing and Health Sciences",,2,"205,000.00",2015-01-14,faculty,active
+70,Jordan,Ortiz,jordan.ortiz70@slu-fictional.edu,  Professor,8,69,147000,2001-12-09,faculty,active
+144,Willa,Lopez,willa.lopez144@slu-fictional.edu,Associate Professor,19,137,-1,"Mar 28, 2022",faculty,active
+106,Yara,Reed,yara.reed106@slu-fictional.edu,ASSISTANT PROFESSOR,15,104,81000,2009-01-11,faculty,active
+137,Eli,Campbell,eli.campbell137@slu-fictional.edu, Department Chair,19,7,148000,4/28/2007,faculty,active
+4,Nia,Walker,nia.walker4@slu-fictional.edu,  Chief Information Officer,,2,221000,2019-03-04,staff,active
+156,Daniel,Zhang,daniel.zhang156@slu-fictional.edu,Lecturer,21,150,$ 67000,2022-12-21,faculty,active
+12,Kiara,Gomez,kiara.gomez12@slu-fictional.edu,ASSOCIATE PROFESSOR,1,9,unknown,2010-10-12,faculty,active
+177,Asha,Turner,asha.turner177@slu-fictional.edu,Librarian,,2,61000,09/05/2018,staff,active
+17,Samuel,Ortiz,samuel.ortiz17@slu-fictional.edu,Adjunct Instructor,1,9,$ 38000,2017-08-06,faculty,active
+29,Sophia,Alvarez,sophia.alvarez29@slu-fictional.edu,Assistant Professor,2,24,87000,2021/02/24,faculty,active
+66,Theo,Mitchell,theo.mitchell66@slu-fictional.edu,Associate Professor,7,59,104000,2008-11-29,faculty,active
+78,Bianca,Turner,bianca.turner78@slu-fictional.edu,Department Chair,10,5,148000,2011-10-12,faculty,active
+164,Jamal,Hughes,jamal.hughes164@slu-fictional.edu,Assistant Professor ,22,160,80000,2010/10/03,STAFF,active
+51,Elena,Okafor,elena.okafor51@slu-fictional.edu, Adjunct Instructor,5,46,36000,2023-07-14,faculty,active
+152,Mila,Taylor,mila.taylor152@slu-fictional.edu,Assistant Professor,21,150,82000,2010-05-23,faculty,active
+64,James,Alvarez,james.alvarez64@slu-fictional.edu,Assistant Professor,7,59,89000,2022-08-13,faculty,active
+53,Leo,Lee,leo.lee53@slu-fictional.edu,Associate Professor,5,46,113000,21-Jan-2018,faculty,active
+141,Chloe,Scott,chloe.scott141@slu-fictional.edu,Associate Professor,19,137,$ 107000,3/20/2019,faculty,active
+75,Isabella,Singh,isabella.singh75@slu-fictional.edu,Assistant Professor,9,72,$ 89000,2012-07-18,Staff,active
+162,Diego,Young,diego.young162@slu-fictional.edu, Associate Professor,22,160,111000,07/09/2014,faculty,active
+30,Nia,Rossi,nia.rossi30@slu-fictional.edu,Professor,2,24,139000,2012-08-12,faculty,active
+95,Olivia,Zhang,olivia.zhang95@slu-fictional.edu,Associate Professor,13,92,"100,000.00",2024-05-27,faculty,active
+101,Eli,Williams,eli.williams101@slu-fictional.edu,Assistant Professor,14,98,84000,2024-09-13,faculty,active
+42,Naomi,Schmidt,naomi.schmidt42@slu-fictional.edu,Adjunct Instructor,4,40,40000,2007-03-30,faculty,retired
+5,Olivia,Perez,olivia.perez5@slu-fictional.edu,"Dean, College of Arts and Sciences",,2,198000,2013-01-16,FACULTY,active
+124,Jordan,Garcia,jordan.garcia124@slu-fictional.edu,Professor,18,122,129000,11/12/2011,STAFF,active
+45,Sofia,Ward,sofia.ward45@slu-fictional.edu,Administrative Assistant,4,40,$ 44000,2011-05-02,staff,active
+81,Sophia,Flores,sophia.flores81@slu-fictional.edu,ADJUNCT INSTRUCTOR,10,78,"43,000.00",2023-11-10,faculty,active
+112,Rahul,Hernandez,rahul.hernandez112@slu-fictional.edu,Adjunct Instructor,16,110,38000,2012-06-08,faculty,active
+89,Isaac,Gomez,isaac.gomez89@slu-fictional.edu,Adjunct Instructor,12,86,45000,2006-06-19,faculty,active
+92,Bianca,Ramirez,bianca.ramirez92@slu-fictional.edu,Department Chair,13,5,148000,13-Feb-2013,faculty,active
+139,Rahul,Rossi,rahul.rossi139@slu-fictional.edu,Assistant Professor,19,137,"$85,000.00",2017-09-04,faculty,active
+148,Caleb,Khan,caleb.khan148@slu-fictional.edu,Adjunct Instructor,20,147,39000,2022-12-09,faculty,active
+86,Tariq,Alvarez,tariq.alvarez86@slu-fictional.edu,Department Chair,12,5,"$142,000.00",2012-06-25,faculty,active
+117,Olivia,Ruiz,olivia.ruiz117@slu-fictional.edu,ASSOCIATE PROFESSOR,17,116,115000,12/18/2018,faculty,active
+150,Deja,Stewart,deja.stewart150@slu-fictional.edu,Department Chair,21,8,148000,2008-06-17,faculty,active
+121,Yusuf,Mitchell,yusuf.mitchell121@slu-fictional.edu,Administrative Assistant,17,116,-1,2016-11-26,staff,active
+20,Victor,Hernandez,victor.hernandez20@slu-fictional.edu,Professor,1,9,142000,2003/12/08,faculty,active
+166,Darius,Rivera,darius.rivera166@slu-fictional.edu,IT Support Specialist,,4,58000,21-May-2023,staff,active
+108,Tomas,White,tomas.white108@slu-fictional.edu,Adjunct Instructor,15,104,$ 46000,2018-05-31,faculty,active
+158,Nadia,Martinez,nadia.martinez158@slu-fictional.edu,Adjunct Instructor,21,150,"$40,000.00",13-Nov-2024,faculty,active
+104,David,Okafor,david.okafor104@slu-fictional.edu,Department Chair,15,6,"155,000.00",12/4/2019,faculty,active
