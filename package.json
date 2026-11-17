@@ -1,0 +1,27 @@
+{
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "Placeholder for the first commit.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deo-Reji/sandbox_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Deo-Reji/sandbox_project/issues"
+  },
+  "homepage": "https://github.com/Deo-Reji/sandbox_project#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "codemirror": "^5.65.21",
+    "hyperformula": "^3.5.0",
+    "sql.js": "^1.16.0"
+  }
+}
