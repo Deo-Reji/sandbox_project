@@ -1,0 +1,2458 @@
+[
+  {
+    "id": "pandas-easy-1",
+    "track": "pandas",
+    "difficulty": "easy",
+    "title": "Missouri honor roll",
+    "tags": [
+      "boolean filter",
+      "sort_values"
+    ],
+    "prompt_md": "From the `students` DataFrame, select students from Missouri (`home_state == 'MO'`) with a GPA of **3.8 or higher**.\n\nAssign to `result` a DataFrame with the columns `student_id`, `first_name`, `last_name`, `gpa`, sorted by GPA descending, then `last_name` and `first_name` ascending.",
+    "example": {
+      "input_md": "`students` has 500 rows; `gpa` is a float column with some NaN values.",
+      "output": {
+        "columns": [
+          "student_id",
+          "first_name",
+          "last_name",
+          "gpa"
+        ],
+        "rows": [
+          [
+            1022,
+            "Victor",
+            "Young",
+            4.0
+          ],
+          [
+            1403,
+            "Omar",
+            "Hayes",
+            3.98
+          ]
+        ],
+        "total": 7
+      }
+    },
+    "constraints_md": "- Row order matters.\n- NaN GPAs must be excluded (a comparison with NaN is already False).",
+    "hints": [
+      "Combine conditions with `&` and wrap each in parentheses: `(df.a == 'x') & (df.b >= 3.8)`.",
+      "`sort_values(['gpa', 'last_name', 'first_name'], ascending=[False, True, True])`"
+    ],
+    "starter": "# students, enrollments, ... are preloaded DataFrames; pd and np are available\nresult = students\n",
+    "orderMatters": true,
+    "solution": "result = students[(students.home_state == 'MO') & (students.gpa >= 3.8)][['student_id', 'first_name', 'last_name', 'gpa']]\nresult = result.sort_values(['gpa', 'last_name', 'first_name'], ascending=[False, True, True])",
+    "expected": {
+      "columns": [
+        "student_id",
+        "first_name",
+        "last_name",
+        "gpa"
+      ],
+      "rows": [
+        [
+          1022,
+          "Victor",
+          "Young",
+          4.0
+        ],
+        [
+          1403,
+          "Omar",
+          "Hayes",
+          3.98
+        ],
+        [
+          1466,
+          "Hannah",
+          "Smith",
+          3.91
+        ],
+        [
+          1039,
+          "Henry",
+          "Thomas",
+          3.88
+        ],
+        [
+          1158,
+          "Chloe",
+          "Hernandez",
+          3.83
+        ],
+        [
+          1297,
+          "David",
+          "Kim",
+          3.83
+        ],
+        [
+          1386,
+          "Andre",
+          "Foster",
+          3.81
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-easy-2",
+    "track": "pandas",
+    "difficulty": "easy",
+    "title": "Faculty salary snapshot",
+    "tags": [
+      "aggregate",
+      "describe-style"
+    ],
+    "prompt_md": "Build a **one-row** DataFrame summarising the faculty (`employees.employee_type == 'faculty'`):\n\n| column | meaning |\n|---|---|\n| `n_faculty` | number of faculty rows |\n| `avg_salary` | mean salary rounded to 2 decimals |\n| `max_salary` | highest salary |\n\nAssign it to `result`.",
+    "example": {
+      "input_md": "`employees`: `employee_id`, `title`, `salary`, `employee_type`, …",
+      "output": {
+        "columns": [
+          "n_faculty",
+          "avg_salary",
+          "max_salary"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "Filter first, then use `len()`, `.mean()` and `.max()` on the salary column.",
+      "Wrap the three numbers in `pd.DataFrame({...: [value]})` — each value in a list makes one row."
+    ],
+    "starter": "fac = employees[employees.employee_type == 'faculty']\nresult = pd.DataFrame({\n    'n_faculty': [],\n    'avg_salary': [],\n    'max_salary': [],\n})\n",
+    "orderMatters": false,
+    "decimals": 2,
+    "solution": "fac = employees[employees.employee_type == 'faculty']\nresult = pd.DataFrame({'n_faculty': [len(fac)], 'avg_salary': [round(fac.salary.mean(), 2)], 'max_salary': [fac.salary.max()]})",
+    "expected": {
+      "columns": [
+        "n_faculty",
+        "avg_salary",
+        "max_salary"
+      ],
+      "rows": [
+        [
+          143,
+          101356.64,
+          212000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-easy-3",
+    "track": "pandas",
+    "difficulty": "easy",
+    "title": "Active students per entry year",
+    "tags": [
+      "groupby",
+      "size",
+      "reset_index"
+    ],
+    "prompt_md": "Count the **active** students (`status == 'active'`) per `enrollment_year`.\n\n`result` must have the columns `enrollment_year` and `n_active` (one row per year that has at least one active student), sorted by year.",
+    "example": {
+      "input_md": "`students.status` ∈ {active, graduated, withdrawn, leave}.",
+      "output": {
+        "columns": [
+          "enrollment_year",
+          "n_active"
+        ],
+        "rows": [
+          [
+            2019,
+            3
+          ],
+          [
+            2020,
+            11
+          ]
+        ],
+        "total": 6
+      }
+    },
+    "hints": [
+      "`groupby('enrollment_year').size()` gives a Series; `.reset_index(name='n_active')` turns it into the required two columns.",
+      "Filter rows before grouping."
+    ],
+    "starter": "active = students[students.status == 'active']\nresult = \n",
+    "orderMatters": true,
+    "solution": "result = (students[students.status == 'active']\n          .groupby('enrollment_year').size()\n          .reset_index(name='n_active')\n          .sort_values('enrollment_year'))",
+    "expected": {
+      "columns": [
+        "enrollment_year",
+        "n_active"
+      ],
+      "rows": [
+        [
+          2019,
+          3
+        ],
+        [
+          2020,
+          11
+        ],
+        [
+          2021,
+          51
+        ],
+        [
+          2022,
+          94
+        ],
+        [
+          2023,
+          100
+        ],
+        [
+          2024,
+          127
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-easy-4",
+    "track": "pandas",
+    "difficulty": "easy",
+    "title": "Hometowns of the M-students up north",
+    "tags": [
+      "isin",
+      "str.startswith",
+      "drop_duplicates"
+    ],
+    "prompt_md": "Among students whose `home_state` is **IL, WI or MN** and whose `last_name` starts with **M**, list the distinct (`home_state`, `home_city`) pairs.\n\n`result`: columns `home_state`, `home_city`, no duplicate rows, sorted by state then city.",
+    "example": {
+      "input_md": "`students.home_state` holds two-letter codes.",
+      "output": {
+        "columns": [
+          "home_state",
+          "home_city"
+        ],
+        "rows": [
+          [
+            "IL",
+            "Edwardsville"
+          ],
+          [
+            "IL",
+            "Naperville"
+          ]
+        ],
+        "total": 5
+      }
+    },
+    "hints": [
+      "`students.home_state.isin([...])` and `students.last_name.str.startswith('M')`.",
+      "`.drop_duplicates()` after selecting the two columns."
+    ],
+    "starter": "mask = \nresult = students.loc[mask, ['home_state', 'home_city']]\n",
+    "orderMatters": true,
+    "solution": "mask = students.home_state.isin(['IL', 'WI', 'MN']) & students.last_name.str.startswith('M')\nresult = students.loc[mask, ['home_state', 'home_city']].drop_duplicates().sort_values(['home_state', 'home_city'])",
+    "expected": {
+      "columns": [
+        "home_state",
+        "home_city"
+      ],
+      "rows": [
+        [
+          "IL",
+          "Edwardsville"
+        ],
+        [
+          "IL",
+          "Naperville"
+        ],
+        [
+          "IL",
+          "Peoria"
+        ],
+        [
+          "MN",
+          "Minneapolis"
+        ],
+        [
+          "WI",
+          "Milwaukee"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-easy-5",
+    "track": "pandas",
+    "difficulty": "easy",
+    "title": "Senior-level catalog",
+    "tags": [
+      "merge",
+      "rename"
+    ],
+    "prompt_md": "List every **4000-level** course together with its department's name.\n\n`result`: columns `course_code`, `title`, `department` (the department name), sorted by `course_code`.",
+    "example": {
+      "input_md": "`courses.department_id` → `departments.department_id`; the department's name is in `departments.name`.",
+      "output": {
+        "columns": [
+          "course_code",
+          "title",
+          "department"
+        ],
+        "rows": [
+          [
+            "ACCT 4250",
+            "Taxation",
+            "Accounting"
+          ],
+          [
+            "ACCT 4420",
+            "Auditing",
+            "Accounting"
+          ]
+        ],
+        "total": 39
+      }
+    },
+    "hints": [
+      "`courses.merge(departments, on='department_id')` — select only the columns you need from `departments` first to avoid name clashes.",
+      "`.rename(columns={'name': 'department'})`"
+    ],
+    "starter": "result = (courses[courses.level == 4000]\n          .merge(..., on='department_id')\n)\n",
+    "orderMatters": true,
+    "solution": "result = (courses[courses.level == 4000]\n          .merge(departments[['department_id', 'name']], on='department_id')\n          .rename(columns={'name': 'department'})[['course_code', 'title', 'department']]\n          .sort_values('course_code'))",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title",
+        "department"
+      ],
+      "rows": [
+        [
+          "ACCT 4250",
+          "Taxation",
+          "Accounting"
+        ],
+        [
+          "ACCT 4420",
+          "Auditing",
+          "Accounting"
+        ],
+        [
+          "AME 4460",
+          "Machine Design",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "AME 4630",
+          "Propulsion",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "BIOL 4150",
+          "Biology Senior Seminar",
+          "Biology"
+        ],
+        [
+          "BIOL 4340",
+          "Developmental Biology",
+          "Biology"
+        ],
+        [
+          "BIOL 4500",
+          "Neurobiology",
+          "Biology"
+        ],
+        [
+          "BIOL 4540",
+          "Molecular Biology",
+          "Biology"
+        ],
+        [
+          "CHEM 4280",
+          "Biochemistry",
+          "Chemistry"
+        ],
+        [
+          "CHEM 4450",
+          "Inorganic Chemistry",
+          "Chemistry"
+        ],
+        [
+          "CLAS 4110",
+          "Roman History",
+          "Classics"
+        ],
+        [
+          "CMM 4120",
+          "Strategic Communication",
+          "Communication"
+        ],
+        [
+          "CSCI 4250",
+          "Computer Networks",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4550",
+          "Artificial Intelligence",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4580",
+          "Senior Capstone",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4620",
+          "Compilers",
+          "Computer Science"
+        ],
+        [
+          "ENGL 4700",
+          "Modern Poetry",
+          "English"
+        ],
+        [
+          "ENGL 4750",
+          "Creative Writing Workshop",
+          "English"
+        ],
+        [
+          "FIN 4380",
+          "Financial Markets",
+          "Finance"
+        ],
+        [
+          "FPA 4220",
+          "University Choir",
+          "Fine and Performing Arts"
+        ],
+        [
+          "FPA 4280",
+          "Studio Painting",
+          "Fine and Performing Arts"
+        ],
+        [
+          "HIST 4650",
+          "US Civil War",
+          "History"
+        ],
+        [
+          "HIST 4820",
+          "Modern Europe",
+          "History"
+        ],
+        [
+          "HSCI 4500",
+          "Nutrition",
+          "Health Sciences"
+        ],
+        [
+          "HSCI 4560",
+          "Global Health",
+          "Health Sciences"
+        ],
+        [
+          "MATH 4280",
+          "Mathematical Statistics",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MATH 4540",
+          "Introduction to Proofs",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MATH 4560",
+          "Real Analysis",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MGT 4100",
+          "Strategic Management",
+          "Management"
+        ],
+        [
+          "MKT 4820",
+          "Marketing Research",
+          "Marketing"
+        ],
+        [
+          "NURS 4740",
+          "Nursing Leadership",
+          "Nursing"
+        ],
+        [
+          "NURS 4790",
+          "Community Health",
+          "Nursing"
+        ],
+        [
+          "PHIL 4680",
+          "Philosophy of Mind",
+          "Philosophy"
+        ],
+        [
+          "PHYS 4470",
+          "Quantum Mechanics",
+          "Physics"
+        ],
+        [
+          "POLS 4830",
+          "Constitutional Law",
+          "Political Science"
+        ],
+        [
+          "PSY 4210",
+          "Social Psychology",
+          "Psychology"
+        ],
+        [
+          "PSY 4720",
+          "Statistics for Psychology",
+          "Psychology"
+        ],
+        [
+          "SOC 4180",
+          "Urban Sociology",
+          "Sociology and Anthropology"
+        ],
+        [
+          "THEO 4580",
+          "Scripture",
+          "Theological Studies"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-medium-1",
+    "track": "pandas",
+    "difficulty": "medium",
+    "title": "Big sections in Fall 2024",
+    "tags": [
+      "merge",
+      "groupby",
+      "filter after aggregation"
+    ],
+    "prompt_md": "Find the sections offered in the term named **'Fall 2024'** that have **20 or more** enrollment rows (any status).\n\n`result`: `course_code`, `section_number`, `enrolled` (the count), sorted by `enrolled` descending, then `course_code`, then `section_number`.",
+    "example": {
+      "input_md": "`sections` → `terms` (`term_id`), `sections` → `courses` (`course_id`), `enrollments` → `sections` (`section_id`). `section_number` is text like `'01'`.",
+      "output": {
+        "columns": [
+          "course_code",
+          "section_number",
+          "enrolled"
+        ],
+        "rows": [
+          [
+            "HSCI 4560",
+            "01",
+            25
+          ],
+          [
+            "CHEM 2840",
+            "01",
+            24
+          ]
+        ],
+        "total": 12
+      }
+    },
+    "hints": [
+      "Count enrollments per section with `enrollments.groupby('section_id').size()`, then merge the counts onto the Fall-2024 sections.",
+      "Filter `enrolled >= 20` *after* counting."
+    ],
+    "starter": "fall_ids = terms.loc[terms.name == 'Fall 2024', 'term_id']\nsec = sections[sections.term_id.isin(fall_ids)]\ncounts = enrollments.groupby('section_id').size().rename('enrolled')\nresult = \n",
+    "orderMatters": true,
+    "solution": "fall = terms.loc[terms.name == 'Fall 2024', 'term_id']\nsec = sections[sections.term_id.isin(fall)].merge(courses[['course_id', 'course_code']], on='course_id')\ncounts = enrollments.groupby('section_id').size().rename('enrolled')\nresult = sec.merge(counts, on='section_id')\nresult = result[result.enrolled >= 20][['course_code', 'section_number', 'enrolled']]\nresult = result.sort_values(['enrolled', 'course_code', 'section_number'], ascending=[False, True, True])",
+    "expected": {
+      "columns": [
+        "course_code",
+        "section_number",
+        "enrolled"
+      ],
+      "rows": [
+        [
+          "HSCI 4560",
+          "01",
+          25
+        ],
+        [
+          "CHEM 2840",
+          "01",
+          24
+        ],
+        [
+          "AME 1810",
+          "02",
+          22
+        ],
+        [
+          "HSCI 1160",
+          "01",
+          22
+        ],
+        [
+          "BIOL 1720",
+          "01",
+          21
+        ],
+        [
+          "BIOL 1720",
+          "02",
+          21
+        ],
+        [
+          "CMM 3660",
+          "01",
+          21
+        ],
+        [
+          "HSCI 1800",
+          "01",
+          21
+        ],
+        [
+          "PSY 1470",
+          "02",
+          21
+        ],
+        [
+          "CSCI 3770",
+          "01",
+          20
+        ],
+        [
+          "PSY 1140",
+          "03",
+          20
+        ],
+        [
+          "PSY 1470",
+          "01",
+          20
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-medium-2",
+    "track": "pandas",
+    "difficulty": "medium",
+    "title": "Second-highest salary per department",
+    "tags": [
+      "nth",
+      "drop_duplicates",
+      "left merge",
+      "NaN"
+    ],
+    "prompt_md": "For **every** department, find the second-highest *distinct* salary among its employees.\n\n`result`: `department` (name) and `second_highest`; departments with fewer than two distinct salaries — including the two with no employees — must still appear with `second_highest` = NaN. Sort by `department`.",
+    "example": {
+      "input_md": "Biology's top salary is shared by three people; its second-highest distinct salary is the next value down.",
+      "output": {
+        "columns": [
+          "department",
+          "second_highest"
+        ],
+        "rows": [
+          [
+            "Accounting",
+            148000.0
+          ],
+          [
+            "Aerospace and Mechanical Engineering",
+            117000.0
+          ]
+        ],
+        "total": 24
+      }
+    },
+    "hints": [
+      "Drop duplicate (`department_id`, `salary`) pairs, sort by salary descending, then `groupby('department_id').nth(1)` picks the second row of each group (groups with one row vanish).",
+      "Start from `departments` and `merge(..., how='left')` so every department survives."
+    ],
+    "starter": "second = (employees[['department_id', 'salary']].drop_duplicates()\n          .sort_values('salary', ascending=False)\n          .groupby('department_id').nth(1))\nresult = \n",
+    "orderMatters": true,
+    "solution": "second = (employees[['department_id', 'salary']].drop_duplicates()\n          .sort_values('salary', ascending=False)\n          .groupby('department_id').nth(1)\n          .rename(columns={'salary': 'second_highest'}))\nresult = (departments[['department_id', 'name']].merge(second, on='department_id', how='left')\n          .rename(columns={'name': 'department'})[['department', 'second_highest']]\n          .sort_values('department'))",
+    "expected": {
+      "columns": [
+        "department",
+        "second_highest"
+      ],
+      "rows": [
+        [
+          "Accounting",
+          148000.0
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          117000.0
+        ],
+        [
+          "Biology",
+          132000.0
+        ],
+        [
+          "Chemistry",
+          139000.0
+        ],
+        [
+          "Classics",
+          102000.0
+        ],
+        [
+          "Communication",
+          142000.0
+        ],
+        [
+          "Computer Science",
+          138000.0
+        ],
+        [
+          "Data Science Institute",
+          null
+        ],
+        [
+          "English",
+          108000.0
+        ],
+        [
+          "Finance",
+          81000.0
+        ],
+        [
+          "Fine and Performing Arts",
+          148000.0
+        ],
+        [
+          "Health Sciences",
+          145000.0
+        ],
+        [
+          "History",
+          113000.0
+        ],
+        [
+          "Interdisciplinary Studies",
+          null
+        ],
+        [
+          "Management",
+          115000.0
+        ],
+        [
+          "Marketing",
+          148000.0
+        ],
+        [
+          "Mathematics and Statistics",
+          145000.0
+        ],
+        [
+          "Nursing",
+          139000.0
+        ],
+        [
+          "Philosophy",
+          142000.0
+        ],
+        [
+          "Physics",
+          72000.0
+        ],
+        [
+          "Political Science",
+          142000.0
+        ],
+        [
+          "Psychology",
+          104000.0
+        ],
+        [
+          "Sociology and Anthropology",
+          147000.0
+        ],
+        [
+          "Theological Studies",
+          131000.0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-medium-3",
+    "track": "pandas",
+    "difficulty": "medium",
+    "title": "Courses never offered",
+    "tags": [
+      "anti-join",
+      "merge indicator"
+    ],
+    "prompt_md": "Which courses have **never had a section**?\n\n`result`: `course_code`, `title`, sorted by `course_code`. Use a left merge with `indicator=True` (or `isin`), not a loop.",
+    "example": {
+      "input_md": "`sections.course_id` references `courses.course_id`.",
+      "output": {
+        "columns": [
+          "course_code",
+          "title"
+        ],
+        "rows": [
+          [
+            "CMM 4120",
+            "Strategic Communication"
+          ],
+          [
+            "CSCI 4250",
+            "Computer Networks"
+          ]
+        ],
+        "total": 13
+      }
+    },
+    "hints": [
+      "`courses.merge(sections[['course_id']].drop_duplicates(), on='course_id', how='left', indicator=True)` adds a `_merge` column.",
+      "Keep rows where `_merge == 'left_only'`."
+    ],
+    "starter": "m = courses.merge(sections[['course_id']].drop_duplicates(), on='course_id', how='left', indicator=True)\nresult = \n",
+    "orderMatters": true,
+    "solution": "m = courses.merge(sections[['course_id']].drop_duplicates(), on='course_id', how='left', indicator=True)\nresult = m[m._merge == 'left_only'][['course_code', 'title']].sort_values('course_code')",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title"
+      ],
+      "rows": [
+        [
+          "CMM 4120",
+          "Strategic Communication"
+        ],
+        [
+          "CSCI 4250",
+          "Computer Networks"
+        ],
+        [
+          "CSCI 4620",
+          "Compilers"
+        ],
+        [
+          "DSCI 1410",
+          "Data Visualization"
+        ],
+        [
+          "DSCI 1580",
+          "Introduction to Data Science"
+        ],
+        [
+          "HIST 4820",
+          "Modern Europe"
+        ],
+        [
+          "IDS 1600",
+          "Interdisciplinary Inquiry"
+        ],
+        [
+          "IDS 1830",
+          "Capstone Project"
+        ],
+        [
+          "MGT 4100",
+          "Strategic Management"
+        ],
+        [
+          "MKT 4820",
+          "Marketing Research"
+        ],
+        [
+          "NURS 4740",
+          "Nursing Leadership"
+        ],
+        [
+          "PHIL 4680",
+          "Philosophy of Mind"
+        ],
+        [
+          "PHYS 4470",
+          "Quantum Mechanics"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-medium-4",
+    "track": "pandas",
+    "difficulty": "medium",
+    "title": "Chairs and who they report to",
+    "tags": [
+      "self merge",
+      "string concat"
+    ],
+    "prompt_md": "Each **'Department Chair'** has a `manager_id` that points at another employee.\n\n`result`: one row per chair with `chair` (first + space + last name), `department` (department name) and `reports_to` (the manager's full name, NaN if none), sorted by `department`.",
+    "example": {
+      "input_md": "Merge `employees` with a renamed copy of itself on `manager_id` ↔ `employee_id`.",
+      "output": {
+        "columns": [
+          "chair",
+          "department",
+          "reports_to"
+        ],
+        "rows": [
+          [
+            "Owen Sullivan",
+            "Accounting",
+            "Hannah Nguyen"
+          ],
+          [
+            "Eli Campbell",
+            "Aerospace and Mechanical Engineering",
+            "Nia Schmidt"
+          ]
+        ],
+        "total": 22
+      }
+    },
+    "hints": [
+      "Make a copy of `employees[['employee_id','first_name','last_name']]` with renamed columns (`manager_id`, `m_first`, `m_last`) and merge it with `how='left'`.",
+      "Concatenate strings with `+`: `m.first_name + ' ' + m.last_name`."
+    ],
+    "starter": "chairs = employees[employees.title == 'Department Chair']\nmgr = employees[['employee_id', 'first_name', 'last_name']].rename(columns={'employee_id': 'manager_id', 'first_name': 'm_first', 'last_name': 'm_last'})\nresult = \n",
+    "orderMatters": true,
+    "solution": "chairs = employees[employees.title == 'Department Chair']\nmgr = employees[['employee_id', 'first_name', 'last_name']].rename(columns={'employee_id': 'manager_id', 'first_name': 'm_first', 'last_name': 'm_last'})\nm = chairs.merge(departments[['department_id', 'name']], on='department_id').merge(mgr, on='manager_id', how='left')\nresult = pd.DataFrame({\n    'chair': m.first_name + ' ' + m.last_name,\n    'department': m.name,\n    'reports_to': m.m_first + ' ' + m.m_last,\n}).sort_values('department')",
+    "expected": {
+      "columns": [
+        "chair",
+        "department",
+        "reports_to"
+      ],
+      "rows": [
+        [
+          "Owen Sullivan",
+          "Accounting",
+          "Hannah Nguyen"
+        ],
+        [
+          "Eli Campbell",
+          "Aerospace and Mechanical Engineering",
+          "Nia Schmidt"
+        ],
+        [
+          "Isaac Howard",
+          "Biology",
+          "Olivia Perez"
+        ],
+        [
+          "Sophia Ward",
+          "Chemistry",
+          "Olivia Perez"
+        ],
+        [
+          "Zoe Morgan",
+          "Classics",
+          "Olivia Perez"
+        ],
+        [
+          "Tariq Alvarez",
+          "Communication",
+          "Olivia Perez"
+        ],
+        [
+          "Asha Park",
+          "Computer Science",
+          "Nia Schmidt"
+        ],
+        [
+          "Carter Lee",
+          "English",
+          "Olivia Perez"
+        ],
+        [
+          "David Okafor",
+          "Finance",
+          "Hannah Nguyen"
+        ],
+        [
+          "Bianca Ramirez",
+          "Fine and Performing Arts",
+          "Olivia Perez"
+        ],
+        [
+          "Liam Clark",
+          "Health Sciences",
+          "Kenji Wright"
+        ],
+        [
+          "Darius Price",
+          "History",
+          "Olivia Perez"
+        ],
+        [
+          "Grace Robinson",
+          "Management",
+          "Hannah Nguyen"
+        ],
+        [
+          "Evelyn Johnson",
+          "Marketing",
+          "Hannah Nguyen"
+        ],
+        [
+          "Nadia Sanders",
+          "Mathematics and Statistics",
+          "Olivia Perez"
+        ],
+        [
+          "Deja Stewart",
+          "Nursing",
+          "Kenji Wright"
+        ],
+        [
+          "Wei Young",
+          "Philosophy",
+          "Olivia Perez"
+        ],
+        [
+          "Evelyn Hernandez",
+          "Physics",
+          "Nia Schmidt"
+        ],
+        [
+          "James Martin",
+          "Political Science",
+          "Olivia Perez"
+        ],
+        [
+          "Camila Taylor",
+          "Psychology",
+          "Olivia Perez"
+        ],
+        [
+          "Mila Baker",
+          "Sociology and Anthropology",
+          "Olivia Perez"
+        ],
+        [
+          "Bianca Turner",
+          "Theological Studies",
+          "Olivia Perez"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-medium-5",
+    "track": "pandas",
+    "difficulty": "medium",
+    "title": "GPA bands by college",
+    "tags": [
+      "np.select",
+      "pivot_table",
+      "multi-merge"
+    ],
+    "prompt_md": "Bucket students by GPA and count them per **college** of their *primary* major (`student_majors.is_primary == 1` → `majors` → `departments` → `colleges`).\n\n`result`: one row per college with `college` (`colleges.abbreviation`), `honors` (gpa ≥ 3.5), `good` (3.0 ≤ gpa < 3.5), `below` (gpa < 3.0), `no_gpa` (NaN), in that column order, sorted by `college`. Undeclared students are not counted.",
+    "example": {
+      "input_md": "Four merges, one `np.select` (or `pd.cut`), one `pivot_table`.",
+      "output": {
+        "columns": [
+          "college",
+          "honors",
+          "good",
+          "below",
+          "no_gpa"
+        ],
+        "rows": [
+          [
+            "BUS",
+            6,
+            16,
+            7,
+            4
+          ],
+          [
+            "CAS",
+            44,
+            94,
+            86,
+            47
+          ]
+        ],
+        "total": 4
+      }
+    },
+    "hints": [
+      "`np.select([m.gpa.isna(), m.gpa >= 3.5, m.gpa >= 3.0], ['no_gpa', 'honors', 'good'], default='below')` — conditions are checked in order.",
+      "`pd.pivot_table(m, index='abbreviation', columns='band', values='student_id', aggfunc='count', fill_value=0)` then `reset_index()`; set `result.columns.name = None`."
+    ],
+    "starter": "primary = student_majors[student_majors.is_primary == 1]\nm = (students.merge(primary[['student_id', 'major_id']], on='student_id')\n     .merge(majors[['major_id', 'department_id']], on='major_id')\n     .merge(departments[['department_id', 'college_id']], on='department_id')\n     .merge(colleges[['college_id', 'abbreviation']], on='college_id'))\nm['band'] = \nresult = \n",
+    "orderMatters": true,
+    "solution": "primary = student_majors[student_majors.is_primary == 1]\nm = (students.merge(primary[['student_id', 'major_id']], on='student_id')\n     .merge(majors[['major_id', 'department_id']], on='major_id')\n     .merge(departments[['department_id', 'college_id']], on='department_id')\n     .merge(colleges[['college_id', 'abbreviation']], on='college_id'))\nm['band'] = np.select([m.gpa.isna(), m.gpa >= 3.5, m.gpa >= 3.0], ['no_gpa', 'honors', 'good'], default='below')\npv = pd.pivot_table(m, index='abbreviation', columns='band', values='student_id', aggfunc='count', fill_value=0)\nresult = pv.reset_index().rename(columns={'abbreviation': 'college'})[['college', 'honors', 'good', 'below', 'no_gpa']]\nresult.columns.name = None\nresult = result.sort_values('college')",
+    "expected": {
+      "columns": [
+        "college",
+        "honors",
+        "good",
+        "below",
+        "no_gpa"
+      ],
+      "rows": [
+        [
+          "BUS",
+          6,
+          16,
+          7,
+          4
+        ],
+        [
+          "CAS",
+          44,
+          94,
+          86,
+          47
+        ],
+        [
+          "NHS",
+          6,
+          17,
+          16,
+          5
+        ],
+        [
+          "SSE",
+          19,
+          37,
+          32,
+          17
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-hard-1",
+    "track": "pandas",
+    "difficulty": "hard",
+    "title": "Top 3 earners per department (with ties)",
+    "tags": [
+      "groupby rank",
+      "dense",
+      "top-n per group"
+    ],
+    "prompt_md": "For each department, return the employees whose salary is in the **top 3 ranks** using *dense* ranking (equal salaries share a rank and do not consume the next one).\n\n`result`: `department` (name), `first_name`, `last_name`, `salary`, `rnk` (integer), sorted by `department`, `rnk`, `last_name`, `first_name`. Employees without a department are excluded.",
+    "example": {
+      "input_md": "Biology's top salary is a three-way tie, so Biology contributes more than three rows.",
+      "output": {
+        "columns": [
+          "department",
+          "first_name",
+          "last_name",
+          "salary",
+          "rnk"
+        ],
+        "rows": [
+          [
+            "Accounting",
+            "Chloe",
+            "Morgan",
+            156000,
+            1
+          ],
+          [
+            "Accounting",
+            "Owen",
+            "Sullivan",
+            148000,
+            2
+          ]
+        ],
+        "total": 70
+      }
+    },
+    "hints": [
+      "`m.groupby('department_id').salary.rank(method='dense', ascending=False)` returns a float — cast with `.astype(int)`.",
+      "Filter `rnk <= 3` after computing the rank."
+    ],
+    "starter": "m = employees.merge(departments[['department_id', 'name']], on='department_id').rename(columns={'name': 'department'})\nm['rnk'] = \nresult = \n",
+    "orderMatters": true,
+    "solution": "m = employees.merge(departments[['department_id', 'name']], on='department_id').rename(columns={'name': 'department'})\nm['rnk'] = m.groupby('department_id').salary.rank(method='dense', ascending=False).astype(int)\nresult = m[m.rnk <= 3][['department', 'first_name', 'last_name', 'salary', 'rnk']]\nresult = result.sort_values(['department', 'rnk', 'last_name', 'first_name'])",
+    "expected": {
+      "columns": [
+        "department",
+        "first_name",
+        "last_name",
+        "salary",
+        "rnk"
+      ],
+      "rows": [
+        [
+          "Accounting",
+          "Chloe",
+          "Morgan",
+          156000,
+          1
+        ],
+        [
+          "Accounting",
+          "Owen",
+          "Sullivan",
+          148000,
+          2
+        ],
+        [
+          "Accounting",
+          "Luis",
+          "Ortiz",
+          111000,
+          3
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Eli",
+          "Campbell",
+          148000,
+          1
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Yara",
+          "Nelson",
+          117000,
+          2
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Julia",
+          "White",
+          109000,
+          3
+        ],
+        [
+          "Biology",
+          "Elijah",
+          "Abbott",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Victor",
+          "Hernandez",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Isaac",
+          "Howard",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Eli",
+          "Flores",
+          132000,
+          2
+        ],
+        [
+          "Biology",
+          "Leo",
+          "Perez",
+          132000,
+          2
+        ],
+        [
+          "Biology",
+          "Jamal",
+          "Young",
+          104000,
+          3
+        ],
+        [
+          "Chemistry",
+          "Sophia",
+          "Ward",
+          148000,
+          1
+        ],
+        [
+          "Chemistry",
+          "Nia",
+          "Rossi",
+          139000,
+          2
+        ],
+        [
+          "Chemistry",
+          "Daniel",
+          "Foster",
+          118000,
+          3
+        ],
+        [
+          "Classics",
+          "Zoe",
+          "Morgan",
+          162000,
+          1
+        ],
+        [
+          "Classics",
+          "David",
+          "Peterson",
+          102000,
+          2
+        ],
+        [
+          "Communication",
+          "Henry",
+          "Smith",
+          151000,
+          1
+        ],
+        [
+          "Communication",
+          "Tariq",
+          "Alvarez",
+          142000,
+          2
+        ],
+        [
+          "Communication",
+          "Tariq",
+          "Abbott",
+          101000,
+          3
+        ],
+        [
+          "Computer Science",
+          "Asha",
+          "Park",
+          142000,
+          1
+        ],
+        [
+          "Computer Science",
+          "Xavier",
+          "Chen",
+          138000,
+          2
+        ],
+        [
+          "Computer Science",
+          "Jordan",
+          "Garcia",
+          129000,
+          3
+        ],
+        [
+          "English",
+          "Carter",
+          "Lee",
+          155000,
+          1
+        ],
+        [
+          "English",
+          "Valeria",
+          "Rivera",
+          108000,
+          2
+        ],
+        [
+          "English",
+          "Jamal",
+          "Patel",
+          100000,
+          3
+        ],
+        [
+          "Finance",
+          "David",
+          "Okafor",
+          155000,
+          1
+        ],
+        [
+          "Finance",
+          "Yara",
+          "Reed",
+          81000,
+          2
+        ],
+        [
+          "Finance",
+          "Jada",
+          "Silva",
+          80000,
+          3
+        ],
+        [
+          "Fine and Performing Arts",
+          "Hannah",
+          "Taylor",
+          161000,
+          1
+        ],
+        [
+          "Fine and Performing Arts",
+          "Bianca",
+          "Ramirez",
+          148000,
+          2
+        ],
+        [
+          "Fine and Performing Arts",
+          "Bianca",
+          "Edwards",
+          101000,
+          3
+        ],
+        [
+          "Health Sciences",
+          "Liam",
+          "Clark",
+          155000,
+          1
+        ],
+        [
+          "Health Sciences",
+          "Grace",
+          "Flores",
+          145000,
+          2
+        ],
+        [
+          "Health Sciences",
+          "Diego",
+          "Young",
+          111000,
+          3
+        ],
+        [
+          "History",
+          "Darius",
+          "Price",
+          142000,
+          1
+        ],
+        [
+          "History",
+          "Jack",
+          "Abbott",
+          113000,
+          2
+        ],
+        [
+          "History",
+          "Diego",
+          "Carter",
+          90000,
+          3
+        ],
+        [
+          "History",
+          "James",
+          "Robinson",
+          90000,
+          3
+        ],
+        [
+          "Management",
+          "Grace",
+          "Robinson",
+          142000,
+          1
+        ],
+        [
+          "Management",
+          "Olivia",
+          "Ruiz",
+          115000,
+          2
+        ],
+        [
+          "Management",
+          "Leo",
+          "Sanders",
+          100000,
+          3
+        ],
+        [
+          "Marketing",
+          "Evelyn",
+          "Johnson",
+          155000,
+          1
+        ],
+        [
+          "Marketing",
+          "Jordan",
+          "Shah",
+          148000,
+          2
+        ],
+        [
+          "Marketing",
+          "Santiago",
+          "Ward",
+          137000,
+          3
+        ],
+        [
+          "Mathematics and Statistics",
+          "Nadia",
+          "Sanders",
+          148000,
+          1
+        ],
+        [
+          "Mathematics and Statistics",
+          "Julia",
+          "Thomas",
+          145000,
+          2
+        ],
+        [
+          "Mathematics and Statistics",
+          "Leo",
+          "Lee",
+          113000,
+          3
+        ],
+        [
+          "Nursing",
+          "Deja",
+          "Stewart",
+          148000,
+          1
+        ],
+        [
+          "Nursing",
+          "Jack",
+          "Perez",
+          139000,
+          2
+        ],
+        [
+          "Nursing",
+          "Javier",
+          "Ramirez",
+          104000,
+          3
+        ],
+        [
+          "Philosophy",
+          "Luna",
+          "Shah",
+          163000,
+          1
+        ],
+        [
+          "Philosophy",
+          "Wei",
+          "Young",
+          142000,
+          2
+        ],
+        [
+          "Philosophy",
+          "Jordan",
+          "Campbell",
+          37000,
+          3
+        ],
+        [
+          "Physics",
+          "Evelyn",
+          "Hernandez",
+          155000,
+          1
+        ],
+        [
+          "Physics",
+          "Rahul",
+          "Baker",
+          72000,
+          2
+        ],
+        [
+          "Physics",
+          "Caleb",
+          "Khan",
+          39000,
+          3
+        ],
+        [
+          "Political Science",
+          "Nia",
+          "Anderson",
+          143000,
+          1
+        ],
+        [
+          "Political Science",
+          "Zara",
+          "White",
+          143000,
+          1
+        ],
+        [
+          "Political Science",
+          "James",
+          "Martin",
+          142000,
+          2
+        ],
+        [
+          "Political Science",
+          "Isabella",
+          "Singh",
+          89000,
+          3
+        ],
+        [
+          "Psychology",
+          "Camila",
+          "Taylor",
+          148000,
+          1
+        ],
+        [
+          "Psychology",
+          "Theo",
+          "Mitchell",
+          104000,
+          2
+        ],
+        [
+          "Psychology",
+          "Nathan",
+          "Kelly",
+          91000,
+          3
+        ],
+        [
+          "Sociology and Anthropology",
+          "Mila",
+          "Baker",
+          162000,
+          1
+        ],
+        [
+          "Sociology and Anthropology",
+          "Jordan",
+          "Ortiz",
+          147000,
+          2
+        ],
+        [
+          "Sociology and Anthropology",
+          "Rahul",
+          "Roberts",
+          42000,
+          3
+        ],
+        [
+          "Theological Studies",
+          "Bianca",
+          "Turner",
+          148000,
+          1
+        ],
+        [
+          "Theological Studies",
+          "Anika",
+          "Kim",
+          131000,
+          2
+        ],
+        [
+          "Theological Studies",
+          "Naomi",
+          "Morgan",
+          84000,
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-hard-2",
+    "track": "pandas",
+    "difficulty": "hard",
+    "title": "Monthly tuition: running total and 3-month moving average",
+    "tags": [
+      "cumsum",
+      "rolling",
+      "string slicing"
+    ],
+    "prompt_md": "Using **posted** payments only (`tuition_payments.status == 'posted'`), aggregate amounts by calendar month of `paid_on` (`YYYY-MM`, the first 7 characters of the ISO date).\n\n`result`, sorted by month: `month`, `total` (sum, rounded 2), `running_total` (cumulative sum of `total`, rounded 2), `moving_avg_3` (mean of this and the previous two months — fewer at the start — rounded 2).",
+    "example": {
+      "input_md": "`paid_on` is text like `'2024-08-30'`.",
+      "output": {
+        "columns": [
+          "month",
+          "total",
+          "running_total",
+          "moving_avg_3"
+        ],
+        "rows": [
+          [
+            "2022-07",
+            296450.0,
+            296450.0,
+            296450.0
+          ],
+          [
+            "2022-08",
+            1278410.0,
+            1574860.0,
+            787430.0
+          ]
+        ],
+        "total": 33
+      }
+    },
+    "hints": [
+      "`p.paid_on.str[:7]` extracts the month; `groupby('month').amount.sum()`.",
+      "`.cumsum()` and `.rolling(3, min_periods=1).mean()` on the monthly totals."
+    ],
+    "starter": "p = tuition_payments[tuition_payments.status == 'posted'].copy()\np['month'] = p.paid_on.str[:7]\nmonthly = \nresult = \n",
+    "orderMatters": true,
+    "decimals": 2,
+    "solution": "p = tuition_payments[tuition_payments.status == 'posted'].copy()\np['month'] = p.paid_on.str[:7]\nmonthly = p.groupby('month').amount.sum().round(2).rename('total').reset_index().sort_values('month')\nmonthly['running_total'] = monthly.total.cumsum().round(2)\nmonthly['moving_avg_3'] = monthly.total.rolling(3, min_periods=1).mean().round(2)\nresult = monthly",
+    "expected": {
+      "columns": [
+        "month",
+        "total",
+        "running_total",
+        "moving_avg_3"
+      ],
+      "rows": [
+        [
+          "2022-07",
+          296450.0,
+          296450.0,
+          296450.0
+        ],
+        [
+          "2022-08",
+          1278410.0,
+          1574860.0,
+          787430.0
+        ],
+        [
+          "2022-09",
+          1502095.0,
+          3076955.0,
+          1025651.67
+        ],
+        [
+          "2022-10",
+          1576820.0,
+          4653775.0,
+          1452441.67
+        ],
+        [
+          "2022-11",
+          515480.0,
+          5169255.0,
+          1198131.67
+        ],
+        [
+          "2022-12",
+          592900.0,
+          5762155.0,
+          895066.67
+        ],
+        [
+          "2023-01",
+          1447950.0,
+          7210105.0,
+          852110.0
+        ],
+        [
+          "2023-02",
+          1366120.0,
+          8576225.0,
+          1135656.67
+        ],
+        [
+          "2023-03",
+          1059870.0,
+          9636095.0,
+          1291313.33
+        ],
+        [
+          "2023-04",
+          368235.0,
+          10004330.0,
+          931408.33
+        ],
+        [
+          "2023-05",
+          58310.0,
+          10062640.0,
+          495471.67
+        ],
+        [
+          "2023-07",
+          289100.0,
+          10351740.0,
+          238548.33
+        ],
+        [
+          "2023-08",
+          1707405.0,
+          12059145.0,
+          684938.33
+        ],
+        [
+          "2023-09",
+          2362535.0,
+          14421680.0,
+          1453013.33
+        ],
+        [
+          "2023-10",
+          1918840.0,
+          16340520.0,
+          1996260.0
+        ],
+        [
+          "2023-11",
+          691635.0,
+          17032155.0,
+          1657670.0
+        ],
+        [
+          "2023-12",
+          966525.0,
+          17998680.0,
+          1192333.33
+        ],
+        [
+          "2024-01",
+          1647380.0,
+          19646060.0,
+          1101846.67
+        ],
+        [
+          "2024-02",
+          2143995.0,
+          21790055.0,
+          1585966.67
+        ],
+        [
+          "2024-03",
+          1689275.0,
+          23479330.0,
+          1826883.33
+        ],
+        [
+          "2024-04",
+          531405.0,
+          24010735.0,
+          1454891.67
+        ],
+        [
+          "2024-05",
+          72765.0,
+          24083500.0,
+          764481.67
+        ],
+        [
+          "2024-07",
+          502250.0,
+          24585750.0,
+          368806.67
+        ],
+        [
+          "2024-08",
+          2138115.0,
+          26723865.0,
+          904376.67
+        ],
+        [
+          "2024-09",
+          3307010.0,
+          30030875.0,
+          1982458.33
+        ],
+        [
+          "2024-10",
+          2811130.0,
+          32842005.0,
+          2752085.0
+        ],
+        [
+          "2024-11",
+          995435.0,
+          33837440.0,
+          2371191.67
+        ],
+        [
+          "2024-12",
+          1005480.0,
+          34842920.0,
+          1604015.0
+        ],
+        [
+          "2025-01",
+          2270905.0,
+          37113825.0,
+          1423940.0
+        ],
+        [
+          "2025-02",
+          2535505.0,
+          39649330.0,
+          1937296.67
+        ],
+        [
+          "2025-03",
+          2533300.0,
+          42182630.0,
+          2446570.0
+        ],
+        [
+          "2025-04",
+          669095.0,
+          42851725.0,
+          1912633.33
+        ],
+        [
+          "2025-05",
+          102655.0,
+          42954380.0,
+          1101683.33
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-hard-3",
+    "track": "pandas",
+    "difficulty": "hard",
+    "title": "Everything you must take before Compilers",
+    "tags": [
+      "transitive closure",
+      "iterative merge",
+      "graph"
+    ],
+    "prompt_md": "`course_prerequisites` is a directed graph (`course_id` requires `prereq_course_id`). Find **every** direct or indirect prerequisite of the course titled **'Compilers'**.\n\n`result`: `course_code`, `title`, `depth` — the *shortest* number of hops from Compilers (direct prerequisites = 1); each course once, with its minimum depth; sorted by `depth` then `course_code`.",
+    "example": {
+      "input_md": "Expand a frontier: merge the current frontier with `course_prerequisites` on `course_id`, increment depth, drop courses already found, repeat until nothing new.",
+      "output": {
+        "columns": [
+          "course_code",
+          "title",
+          "depth"
+        ],
+        "rows": [
+          [
+            "CSCI 2710",
+            "Algorithms",
+            1
+          ],
+          [
+            "CSCI 1780",
+            "Data Structures",
+            2
+          ]
+        ],
+        "total": 6
+      }
+    },
+    "hints": [
+      "Keep a `found` DataFrame of (course_id, depth). Each iteration: `frontier.merge(course_prerequisites, on='course_id')` yields the next layer.",
+      "Stop when the frontier is empty. Finally `groupby('course_id').depth.min()` and merge course codes/titles."
+    ],
+    "starter": "target = courses.loc[courses.title == 'Compilers', 'course_id'].iloc[0]\nfrontier = course_prerequisites[course_prerequisites.course_id == target][['prereq_course_id']].rename(columns={'prereq_course_id': 'course_id'})\nfrontier['depth'] = 1\nfound = frontier.copy()\nwhile not frontier.empty:\n    # expand one hop\n    break\nresult = \n",
+    "orderMatters": true,
+    "solution": "target = courses.loc[courses.title == 'Compilers', 'course_id'].iloc[0]\nfrontier = course_prerequisites[course_prerequisites.course_id == target][['prereq_course_id']].rename(columns={'prereq_course_id': 'course_id'})\nfrontier['depth'] = 1\nfound = frontier.copy()\nwhile not frontier.empty:\n    nxt = frontier.merge(course_prerequisites, on='course_id')[['prereq_course_id', 'depth']].rename(columns={'prereq_course_id': 'course_id'})\n    nxt['depth'] = nxt.depth + 1\n    nxt = nxt[~nxt.course_id.isin(found.course_id)].drop_duplicates('course_id')\n    found = pd.concat([found, nxt])\n    frontier = nxt\nresult = (found.groupby('course_id').depth.min().reset_index()\n          .merge(courses[['course_id', 'course_code', 'title']], on='course_id')[['course_code', 'title', 'depth']]\n          .sort_values(['depth', 'course_code']))",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title",
+        "depth"
+      ],
+      "rows": [
+        [
+          "CSCI 2710",
+          "Algorithms",
+          1
+        ],
+        [
+          "CSCI 1780",
+          "Data Structures",
+          2
+        ],
+        [
+          "CSCI 2470",
+          "Discrete Mathematics",
+          2
+        ],
+        [
+          "CSCI 1690",
+          "Object-Oriented Programming",
+          3
+        ],
+        [
+          "MATH 1020",
+          "College Algebra",
+          3
+        ],
+        [
+          "CSCI 1430",
+          "Introduction to Computer Science",
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-hard-4",
+    "track": "pandas",
+    "difficulty": "hard",
+    "title": "Students who took a term off",
+    "tags": [
+      "shift/diff",
+      "cumsum",
+      "consecutive runs"
+    ],
+    "prompt_md": "`term_id` is chronological. A student is enrolled in a term if they have any `enrollments` row for a section of that term. Find students whose enrolled terms contain a **gap**.\n\n`result`: `student_id`, `n_islands` (number of separate runs of consecutive terms), `longest_streak` (longest run length), only for students with more than one island, sorted by `student_id`.",
+    "example": {
+      "input_md": "Terms {1,2,4,5,6} → 2 islands, longest streak 3.",
+      "output": {
+        "columns": [
+          "student_id",
+          "n_islands",
+          "longest_streak"
+        ],
+        "rows": [
+          [
+            1013,
+            2,
+            4
+          ],
+          [
+            1016,
+            2,
+            3
+          ]
+        ],
+        "total": 42
+      }
+    },
+    "hints": [
+      "Get distinct (student_id, term_id) pairs sorted; within each student, `term_id.diff() != 1` marks the start of a new run; `.cumsum()` of that flag labels the runs.",
+      "Group by (student_id, run) for lengths, then by student for the count and max."
+    ],
+    "starter": "st = (enrollments.merge(sections[['section_id', 'term_id']], on='section_id')[['student_id', 'term_id']]\n      .drop_duplicates().sort_values(['student_id', 'term_id']))\nst['new_run'] = st.groupby('student_id').term_id.diff() != 1\nst['island'] = \nresult = \n",
+    "orderMatters": true,
+    "solution": "st = (enrollments.merge(sections[['section_id', 'term_id']], on='section_id')[['student_id', 'term_id']]\n      .drop_duplicates().sort_values(['student_id', 'term_id']))\nst['island'] = (st.groupby('student_id').term_id.diff() != 1).cumsum()\nisl = st.groupby(['student_id', 'island']).size().rename('len').reset_index()\nagg = isl.groupby('student_id').agg(n_islands=('len', 'size'), longest_streak=('len', 'max')).reset_index()\nresult = agg[agg.n_islands > 1].sort_values('student_id')",
+    "expected": {
+      "columns": [
+        "student_id",
+        "n_islands",
+        "longest_streak"
+      ],
+      "rows": [
+        [
+          1013,
+          2,
+          4
+        ],
+        [
+          1016,
+          2,
+          3
+        ],
+        [
+          1028,
+          2,
+          3
+        ],
+        [
+          1039,
+          2,
+          3
+        ],
+        [
+          1041,
+          2,
+          3
+        ],
+        [
+          1042,
+          2,
+          3
+        ],
+        [
+          1059,
+          2,
+          3
+        ],
+        [
+          1065,
+          2,
+          3
+        ],
+        [
+          1087,
+          2,
+          3
+        ],
+        [
+          1090,
+          2,
+          2
+        ],
+        [
+          1096,
+          2,
+          2
+        ],
+        [
+          1103,
+          2,
+          3
+        ],
+        [
+          1107,
+          2,
+          3
+        ],
+        [
+          1109,
+          2,
+          2
+        ],
+        [
+          1128,
+          2,
+          4
+        ],
+        [
+          1132,
+          2,
+          4
+        ],
+        [
+          1135,
+          2,
+          2
+        ],
+        [
+          1155,
+          2,
+          3
+        ],
+        [
+          1156,
+          2,
+          4
+        ],
+        [
+          1169,
+          2,
+          3
+        ],
+        [
+          1170,
+          2,
+          3
+        ],
+        [
+          1180,
+          2,
+          4
+        ],
+        [
+          1200,
+          2,
+          3
+        ],
+        [
+          1204,
+          2,
+          3
+        ],
+        [
+          1213,
+          2,
+          4
+        ],
+        [
+          1272,
+          2,
+          3
+        ],
+        [
+          1279,
+          2,
+          4
+        ],
+        [
+          1282,
+          2,
+          3
+        ],
+        [
+          1284,
+          2,
+          4
+        ],
+        [
+          1292,
+          2,
+          4
+        ],
+        [
+          1298,
+          2,
+          4
+        ],
+        [
+          1337,
+          2,
+          3
+        ],
+        [
+          1362,
+          2,
+          4
+        ],
+        [
+          1377,
+          2,
+          4
+        ],
+        [
+          1397,
+          2,
+          3
+        ],
+        [
+          1401,
+          2,
+          4
+        ],
+        [
+          1447,
+          2,
+          4
+        ],
+        [
+          1456,
+          2,
+          3
+        ],
+        [
+          1463,
+          2,
+          4
+        ],
+        [
+          1479,
+          2,
+          4
+        ],
+        [
+          1480,
+          2,
+          3
+        ],
+        [
+          1492,
+          2,
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "id": "pandas-hard-5",
+    "track": "pandas",
+    "difficulty": "hard",
+    "title": "Median and share of payroll, per department",
+    "tags": [
+      "transform",
+      "median",
+      "percent of group"
+    ],
+    "prompt_md": "For every employee in the **Biology** or **Physics** department, show how they sit within their department's payroll.\n\n`result`: `department`, `last_name`, `salary`, `dept_median` (median salary of that department), `pct_of_dept` (this salary as a percentage of the department's total payroll, rounded to 2 decimals). Sort by `department`, then `salary` descending, then `last_name`.",
+    "example": {
+      "input_md": "`groupby(...).salary.transform('median')` broadcasts the group statistic back onto every row.",
+      "output": {
+        "columns": [
+          "department",
+          "last_name",
+          "salary",
+          "dept_median",
+          "pct_of_dept"
+        ],
+        "rows": [
+          [
+            "Biology",
+            "Abbott",
+            142000,
+            98000.0,
+            9.83
+          ],
+          [
+            "Biology",
+            "Hernandez",
+            142000,
+            98000.0,
+            9.83
+          ]
+        ],
+        "total": 18
+      }
+    },
+    "hints": [
+      "`transform` keeps the original row count, unlike `agg`.",
+      "`100 * m.salary / m.groupby('department').salary.transform('sum')`"
+    ],
+    "starter": "m = employees.merge(departments[['department_id', 'name']], on='department_id').rename(columns={'name': 'department'})\nm = m[m.department.isin(['Biology', 'Physics'])].copy()\nm['dept_median'] = \nm['pct_of_dept'] = \nresult = \n",
+    "orderMatters": true,
+    "decimals": 2,
+    "solution": "m = employees.merge(departments[['department_id', 'name']], on='department_id').rename(columns={'name': 'department'})\nm = m[m.department.isin(['Biology', 'Physics'])].copy()\nm['dept_median'] = m.groupby('department').salary.transform('median')\nm['pct_of_dept'] = (100 * m.salary / m.groupby('department').salary.transform('sum')).round(2)\nresult = m[['department', 'last_name', 'salary', 'dept_median', 'pct_of_dept']].sort_values(['department', 'salary', 'last_name'], ascending=[True, False, True])",
+    "expected": {
+      "columns": [
+        "department",
+        "last_name",
+        "salary",
+        "dept_median",
+        "pct_of_dept"
+      ],
+      "rows": [
+        [
+          "Biology",
+          "Abbott",
+          142000,
+          98000.0,
+          9.83
+        ],
+        [
+          "Biology",
+          "Hernandez",
+          142000,
+          98000.0,
+          9.83
+        ],
+        [
+          "Biology",
+          "Howard",
+          142000,
+          98000.0,
+          9.83
+        ],
+        [
+          "Biology",
+          "Flores",
+          132000,
+          98000.0,
+          9.14
+        ],
+        [
+          "Biology",
+          "Perez",
+          132000,
+          98000.0,
+          9.14
+        ],
+        [
+          "Biology",
+          "Young",
+          104000,
+          98000.0,
+          7.2
+        ],
+        [
+          "Biology",
+          "Gomez",
+          103000,
+          98000.0,
+          7.13
+        ],
+        [
+          "Biology",
+          "Khan",
+          98000,
+          98000.0,
+          6.79
+        ],
+        [
+          "Biology",
+          "Reed",
+          98000,
+          98000.0,
+          6.79
+        ],
+        [
+          "Biology",
+          "Stewart",
+          90000,
+          98000.0,
+          6.23
+        ],
+        [
+          "Biology",
+          "Gupta",
+          70000,
+          98000.0,
+          4.85
+        ],
+        [
+          "Biology",
+          "Adeyemi",
+          66000,
+          98000.0,
+          4.57
+        ],
+        [
+          "Biology",
+          "Howard",
+          46000,
+          98000.0,
+          3.19
+        ],
+        [
+          "Biology",
+          "Thomas",
+          41000,
+          98000.0,
+          2.84
+        ],
+        [
+          "Biology",
+          "Ortiz",
+          38000,
+          98000.0,
+          2.63
+        ],
+        [
+          "Physics",
+          "Hernandez",
+          155000,
+          72000.0,
+          58.27
+        ],
+        [
+          "Physics",
+          "Baker",
+          72000,
+          72000.0,
+          27.07
+        ],
+        [
+          "Physics",
+          "Khan",
+          39000,
+          72000.0,
+          14.66
+        ]
+      ]
+    }
+  }
+]

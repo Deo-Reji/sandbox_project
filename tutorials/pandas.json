@@ -1,0 +1,75 @@
+{
+  "title": "pandas — function-by-function reference",
+  "intro_md": "Python runs in your browser via **Pyodide** (pandas 2.3, numpy 2.2). The first load takes 10–20 s; after that runs are instant.\n\n**Runtime contract**\n\n- Every table is preloaded as a DataFrame named after it: `students`, `enrollments`, `sections`, `courses`, … (see the Schema drawer). `pd` and `np` are imported.\n- Assign your final answer to a variable named **`result`** (a DataFrame; a Series or scalar is converted for you).\n- `print()` output is shown above the result. Each run starts from a fresh copy of the data.\n- No files, no network, 15-second limit per run.\n- `*_id` columns that contain NULLs are nullable `Int64`; dates are **strings** (use `pd.to_datetime`).",
+  "sandbox_md": "Free play on the full dataset. Assign to `result` to see a table; `print()` for anything else.",
+  "sandbox_starter": "# All tables are DataFrames: students, employees, enrollments, sections, courses, departments, ...\nresult = (employees.merge(departments[['department_id', 'name']], on='department_id')\n          .groupby('name').salary.agg(['count', 'mean', 'max'])\n          .round(0).sort_values('count', ascending=False).reset_index())\n",
+  "sections": [
+    {
+      "heading": "Looking at a DataFrame",
+      "body_md": "`df.head()`, `df.shape`, `df.dtypes`, `df.info()`, `df.describe()` (numeric summary), `df.columns`, `df['col'].unique()`, `df['col'].value_counts()`, `df.isna().sum()`.",
+      "examples": [
+        { "label": "describe and value_counts", "code": "print(students.describe())\nresult = students.home_state.value_counts().reset_index()" },
+        { "label": "Null counts per column", "code": "result = students.isna().sum().reset_index(name='nulls').rename(columns={'index': 'column'})" }
+      ]
+    },
+    {
+      "heading": "Selecting, filtering, sorting",
+      "body_md": "Columns: `df['a']`, `df[['a', 'b']]`, `df.a`. Rows: boolean masks `df[df.gpa >= 3.5]`; combine with `&`, `|`, `~` and parentheses. `df.loc[mask, ['a','b']]`, `df.iloc[0:5]`. `df.query('gpa >= 3.5 and home_state == \"MO\"')`. Membership: `.isin([...])`; strings: `.str.startswith`, `.str.contains(pat, case=False)`. Sorting: `sort_values(['a', 'b'], ascending=[False, True])`. `drop_duplicates()`, `nlargest(n, 'col')`, `nsmallest`.",
+      "examples": [
+        { "label": "Mask + sort", "code": "mask = (students.home_state == 'MO') & (students.gpa >= 3.5)\nresult = students.loc[mask, ['first_name', 'last_name', 'gpa']].sort_values('gpa', ascending=False)" },
+        { "label": "isin + str.contains", "code": "result = courses[courses.title.str.contains('bio', case=False) | courses.course_code.str.startswith('CHEM')]" },
+        { "label": "nlargest", "code": "result = employees.nlargest(5, 'salary')[['last_name', 'title', 'salary']]" }
+      ]
+    },
+    {
+      "heading": "Aggregation and groupby",
+      "body_md": "`df.groupby('k').size()`, `.count()`, `.sum()`, `.mean()`, `.agg({'col': ['mean', 'max']})` or named aggregation `.agg(n=('col', 'size'), avg=('col', 'mean'))`. `reset_index()` turns the group keys back into columns (`as_index=False` does it up front). `transform('mean')` broadcasts a group statistic back onto every row (percent-of-group, group medians). `nth(1)` picks the second row of each group.",
+      "examples": [
+        { "label": "Named aggregation", "code": "result = (students.groupby('home_state')\n          .agg(n=('student_id', 'size'), avg_gpa=('gpa', 'mean'), top_gpa=('gpa', 'max'))\n          .round(2).reset_index().sort_values('n', ascending=False))" },
+        { "label": "transform: percent of group", "code": "m = employees.merge(departments[['department_id', 'name']], on='department_id')\nm['pct_of_dept'] = (100 * m.salary / m.groupby('name').salary.transform('sum')).round(2)\nresult = m[['name', 'last_name', 'salary', 'pct_of_dept']].sort_values(['name', 'salary'], ascending=[True, False]).head(20)" },
+        { "label": "Filter groups after aggregating", "code": "counts = enrollments.groupby('section_id').size().reset_index(name='n')\nresult = counts[counts.n >= 22].sort_values('n', ascending=False)" }
+      ]
+    },
+    {
+      "heading": "merge: inner, left, anti, self",
+      "body_md": "`a.merge(b, on='key')` (inner by default), `how='left'` keeps all of `a`, `left_on`/`right_on` for different names, `suffixes=('_x','_y')` when columns clash. **Anti-join**: `how='left', indicator=True` then keep `_merge == 'left_only'`. **Self-merge**: merge with a renamed copy of the same table. Select the columns you need from the right side *before* merging to keep results tidy.",
+      "examples": [
+        { "label": "Inner merge chain", "code": "result = (sections.merge(courses[['course_id', 'course_code']], on='course_id')\n          .merge(terms[['term_id', 'name']], on='term_id')\n          [['course_code', 'name', 'section_number', 'capacity']].head(15))" },
+        { "label": "Anti-join with indicator", "code": "m = departments.merge(employees[['department_id']].drop_duplicates(), on='department_id', how='left', indicator=True)\nresult = m[m._merge == 'left_only'][['name']]" },
+        { "label": "Self-merge: employee → manager", "code": "mgr = employees[['employee_id', 'last_name']].rename(columns={'employee_id': 'manager_id', 'last_name': 'manager'})\nresult = employees.merge(mgr, on='manager_id', how='left')[['last_name', 'title', 'manager']].head(15)" }
+      ]
+    },
+    {
+      "heading": "Reshaping: pivot_table, cut, np.select",
+      "body_md": "`pd.pivot_table(df, index='r', columns='c', values='v', aggfunc='count', fill_value=0)` builds a cross-tab; `reset_index()` and `columns.name = None` flatten it back. `pd.cut(series, bins, labels)` bins numbers; `np.select([cond1, cond2], [val1, val2], default)` is a vectorised CASE. `pd.crosstab(a, b)` is the quick count version. `melt` goes the other way (wide → long).",
+      "examples": [
+        { "label": "np.select bands + pivot_table", "code": "s = students.copy()\ns['band'] = np.select([s.gpa.isna(), s.gpa >= 3.5, s.gpa >= 3.0], ['no_gpa', 'honors', 'good'], default='below')\npv = pd.pivot_table(s, index='enrollment_year', columns='band', values='student_id', aggfunc='count', fill_value=0)\nresult = pv.reset_index()\nresult.columns.name = None" },
+        { "label": "pd.cut", "code": "e = employees.copy()\ne['salary_band'] = pd.cut(e.salary, bins=[0, 60000, 100000, 150000, 1e9], labels=['<60k', '60-100k', '100-150k', '150k+'])\nresult = e.salary_band.value_counts().reset_index()" }
+      ]
+    },
+    {
+      "heading": "Ranking, rolling windows, cumulative sums, shifts",
+      "body_md": "`groupby('k').col.rank(method='dense', ascending=False)` = `DENSE_RANK`; `method='min'` = `RANK`, `method='first'` = `ROW_NUMBER`. `cumsum()`, `cummax()`; `rolling(3, min_periods=1).mean()` moving average; `expanding().mean()`; `shift(1)` previous row, `diff()` difference to previous row. The shift/diff + `cumsum` trick labels runs of consecutive values (gaps-and-islands).",
+      "examples": [
+        { "label": "Dense rank per group", "code": "m = employees.merge(departments[['department_id', 'name']], on='department_id')\nm['rnk'] = m.groupby('name').salary.rank(method='dense', ascending=False).astype(int)\nresult = m[m.rnk <= 2][['name', 'last_name', 'salary', 'rnk']].sort_values(['name', 'rnk'])" },
+        { "label": "Running total + rolling mean", "code": "p = tuition_payments[tuition_payments.status == 'posted'].copy()\np['month'] = p.paid_on.str[:7]\nm = p.groupby('month').amount.sum().reset_index(name='total')\nm['running'] = m.total.cumsum()\nm['avg3'] = m.total.rolling(3, min_periods=1).mean().round(2)\nresult = m" },
+        { "label": "Consecutive runs (islands)", "code": "st = (enrollments.merge(sections[['section_id', 'term_id']], on='section_id')[['student_id', 'term_id']]\n      .drop_duplicates().sort_values(['student_id', 'term_id']))\nst['island'] = (st.groupby('student_id').term_id.diff() != 1).cumsum()\nresult = st.groupby(['student_id', 'island']).term_id.agg(['min', 'max', 'count']).reset_index().head(20)" }
+      ]
+    },
+    {
+      "heading": "Strings and dates",
+      "body_md": "String accessor: `.str.strip()`, `.str.upper()`, `.str.lower()`, `.str.title()`, `.str[:7]`, `.str.len()`, `.str.replace(pat, repl, regex=True)`, `.str.split('-')`, `.str.match(regex)`, `.str.extract(r'(\\d+)')`. Dates: `pd.to_datetime(col)` then `.dt.year`, `.dt.month`, `.dt.strftime('%Y-%m')`; `errors='coerce'` turns junk into `NaT`; `format='mixed'` parses several layouts. Differences: `(d2 - d1).dt.days`.",
+      "examples": [
+        { "label": "Date parts", "code": "e = employees.copy()\ne['hire'] = pd.to_datetime(e.hire_date)\ne['years'] = ((pd.Timestamp('2025-01-01') - e.hire).dt.days / 365.25).round(1)\nresult = e[['last_name', 'hire_date', 'years']].sort_values('years', ascending=False).head(10)" },
+        { "label": "String cleanup", "code": "s = students.copy()\ns['email_domain'] = s.email.str.split('@').str[1]\ns['initials'] = s.first_name.str[0] + s.last_name.str[0]\nresult = s[['first_name', 'last_name', 'initials', 'email_domain']].head(10)" }
+      ]
+    },
+    {
+      "heading": "Idioms and pitfalls",
+      "body_md": "- Use `.copy()` before adding columns to a filtered frame (avoids `SettingWithCopyWarning`).\n- `df[df.a == 1]['b'] = 2` does not work (chained assignment); use `df.loc[df.a == 1, 'b'] = 2`.\n- Comparing with NaN is always False; use `.isna()` / `.notna()`.\n- `groupby(...).size()` counts rows, `.count()` counts non-null values per column.\n- After `groupby`, keys are the index — `reset_index()` before merging or returning.\n- Integer columns with NaN become float; `Int64` (capital I) keeps them integer-like.\n- Prefer vectorised operations to Python loops; a loop over 7,500 enrollment rows is fine, a nested one is not (15 s limit).",
+      "examples": [
+        { "label": "loc assignment", "code": "s = students.copy()\ns.loc[s.gpa.isna(), 'status_note'] = 'no gpa yet'\nresult = s[['student_id', 'gpa', 'status_note']].head(10)" }
+      ]
+    }
+  ]
+}

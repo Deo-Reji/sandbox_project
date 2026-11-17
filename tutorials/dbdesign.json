@@ -1,0 +1,96 @@
+{
+  "title": "Database design with SQLite DDL",
+  "intro_md": "This tab gives you an **empty** SQLite database with foreign keys switched on (`PRAGMA foreign_keys = ON`). You write `CREATE TABLE` statements; **Run** rebuilds the schema from scratch and draws an ER diagram; **Check Answer** runs hidden behavioural tests — inserts that must succeed, inserts that must fail, and PRAGMA inspections — so any valid design passes.\n\nYou can finish a script with a `SELECT` to see data you inserted. Useful introspection: `SELECT name, sql FROM sqlite_master;`, `PRAGMA table_info(t);`, `PRAGMA foreign_key_list(t);`, `PRAGMA index_list(t);`.",
+  "sandbox_md": "Empty database, nothing graded. Each Run starts from scratch, so keep your whole script in the editor. Reset DB also clears it.",
+  "sandbox_starter": "CREATE TABLE departments (\n  department_id INTEGER PRIMARY KEY,\n  name          TEXT NOT NULL UNIQUE\n);\nCREATE TABLE employees (\n  employee_id   INTEGER PRIMARY KEY,\n  name          TEXT NOT NULL,\n  department_id INTEGER REFERENCES departments(department_id),\n  manager_id    INTEGER REFERENCES employees(employee_id),\n  salary        INTEGER NOT NULL CHECK (salary > 0)\n);\nINSERT INTO departments VALUES (1, 'Biology');\nINSERT INTO employees VALUES (1, 'Ava Chen', 1, NULL, 120000);\nINSERT INTO employees VALUES (2, 'Leo Park', 1, 1, 90000);\nSELECT * FROM employees;\n",
+  "sections": [
+    {
+      "heading": "CREATE TABLE and data types",
+      "body_md": "SQLite has five storage classes — `INTEGER`, `REAL`, `TEXT`, `BLOB`, `NULL` — and *type affinity*: a column declared `INTEGER` will store the number 42 for `'42'`, but it will happily store `'abc'` too unless a CHECK stops it. Dates are stored as ISO `TEXT` (`'2024-08-24'`), which sorts and compares correctly. `INTEGER PRIMARY KEY` is the rowid alias and auto-assigns ids. `IF NOT EXISTS` avoids errors when re-running.",
+      "examples": [
+        {
+          "label": "A minimal table",
+          "code": "CREATE TABLE terms (\n  term_id    INTEGER PRIMARY KEY,\n  name       TEXT NOT NULL,\n  start_date TEXT NOT NULL\n);\nINSERT INTO terms (name, start_date) VALUES ('Fall 2024', '2024-08-24');\nSELECT * FROM terms;"
+        },
+        {
+          "label": "Inspect what you built",
+          "code": "CREATE TABLE t (a INTEGER PRIMARY KEY, b TEXT NOT NULL DEFAULT 'x', c REAL CHECK (c >= 0));\nPRAGMA table_info(t);"
+        }
+      ]
+    },
+    {
+      "heading": "PRIMARY KEY, NOT NULL, UNIQUE, DEFAULT, CHECK",
+      "body_md": "- `PRIMARY KEY` — unique identifier, implies UNIQUE (and NOT NULL for INTEGER PRIMARY KEY). Composite: `PRIMARY KEY (a, b)` at table level.\n- `NOT NULL` — the column must have a value. `UNIQUE` alone still allows several NULLs.\n- `UNIQUE` — no two rows share the value(s); table-level `UNIQUE (a, b)` for combinations.\n- `DEFAULT value` — used when the INSERT omits the column (`DEFAULT CURRENT_DATE`, `DEFAULT 'active'`).\n- `CHECK (expr)` — business rule enforced on every insert/update: `CHECK (capacity > 0)`, `CHECK (status IN ('a','b'))`, `CHECK (end_date IS NULL OR end_date > start_date)`.",
+      "examples": [
+        {
+          "label": "All five constraints",
+          "code": "CREATE TABLE rooms (\n  room_id     INTEGER PRIMARY KEY,\n  building    TEXT NOT NULL,\n  room_number TEXT NOT NULL,\n  capacity    INTEGER NOT NULL CHECK (capacity > 0),\n  room_type   TEXT NOT NULL DEFAULT 'lecture' CHECK (room_type IN ('lecture','lab','seminar')),\n  UNIQUE (building, room_number)\n);\nINSERT INTO rooms (building, room_number, capacity) VALUES ('Ritter', '101', 40);\nSELECT * FROM rooms;"
+        },
+        {
+          "label": "See a constraint reject a row",
+          "code": "CREATE TABLE rooms (room_id INTEGER PRIMARY KEY, capacity INTEGER CHECK (capacity > 0));\nINSERT INTO rooms VALUES (1, 0);",
+          "note_md": "This example is *meant* to fail: the error message is what Check Answer looks for when it tries bad inserts.",
+          "expectError": true
+        }
+      ]
+    },
+    {
+      "heading": "FOREIGN KEY and referential actions",
+      "body_md": "`child.col REFERENCES parent(pk)` (inline) or `FOREIGN KEY (col) REFERENCES parent(pk)` (table-level). With foreign keys ON, inserting a child that points nowhere fails, and deleting a referenced parent fails — unless you choose an action: `ON DELETE CASCADE` (delete children too), `ON DELETE SET NULL`, `ON DELETE RESTRICT`. Create the parent table first. A table may reference itself (`manager_id REFERENCES employees(employee_id)`), which models hierarchies.",
+      "examples": [
+        {
+          "label": "One-to-many",
+          "code": "CREATE TABLE departments (department_id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE);\nCREATE TABLE employees (\n  employee_id   INTEGER PRIMARY KEY,\n  name          TEXT NOT NULL,\n  department_id INTEGER REFERENCES departments(department_id)\n);\nINSERT INTO departments VALUES (1, 'Biology');\nINSERT INTO employees VALUES (1, 'Ava', 1);\nSELECT e.name, d.name AS department FROM employees e JOIN departments d USING (department_id);"
+        },
+        {
+          "label": "ON DELETE CASCADE",
+          "code": "CREATE TABLE courses (course_id INTEGER PRIMARY KEY, title TEXT NOT NULL);\nCREATE TABLE sections (\n  section_id INTEGER PRIMARY KEY,\n  course_id  INTEGER NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE\n);\nINSERT INTO courses VALUES (1, 'Databases');\nINSERT INTO sections VALUES (10, 1);\nDELETE FROM courses WHERE course_id = 1;\nSELECT COUNT(*) AS sections_left FROM sections;"
+        },
+        {
+          "label": "Self-reference",
+          "code": "CREATE TABLE employees (\n  employee_id INTEGER PRIMARY KEY,\n  name        TEXT NOT NULL,\n  manager_id  INTEGER REFERENCES employees(employee_id),\n  CHECK (manager_id <> employee_id)\n);\nINSERT INTO employees VALUES (1, 'President', NULL);\nINSERT INTO employees VALUES (2, 'Provost', 1);\nSELECT e.name, m.name AS manager FROM employees e LEFT JOIN employees m ON m.employee_id = e.manager_id;"
+        }
+      ]
+    },
+    {
+      "heading": "Many-to-many and composite keys",
+      "body_md": "Two entities that relate many-to-many (students ↔ clubs, courses ↔ prerequisites) need a **junction table** with one foreign key to each side. Its natural primary key is the pair of foreign keys, which also prevents duplicate links. Extra facts about the link (`role`, `joined_on`, `min_grade`) live on the junction table.",
+      "examples": [
+        {
+          "label": "Junction table",
+          "code": "CREATE TABLE students (student_id INTEGER PRIMARY KEY, name TEXT NOT NULL);\nCREATE TABLE clubs (club_id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE);\nCREATE TABLE memberships (\n  student_id INTEGER NOT NULL REFERENCES students(student_id),\n  club_id    INTEGER NOT NULL REFERENCES clubs(club_id),\n  role       TEXT NOT NULL DEFAULT 'member',\n  PRIMARY KEY (student_id, club_id)\n);\nINSERT INTO students VALUES (1, 'Ava'); INSERT INTO clubs VALUES (1, 'Chess');\nINSERT INTO memberships (student_id, club_id) VALUES (1, 1);\nSELECT * FROM memberships;"
+        }
+      ]
+    },
+    {
+      "heading": "ALTER TABLE and indexes",
+      "body_md": "`ALTER TABLE t ADD COLUMN c TYPE ...` (a NOT NULL column needs a DEFAULT), `ALTER TABLE t RENAME TO t2`, `ALTER TABLE t RENAME COLUMN a TO b`, `ALTER TABLE t DROP COLUMN c`. SQLite cannot add a constraint to an existing table — recreate it instead. `CREATE INDEX idx ON t(col)` speeds up filters/joins on `col`; `CREATE UNIQUE INDEX` doubles as a constraint. Primary keys and UNIQUE constraints get indexes automatically.",
+      "examples": [
+        {
+          "label": "Evolve a table",
+          "code": "CREATE TABLE payments (payment_id INTEGER PRIMARY KEY, student_id INTEGER NOT NULL, amount REAL NOT NULL);\nALTER TABLE payments ADD COLUMN method TEXT NOT NULL DEFAULT 'card';\nCREATE INDEX idx_payments_student ON payments(student_id);\nPRAGMA index_list(payments);"
+        }
+      ]
+    },
+    {
+      "heading": "Normalisation: 1NF, 2NF, 3NF",
+      "body_md": "- **1NF** — atomic values, no repeating groups (`phone1, phone2, phone3` → a phones table).\n- **2NF** — no non-key column depends on only *part* of a composite key (`(student_id, section_id) → course_title` is wrong: `course_title` depends on `section_id` alone).\n- **3NF** — no non-key column depends on another non-key column (`course_code → dept_code → dept_name`: move `dept_name` to a departments table).\n\nThe test: for each non-key column ask *what does this depend on?* If the answer is not \"the whole key, and nothing but the key\", split the table and link with a foreign key.",
+      "examples": [
+        {
+          "label": "A 3NF decomposition",
+          "code": "CREATE TABLE departments (dept_code TEXT PRIMARY KEY, dept_name TEXT NOT NULL);\nCREATE TABLE courses (course_code TEXT PRIMARY KEY, course_title TEXT NOT NULL, dept_code TEXT NOT NULL REFERENCES departments(dept_code));\nCREATE TABLE students (student_id INTEGER PRIMARY KEY, student_name TEXT NOT NULL);\nCREATE TABLE registrations (\n  student_id  INTEGER NOT NULL REFERENCES students(student_id),\n  course_code TEXT NOT NULL REFERENCES courses(course_code),\n  grade       TEXT,\n  PRIMARY KEY (student_id, course_code)\n);\nSELECT name FROM sqlite_master WHERE type = 'table';"
+        }
+      ]
+    },
+    {
+      "heading": "Temporal data (history tables)",
+      "body_md": "To keep history, store **validity periods**: `valid_from` (required) and `valid_to` (NULL while current). Rules worth enforcing: `CHECK (valid_to IS NULL OR valid_to > valid_from)`, and a key that includes `valid_from` so the same fact can recur at different times. Querying the current state: `WHERE valid_to IS NULL`; state on a date: `WHERE valid_from <= :d AND (valid_to IS NULL OR valid_to > :d)`.",
+      "examples": [
+        {
+          "label": "Major history",
+          "code": "CREATE TABLE student_major_history (\n  student_id INTEGER NOT NULL,\n  major_id   INTEGER NOT NULL,\n  valid_from TEXT NOT NULL,\n  valid_to   TEXT,\n  PRIMARY KEY (student_id, major_id, valid_from),\n  CHECK (valid_to IS NULL OR valid_to > valid_from)\n);\nINSERT INTO student_major_history VALUES (1, 1, '2022-08-24', '2023-05-12');\nINSERT INTO student_major_history VALUES (1, 2, '2023-08-24', NULL);\nSELECT * FROM student_major_history WHERE valid_to IS NULL;"
+        }
+      ]
+    }
+  ]
+}

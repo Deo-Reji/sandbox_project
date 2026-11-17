@@ -1,0 +1,68 @@
+{
+  "title": "Exploration — a data-quality field guide",
+  "intro_md": "The Exploration tab uses a **raw export** of four tables: `students_raw`, `employees_raw`, `enrollments_raw`, `payments_raw`. Every column is **text** (as in a fresh CSV import), with real defects injected deterministically by `data/make_messy.py`: NULLs vs empty strings vs placeholders (`N/A`, `unknown`, `-1`, `9999`, `TBD`), exact and near-duplicate rows, inconsistent casing and whitespace, mixed state spellings (`MO` / `Missouri` / `mo.`), mixed date formats, numbers stored as text (`$1,234.50`), impossible values (GPA 7.2, born in 2090), orphaned foreign keys, and a few rows whose columns are shifted.\n\nThe clean reference tables `students`, `employees`, `sections`, `departments`, `terms`, `courses` are also loaded so you can detect orphans.\n\nUse the **SQL / pandas** switch above the editor; every challenge is solvable in either. In pandas the raw frames are loaded with `dtype=str, keep_default_na=False`, so `''` stays `''` and nothing is silently turned into NaN. In SQL every raw column is `TEXT`.\n\n**Profiling checklist**: row count vs distinct key count → duplicates; `value_counts()` / `GROUP BY` on every categorical column → spelling variants and placeholders; pattern tests (`GLOB`, `str.match`) on dates and ids → format problems and shifted rows; min/max after numeric conversion → outliers; anti-joins to reference tables → orphans.",
+  "sandbox_md": "Explore the raw tables freely. Both engines see the same data; switch with the SQL / pandas toggle.",
+  "sandbox_starter": { "sql": "-- Every column of the *_raw tables is TEXT. Profile a column:\nSELECT gpa, COUNT(*) AS n\nFROM students_raw\nGROUP BY gpa\nORDER BY n DESC\nLIMIT 15;\n", "pandas": "# Raw frames are all strings; '' stays ''. Profile a column:\nresult = students_raw.gpa.value_counts(dropna=False).reset_index().head(15)\n" },
+  "sections": [
+    {
+      "heading": "NULL vs empty string vs placeholder",
+      "body_md": "Three different things look like \"missing\": a real NULL (`None`/`NaN`), an empty string `''`, and a human placeholder (`N/A`, `unknown`, `-1`, `9999`, `TBD`). Decide what *missing* means for the question, normalise, then count. SQL: `IS NULL`, `NULLIF(x, '')`, `COALESCE(a, b)`, `TRIM(x) IN (...)`. pandas: `isna()`, `replace({'N/A': None})`, `fillna`, `isin([...])`.",
+      "examples": [
+        { "label": "Count every flavour of missing (SQL)", "mode": "sql", "code": { "sql": "SELECT COUNT(*) AS rows_total,\n       SUM(gpa IS NULL) AS real_null,\n       SUM(gpa = '') AS empty_string,\n       SUM(TRIM(gpa) IN ('N/A', 'unknown', '-1')) AS placeholder\nFROM students_raw;", "pandas": "g = students_raw.gpa.str.strip()\nresult = pd.DataFrame({'rows_total': [len(g)], 'empty_string': [(g == '').sum()], 'placeholder': [g.isin(['N/A', 'unknown', '-1']).sum()]})" } },
+        { "label": "Normalise placeholders to NULL/NaN (pandas)", "mode": "pandas", "code": { "pandas": "g = students_raw.gpa.str.strip().replace({'': None, 'N/A': None, 'unknown': None, '-1': None})\ng = pd.to_numeric(g, errors='coerce')\nprint(g.isna().sum(), 'missing after normalising')\nresult = g.describe().reset_index()", "sql": "SELECT NULLIF(NULLIF(NULLIF(NULLIF(TRIM(gpa), ''), 'N/A'), 'unknown'), '-1') AS gpa_clean, COUNT(*) AS n\nFROM students_raw GROUP BY gpa_clean ORDER BY n DESC LIMIT 10;" } }
+      ]
+    },
+    {
+      "heading": "Whitespace, casing and label variants",
+      "body_md": "`' MO'`, `'mo.'`, `'Missouri'` are one state. Normalise with `TRIM`/`UPPER` (SQL: `TRIM(x, ' .')` strips spaces *and* dots), `str.strip()`/`str.upper()`, then map remaining synonyms with `CASE` or `replace({...})`. Always profile first (`GROUP BY col` / `value_counts()`) so the mapping covers every variant.",
+      "examples": [
+        { "label": "Profile a categorical column", "mode": "sql", "code": { "sql": "SELECT home_state, COUNT(*) AS n\nFROM students_raw\nGROUP BY home_state\nORDER BY n DESC;", "pandas": "result = students_raw.home_state.value_counts().reset_index()" } },
+        { "label": "Normalise status labels", "mode": "pandas", "code": { "pandas": "s = students_raw.status.str.strip().str.lower().replace({'act.': 'active', 'grad': 'graduated', 'withdrew': 'withdrawn', 'on leave': 'leave'})\nresult = s.value_counts().reset_index()", "sql": "SELECT CASE LOWER(TRIM(status)) WHEN 'act.' THEN 'active' WHEN 'grad' THEN 'graduated' WHEN 'withdrew' THEN 'withdrawn' WHEN 'on leave' THEN 'leave' ELSE LOWER(TRIM(status)) END AS status, COUNT(*) AS n\nFROM students_raw GROUP BY 1 ORDER BY n DESC;" } }
+      ]
+    },
+    {
+      "heading": "Duplicates: exact and near",
+      "body_md": "Exact duplicates: `COUNT(*) - COUNT(DISTINCT ...)` or `SELECT DISTINCT *`; pandas `duplicated()`, `drop_duplicates()`. Near-duplicates share a key (or a normalised name + email) but differ in casing/whitespace: group by the normalised key and look for `COUNT(*) > 1`; in pandas `duplicated(subset, keep=False)` on normalised columns.",
+      "examples": [
+        { "label": "Ids that appear more than once", "mode": "sql", "code": { "sql": "SELECT student_id, COUNT(*) AS n, COUNT(DISTINCT first_name || last_name || email) AS variants\nFROM students_raw\nGROUP BY student_id\nHAVING n > 1\nORDER BY variants DESC, student_id;", "pandas": "d = students_raw[students_raw.duplicated('student_id', keep=False)]\nresult = d.sort_values('student_id')" } },
+        { "label": "Dedupe on a normalised key", "mode": "pandas", "code": { "pandas": "s = students_raw.copy()\ns['key'] = s.email.str.strip().str.lower()\nprint(len(s), '->', s.drop_duplicates('key').shape[0], 'rows after dedupe')\nresult = s.drop_duplicates('key').head(10)", "sql": "SELECT COUNT(*) AS rows_total, COUNT(DISTINCT LOWER(TRIM(email))) AS distinct_emails FROM students_raw;" } }
+      ]
+    },
+    {
+      "heading": "Numbers stored as text",
+      "body_md": "`'$1,234.50'`, `'85000.00 USD'`, `'$ 85000'` must be stripped before converting. SQL: nested `REPLACE` then `CAST(... AS REAL)` (note `CAST('abc' AS REAL)` is 0, so filter junk first with `GLOB '[0-9]*'`). pandas: `str.replace(r'[$,\\sA-Za-z]', '', regex=True)` then `pd.to_numeric(..., errors='coerce')` (junk becomes NaN). Watch for negatives and sentinel numbers like `9999` or `-1`.",
+      "examples": [
+        { "label": "Clean money (pandas)", "mode": "pandas", "code": { "pandas": "amt = pd.to_numeric(payments_raw.amount.str.replace(r'[$,\\sA-Za-z]', '', regex=True), errors='coerce')\nprint('unparseable:', amt.isna().sum(), ' negative:', (amt < 0).sum())\nresult = pd.DataFrame({'raw': payments_raw.amount, 'clean': amt}).head(15)", "sql": "SELECT amount, CAST(REPLACE(REPLACE(REPLACE(REPLACE(TRIM(amount), '$', ''), ',', ''), 'USD', ''), ' ', '') AS REAL) AS clean\nFROM payments_raw LIMIT 15;" } },
+        { "label": "Clean money (SQL)", "mode": "sql", "code": { "sql": "WITH c AS (\n  SELECT REPLACE(REPLACE(REPLACE(REPLACE(TRIM(amount), '$', ''), ',', ''), 'USD', ''), ' ', '') AS amt\n  FROM payments_raw\n)\nSELECT COUNT(*) AS rows_total,\n       SUM(amt GLOB '[0-9]*') AS numeric_rows,\n       SUM(amt GLOB '-*') AS negative_rows,\n       SUM(amt = '') AS empty_rows\nFROM c;", "pandas": "amt = pd.to_numeric(payments_raw.amount.str.replace(r'[$,\\sA-Za-z]', '', regex=True), errors='coerce')\nresult = pd.DataFrame({'rows_total': [len(amt)], 'numeric_rows': [amt.notna().sum()], 'negative_rows': [(amt < 0).sum()]})" } }
+      ]
+    },
+    {
+      "heading": "Dates in several formats",
+      "body_md": "Pattern-test first: ISO dates match `GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'` / `str.match(r'^\\d{4}-\\d{2}-\\d{2}$')`. Parsing: pandas `pd.to_datetime(col, format='mixed', errors='coerce')` handles `3/13/2007`, `Jun 13, 2006`, `22-Sep-2006`; unparseable → `NaT`. SQLite can only parse ISO, so in SQL you classify formats and convert case by case (`substr`, `CASE`). After parsing, sanity-check ranges (birth years 1920–2010).",
+      "examples": [
+        { "label": "Classify date formats", "mode": "sql", "code": { "sql": "SELECT CASE\n         WHEN birth_date GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]' THEN 'ISO'\n         WHEN birth_date GLOB '[0-9]*/[0-9]*/[0-9][0-9][0-9][0-9]' THEN 'US m/d/yyyy'\n         WHEN birth_date GLOB '[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]' THEN 'yyyy/mm/dd'\n         WHEN birth_date GLOB '[0-9][0-9]-[A-Z][a-z][a-z]-[0-9][0-9][0-9][0-9]' THEN 'dd-Mon-yyyy'\n         ELSE 'other' END AS fmt, COUNT(*) AS n\nFROM students_raw GROUP BY fmt ORDER BY n DESC;", "pandas": "d = pd.to_datetime(students_raw.birth_date, format='mixed', errors='coerce')\nresult = pd.DataFrame({'parsed': [d.notna().sum()], 'failed': [d.isna().sum()], 'min': [d.min()], 'max': [d.max()]})" } },
+        { "label": "Parse mixed formats and find impossible years", "mode": "pandas", "code": { "pandas": "d = pd.to_datetime(students_raw.birth_date, format='mixed', errors='coerce')\nbad = students_raw[(d.dt.year < 1920) | (d.dt.year > 2010)]\nresult = bad[['student_id', 'birth_date']]", "sql": "SELECT student_id, birth_date FROM students_raw\nWHERE birth_date GLOB '[0-9][0-9][0-9][0-9]-*' AND (CAST(substr(birth_date, 1, 4) AS INTEGER) < 1920 OR CAST(substr(birth_date, 1, 4) AS INTEGER) > 2010);" } }
+      ]
+    },
+    {
+      "heading": "Outliers, impossible values and shifted rows",
+      "body_md": "Convert, then check ranges: GPA outside 0–4, negative salaries, future dates. When several columns fail their pattern on the *same* row, suspect a **column shift** (a missing field pushed everything left). Test each column against the shape it should have and look at the failing rows as a whole.",
+      "examples": [
+        { "label": "Rows failing several shape checks", "mode": "pandas", "code": { "pandas": "s = students_raw\nbad_year = ~s.enrollment_year.str.match(r'^\\d{4}$')\nbad_gpa = pd.to_numeric(s.gpa, errors='coerce') > 4\nresult = s[bad_year | bad_gpa][['student_id', 'home_state', 'home_city', 'enrollment_year', 'gpa', 'advisor_id', 'status']]", "sql": "SELECT student_id, home_state, home_city, enrollment_year, gpa, advisor_id, status\nFROM students_raw\nWHERE enrollment_year NOT GLOB '[0-9][0-9][0-9][0-9]' OR CAST(gpa AS REAL) > 4;" } }
+      ]
+    },
+    {
+      "heading": "Orphaned foreign keys",
+      "body_md": "A raw id that matches no row in the reference table is an orphan. SQL: `LEFT JOIN ref ON ref.id = CAST(raw.id AS INTEGER) WHERE ref.id IS NULL` (only for numeric-looking ids: `raw.id GLOB '[0-9]*'`). pandas: `pd.to_numeric(raw.id, errors='coerce')` then `~ids.isin(ref.id)` with `notna()`. Placeholders (`TBD`, `''`) are *missing*, not orphans — report them separately.",
+      "examples": [
+        { "label": "Orphan sections", "mode": "sql", "code": { "sql": "SELECT e.enrollment_id, e.section_id\nFROM enrollments_raw e\nLEFT JOIN sections s ON s.section_id = CAST(e.section_id AS INTEGER)\nWHERE s.section_id IS NULL\nORDER BY CAST(e.enrollment_id AS INTEGER);", "pandas": "sid = pd.to_numeric(enrollments_raw.section_id, errors='coerce')\nresult = enrollments_raw[~sid.isin(sections.section_id)][['enrollment_id', 'section_id']]" } },
+        { "label": "Orphans vs placeholders", "mode": "pandas", "code": { "pandas": "adv = pd.to_numeric(students_raw.advisor_id, errors='coerce')\nresult = pd.DataFrame({\n    'blank_or_placeholder': [adv.isna().sum()],\n    'orphan_numeric': [(adv.notna() & ~adv.isin(employees.employee_id)).sum()],\n    'valid': [adv.isin(employees.employee_id).sum()],\n})", "sql": "SELECT SUM(NOT (advisor_id GLOB '[0-9]*')) AS blank_or_placeholder,\n       SUM(advisor_id GLOB '[0-9]*' AND e.employee_id IS NULL) AS orphan_numeric,\n       SUM(e.employee_id IS NOT NULL) AS valid\nFROM students_raw s LEFT JOIN employees e ON e.employee_id = CAST(s.advisor_id AS INTEGER);" } }
+      ]
+    },
+    {
+      "heading": "The same ideas in Excel",
+      "body_md": "Not graded in v1, but the Excel equivalents are: `ISBLANK(cell)` for empties, `TRIM`/`UPPER`/`PROPER` for whitespace and casing, `VALUE(SUBSTITUTE(SUBSTITUTE(A2,\"$\",\"\"),\",\",\"\"))` for numbers stored as text, `IFERROR(VALUE(...), \"\")` to swallow junk, `COUNTIF(range, A2) > 1` to flag duplicates, `DATEVALUE` for ISO text dates, and `IFERROR(VLOOKUP(...), \"orphan\")` for missing references. Try them on the Excel tab's sandbox.",
+      "examples": []
+    }
+  ]
+}

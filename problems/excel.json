@@ -1,0 +1,6505 @@
+[
+  {
+    "id": "excel-easy-1",
+    "track": "excel",
+    "difficulty": "easy",
+    "title": "Average, highest and lowest GPA",
+    "tags": [
+      "AVERAGE",
+      "MAX",
+      "MIN"
+    ],
+    "prompt_md": "The **Students** sheet holds 120 students; GPAs are in column **F** (rows 2–121).\n\nOn the **Answers** sheet, put formulas in:\n\n- `B2` — the average GPA\n- `B3` — the highest GPA\n- `B4` — the lowest GPA\n\nAnswer cells must contain formulas, not typed numbers.",
+    "example": {
+      "input_md": "`=AVERAGE(Students!F2:F121)` is the shape of the first answer."
+    },
+    "hints": [
+      "`AVERAGE`, `MAX` and `MIN` all take a range: `Students!F2:F121`.",
+      "Click a cell, type `=`, then click/drag on the Students sheet (or type the range) and press Enter."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "Average GPA",
+          ""
+        ],
+        [
+          "Highest GPA",
+          ""
+        ],
+        [
+          "Lowest GPA",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=AVERAGE(Students!F2:F121)"
+      ],
+      [
+        "Answers!B3",
+        "=MAX(Students!F2:F121)"
+      ],
+      [
+        "Answers!B4",
+        "=MIN(Students!F2:F121)"
+      ]
+    ],
+    "oracle": "cells = [['Answers!B2', X['Students'].gpa.mean()], ['Answers!B3', X['Students'].gpa.max()], ['Answers!B4', X['Students'].gpa.min()]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          3.134583333333333
+        ],
+        [
+          "Answers!B3",
+          4.0
+        ],
+        [
+          "Answers!B4",
+          2.02
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-easy-2",
+    "track": "excel",
+    "difficulty": "easy",
+    "title": "Counting things",
+    "tags": [
+      "COUNT",
+      "COUNTA",
+      "COUNTBLANK"
+    ],
+    "prompt_md": "On the **Answers** sheet:\n\n- `B2` — how many students are on the Students sheet (count the ids in `A2:A121`)\n- `B3` — how many students have **no advisor** (blank cells in `Students!G2:G121`)\n- `B4` — how many courses are on the Courses sheet (numeric ids in `Courses!A2:A137`)",
+    "example": {
+      "input_md": "`COUNTA` counts non-empty cells, `COUNT` counts numbers, `COUNTBLANK` counts empty cells."
+    },
+    "hints": [
+      "`=COUNTA(Students!A2:A121)`",
+      "`=COUNTBLANK(Students!G2:G121)` and `=COUNT(Courses!A2:A137)`"
+    ],
+    "setup": {
+      "answers": [
+        [
+          "Number of students",
+          ""
+        ],
+        [
+          "Students without an advisor",
+          ""
+        ],
+        [
+          "Number of courses",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=COUNTA(Students!A2:A121)"
+      ],
+      [
+        "Answers!B3",
+        "=COUNTBLANK(Students!G2:G121)"
+      ],
+      [
+        "Answers!B4",
+        "=COUNT(Courses!A2:A137)"
+      ]
+    ],
+    "oracle": "cells = [['Answers!B2', len(X['Students'])], ['Answers!B3', int(X['Students'].advisor_id.isna().sum())], ['Answers!B4', len(X['Courses'])]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          120
+        ],
+        [
+          "Answers!B3",
+          13
+        ],
+        [
+          "Answers!B4",
+          136
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-easy-3",
+    "track": "excel",
+    "difficulty": "easy",
+    "title": "Honors flag with IF",
+    "tags": [
+      "IF",
+      "fill down"
+    ],
+    "prompt_md": "On the **Students** sheet, column **I** has the header `honors`. Fill `I2:I121` with a formula that shows `Honors` when the student's GPA (column F) is **3.5 or higher**, and an empty string `\"\"` otherwise.\n\nWrite the formula once in `I2`, then select `I2:I121` and use **Fill down** (or Ctrl+D).",
+    "example": {
+      "input_md": "`=IF(F2>=3.5,\"Honors\",\"\")` in I2, then fill down — relative references adjust row by row."
+    },
+    "hints": [
+      "`IF(condition, value_if_true, value_if_false)`",
+      "Select I2, shift-click I121, press Ctrl+D."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Students!I2:I121",
+          ""
+        ]
+      ],
+      "headers": {
+        "Students!I1": "honors"
+      }
+    },
+    "answerCells": "Students!I2:I121",
+    "solution": [
+      [
+        "Students!I2",
+        "=IF(F2>=3.5,\"Honors\",\"\")"
+      ]
+    ],
+    "solutionFill": "Students!I2:I121",
+    "oracle": "cells = fill('Students', 'I', lambda r: 'Honors' if r.gpa >= 3.5 else '')",
+    "expected": {
+      "cells": [
+        [
+          "Students!I2",
+          ""
+        ],
+        [
+          "Students!I3",
+          ""
+        ],
+        [
+          "Students!I4",
+          ""
+        ],
+        [
+          "Students!I5",
+          ""
+        ],
+        [
+          "Students!I6",
+          ""
+        ],
+        [
+          "Students!I7",
+          ""
+        ],
+        [
+          "Students!I8",
+          ""
+        ],
+        [
+          "Students!I9",
+          ""
+        ],
+        [
+          "Students!I10",
+          "Honors"
+        ],
+        [
+          "Students!I11",
+          ""
+        ],
+        [
+          "Students!I12",
+          ""
+        ],
+        [
+          "Students!I13",
+          ""
+        ],
+        [
+          "Students!I14",
+          "Honors"
+        ],
+        [
+          "Students!I15",
+          ""
+        ],
+        [
+          "Students!I16",
+          "Honors"
+        ],
+        [
+          "Students!I17",
+          ""
+        ],
+        [
+          "Students!I18",
+          "Honors"
+        ],
+        [
+          "Students!I19",
+          ""
+        ],
+        [
+          "Students!I20",
+          ""
+        ],
+        [
+          "Students!I21",
+          ""
+        ],
+        [
+          "Students!I22",
+          "Honors"
+        ],
+        [
+          "Students!I23",
+          ""
+        ],
+        [
+          "Students!I24",
+          ""
+        ],
+        [
+          "Students!I25",
+          ""
+        ],
+        [
+          "Students!I26",
+          ""
+        ],
+        [
+          "Students!I27",
+          ""
+        ],
+        [
+          "Students!I28",
+          ""
+        ],
+        [
+          "Students!I29",
+          ""
+        ],
+        [
+          "Students!I30",
+          ""
+        ],
+        [
+          "Students!I31",
+          ""
+        ],
+        [
+          "Students!I32",
+          ""
+        ],
+        [
+          "Students!I33",
+          ""
+        ],
+        [
+          "Students!I34",
+          ""
+        ],
+        [
+          "Students!I35",
+          "Honors"
+        ],
+        [
+          "Students!I36",
+          ""
+        ],
+        [
+          "Students!I37",
+          ""
+        ],
+        [
+          "Students!I38",
+          ""
+        ],
+        [
+          "Students!I39",
+          ""
+        ],
+        [
+          "Students!I40",
+          ""
+        ],
+        [
+          "Students!I41",
+          ""
+        ],
+        [
+          "Students!I42",
+          "Honors"
+        ],
+        [
+          "Students!I43",
+          ""
+        ],
+        [
+          "Students!I44",
+          ""
+        ],
+        [
+          "Students!I45",
+          "Honors"
+        ],
+        [
+          "Students!I46",
+          ""
+        ],
+        [
+          "Students!I47",
+          "Honors"
+        ],
+        [
+          "Students!I48",
+          ""
+        ],
+        [
+          "Students!I49",
+          ""
+        ],
+        [
+          "Students!I50",
+          ""
+        ],
+        [
+          "Students!I51",
+          ""
+        ],
+        [
+          "Students!I52",
+          "Honors"
+        ],
+        [
+          "Students!I53",
+          ""
+        ],
+        [
+          "Students!I54",
+          ""
+        ],
+        [
+          "Students!I55",
+          ""
+        ],
+        [
+          "Students!I56",
+          "Honors"
+        ],
+        [
+          "Students!I57",
+          ""
+        ],
+        [
+          "Students!I58",
+          ""
+        ],
+        [
+          "Students!I59",
+          ""
+        ],
+        [
+          "Students!I60",
+          ""
+        ],
+        [
+          "Students!I61",
+          ""
+        ],
+        [
+          "Students!I62",
+          ""
+        ],
+        [
+          "Students!I63",
+          ""
+        ],
+        [
+          "Students!I64",
+          ""
+        ],
+        [
+          "Students!I65",
+          ""
+        ],
+        [
+          "Students!I66",
+          ""
+        ],
+        [
+          "Students!I67",
+          ""
+        ],
+        [
+          "Students!I68",
+          ""
+        ],
+        [
+          "Students!I69",
+          ""
+        ],
+        [
+          "Students!I70",
+          ""
+        ],
+        [
+          "Students!I71",
+          ""
+        ],
+        [
+          "Students!I72",
+          ""
+        ],
+        [
+          "Students!I73",
+          "Honors"
+        ],
+        [
+          "Students!I74",
+          ""
+        ],
+        [
+          "Students!I75",
+          ""
+        ],
+        [
+          "Students!I76",
+          ""
+        ],
+        [
+          "Students!I77",
+          ""
+        ],
+        [
+          "Students!I78",
+          ""
+        ],
+        [
+          "Students!I79",
+          "Honors"
+        ],
+        [
+          "Students!I80",
+          ""
+        ],
+        [
+          "Students!I81",
+          ""
+        ],
+        [
+          "Students!I82",
+          ""
+        ],
+        [
+          "Students!I83",
+          ""
+        ],
+        [
+          "Students!I84",
+          "Honors"
+        ],
+        [
+          "Students!I85",
+          "Honors"
+        ],
+        [
+          "Students!I86",
+          ""
+        ],
+        [
+          "Students!I87",
+          ""
+        ],
+        [
+          "Students!I88",
+          ""
+        ],
+        [
+          "Students!I89",
+          "Honors"
+        ],
+        [
+          "Students!I90",
+          ""
+        ],
+        [
+          "Students!I91",
+          ""
+        ],
+        [
+          "Students!I92",
+          ""
+        ],
+        [
+          "Students!I93",
+          ""
+        ],
+        [
+          "Students!I94",
+          ""
+        ],
+        [
+          "Students!I95",
+          ""
+        ],
+        [
+          "Students!I96",
+          ""
+        ],
+        [
+          "Students!I97",
+          ""
+        ],
+        [
+          "Students!I98",
+          "Honors"
+        ],
+        [
+          "Students!I99",
+          ""
+        ],
+        [
+          "Students!I100",
+          ""
+        ],
+        [
+          "Students!I101",
+          ""
+        ],
+        [
+          "Students!I102",
+          ""
+        ],
+        [
+          "Students!I103",
+          ""
+        ],
+        [
+          "Students!I104",
+          "Honors"
+        ],
+        [
+          "Students!I105",
+          "Honors"
+        ],
+        [
+          "Students!I106",
+          ""
+        ],
+        [
+          "Students!I107",
+          ""
+        ],
+        [
+          "Students!I108",
+          ""
+        ],
+        [
+          "Students!I109",
+          ""
+        ],
+        [
+          "Students!I110",
+          ""
+        ],
+        [
+          "Students!I111",
+          ""
+        ],
+        [
+          "Students!I112",
+          ""
+        ],
+        [
+          "Students!I113",
+          ""
+        ],
+        [
+          "Students!I114",
+          "Honors"
+        ],
+        [
+          "Students!I115",
+          ""
+        ],
+        [
+          "Students!I116",
+          ""
+        ],
+        [
+          "Students!I117",
+          ""
+        ],
+        [
+          "Students!I118",
+          "Honors"
+        ],
+        [
+          "Students!I119",
+          ""
+        ],
+        [
+          "Students!I120",
+          "Honors"
+        ],
+        [
+          "Students!I121",
+          ""
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-easy-4",
+    "track": "excel",
+    "difficulty": "easy",
+    "title": "Short names with text functions",
+    "tags": [
+      "LEFT",
+      "UPPER",
+      "CONCATENATE"
+    ],
+    "prompt_md": "On the **Students** sheet, column **J** has the header `short_name`. Fill `J2:J121` with the student's first initial, a period, a space and the last name — e.g. `Miguel Bennett` → `M. Bennett`.\n\nUse `LEFT`, `UPPER` and `CONCATENATE` (or the `&` operator). Note: this engine has no `CONCAT`.",
+    "example": {
+      "input_md": "`=CONCATENATE(UPPER(LEFT(B2,1)),\". \",C2)`"
+    },
+    "hints": [
+      "`LEFT(text, 1)` takes the first character.",
+      "`CONCATENATE(a, b, c)` or `a & b & c` joins strings."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Students!J2:J121",
+          ""
+        ]
+      ],
+      "headers": {
+        "Students!J1": "short_name"
+      }
+    },
+    "answerCells": "Students!J2:J121",
+    "solution": [
+      [
+        "Students!J2",
+        "=CONCATENATE(UPPER(LEFT(B2,1)),\". \",C2)"
+      ]
+    ],
+    "solutionFill": "Students!J2:J121",
+    "oracle": "cells = fill('Students', 'J', lambda r: r.first_name[0].upper() + '. ' + r.last_name)",
+    "expected": {
+      "cells": [
+        [
+          "Students!J2",
+          "M. Bennett"
+        ],
+        [
+          "Students!J3",
+          "A. Cruz"
+        ],
+        [
+          "Students!J4",
+          "N. Moore"
+        ],
+        [
+          "Students!J5",
+          "M. Hoffman"
+        ],
+        [
+          "Students!J6",
+          "Q. Ward"
+        ],
+        [
+          "Students!J7",
+          "J. Hall"
+        ],
+        [
+          "Students!J8",
+          "A. Carter"
+        ],
+        [
+          "Students!J9",
+          "O. Price"
+        ],
+        [
+          "Students!J10",
+          "M. Peterson"
+        ],
+        [
+          "Students!J11",
+          "Y. Schmidt"
+        ],
+        [
+          "Students!J12",
+          "Y. Ibrahim"
+        ],
+        [
+          "Students!J13",
+          "Z. Hayes"
+        ],
+        [
+          "Students!J14",
+          "V. Young"
+        ],
+        [
+          "Students!J15",
+          "V. Campbell"
+        ],
+        [
+          "Students!J16",
+          "M. Owens"
+        ],
+        [
+          "Students!J17",
+          "H. Owens"
+        ],
+        [
+          "Students!J18",
+          "N. Williams"
+        ],
+        [
+          "Students!J19",
+          "V. King"
+        ],
+        [
+          "Students!J20",
+          "L. Garcia"
+        ],
+        [
+          "Students!J21",
+          "J. Kelly"
+        ],
+        [
+          "Students!J22",
+          "H. Thomas"
+        ],
+        [
+          "Students!J23",
+          "L. Young"
+        ],
+        [
+          "Students!J24",
+          "O. Thomas"
+        ],
+        [
+          "Students!J25",
+          "D. Cole"
+        ],
+        [
+          "Students!J26",
+          "I. Rossi"
+        ],
+        [
+          "Students!J27",
+          "A. Howard"
+        ],
+        [
+          "Students!J28",
+          "S. Edwards"
+        ],
+        [
+          "Students!J29",
+          "C. Alvarez"
+        ],
+        [
+          "Students!J30",
+          "J. Williams"
+        ],
+        [
+          "Students!J31",
+          "E. Park"
+        ],
+        [
+          "Students!J32",
+          "C. Bennett"
+        ],
+        [
+          "Students!J33",
+          "Y. Price"
+        ],
+        [
+          "Students!J34",
+          "E. Clark"
+        ],
+        [
+          "Students!J35",
+          "Y. Sullivan"
+        ],
+        [
+          "Students!J36",
+          "A. Hayes"
+        ],
+        [
+          "Students!J37",
+          "V. Zhang"
+        ],
+        [
+          "Students!J38",
+          "P. Smith"
+        ],
+        [
+          "Students!J39",
+          "W. Martinez"
+        ],
+        [
+          "Students!J40",
+          "T. Zhang"
+        ],
+        [
+          "Students!J41",
+          "C. Watson"
+        ],
+        [
+          "Students!J42",
+          "I. Mitchell"
+        ],
+        [
+          "Students!J43",
+          "A. Scott"
+        ],
+        [
+          "Students!J44",
+          "C. Flores"
+        ],
+        [
+          "Students!J45",
+          "J. Morgan"
+        ],
+        [
+          "Students!J46",
+          "X. Nguyen"
+        ],
+        [
+          "Students!J47",
+          "J. Rossi"
+        ],
+        [
+          "Students!J48",
+          "L. Jenkins"
+        ],
+        [
+          "Students!J49",
+          "S. Shah"
+        ],
+        [
+          "Students!J50",
+          "N. Hernandez"
+        ],
+        [
+          "Students!J51",
+          "E. Scott"
+        ],
+        [
+          "Students!J52",
+          "B. Bennett"
+        ],
+        [
+          "Students!J53",
+          "A. Shah"
+        ],
+        [
+          "Students!J54",
+          "R. Sullivan"
+        ],
+        [
+          "Students!J55",
+          "E. Green"
+        ],
+        [
+          "Students!J56",
+          "L. Cruz"
+        ],
+        [
+          "Students!J57",
+          "J. Campbell"
+        ],
+        [
+          "Students!J58",
+          "X. Edwards"
+        ],
+        [
+          "Students!J59",
+          "V. Hernandez"
+        ],
+        [
+          "Students!J60",
+          "D. Walker"
+        ],
+        [
+          "Students!J61",
+          "N. Park"
+        ],
+        [
+          "Students!J62",
+          "M. Cruz"
+        ],
+        [
+          "Students!J63",
+          "M. Campbell"
+        ],
+        [
+          "Students!J64",
+          "Y. Thomas"
+        ],
+        [
+          "Students!J65",
+          "T. Martin"
+        ],
+        [
+          "Students!J66",
+          "F. Carter"
+        ],
+        [
+          "Students!J67",
+          "G. Nguyen"
+        ],
+        [
+          "Students!J68",
+          "K. Bennett"
+        ],
+        [
+          "Students!J69",
+          "Z. Ellis"
+        ],
+        [
+          "Students!J70",
+          "I. Bennett"
+        ],
+        [
+          "Students!J71",
+          "N. Ward"
+        ],
+        [
+          "Students!J72",
+          "R. Wilson"
+        ],
+        [
+          "Students!J73",
+          "M. Murphy"
+        ],
+        [
+          "Students!J74",
+          "V. Martin"
+        ],
+        [
+          "Students!J75",
+          "F. White"
+        ],
+        [
+          "Students!J76",
+          "S. Schmidt"
+        ],
+        [
+          "Students!J77",
+          "S. Edwards"
+        ],
+        [
+          "Students!J78",
+          "L. Gupta"
+        ],
+        [
+          "Students!J79",
+          "L. Nelson"
+        ],
+        [
+          "Students!J80",
+          "Y. Ramirez"
+        ],
+        [
+          "Students!J81",
+          "E. Ortiz"
+        ],
+        [
+          "Students!J82",
+          "E. Jones"
+        ],
+        [
+          "Students!J83",
+          "J. Okafor"
+        ],
+        [
+          "Students!J84",
+          "F. Nelson"
+        ],
+        [
+          "Students!J85",
+          "J. Foster"
+        ],
+        [
+          "Students!J86",
+          "L. Hall"
+        ],
+        [
+          "Students!J87",
+          "C. Watson"
+        ],
+        [
+          "Students!J88",
+          "D. Mitchell"
+        ],
+        [
+          "Students!J89",
+          "A. Carter"
+        ],
+        [
+          "Students!J90",
+          "S. Perez"
+        ],
+        [
+          "Students!J91",
+          "M. Lopez"
+        ],
+        [
+          "Students!J92",
+          "G. Santos"
+        ],
+        [
+          "Students!J93",
+          "F. Brooks"
+        ],
+        [
+          "Students!J94",
+          "F. Ibrahim"
+        ],
+        [
+          "Students!J95",
+          "M. Owens"
+        ],
+        [
+          "Students!J96",
+          "C. Kim"
+        ],
+        [
+          "Students!J97",
+          "N. Hall"
+        ],
+        [
+          "Students!J98",
+          "O. King"
+        ],
+        [
+          "Students!J99",
+          "L. Wright"
+        ],
+        [
+          "Students!J100",
+          "I. Sullivan"
+        ],
+        [
+          "Students!J101",
+          "C. Rossi"
+        ],
+        [
+          "Students!J102",
+          "W. Silva"
+        ],
+        [
+          "Students!J103",
+          "M. Ruiz"
+        ],
+        [
+          "Students!J104",
+          "J. Carter"
+        ],
+        [
+          "Students!J105",
+          "C. Hernandez"
+        ],
+        [
+          "Students!J106",
+          "J. Lee"
+        ],
+        [
+          "Students!J107",
+          "K. Owens"
+        ],
+        [
+          "Students!J108",
+          "C. Kim"
+        ],
+        [
+          "Students!J109",
+          "M. Zhang"
+        ],
+        [
+          "Students!J110",
+          "J. Hoffman"
+        ],
+        [
+          "Students!J111",
+          "I. Delgado"
+        ],
+        [
+          "Students!J112",
+          "R. Peterson"
+        ],
+        [
+          "Students!J113",
+          "J. Owens"
+        ],
+        [
+          "Students!J114",
+          "J. Singh"
+        ],
+        [
+          "Students!J115",
+          "X. Martin"
+        ],
+        [
+          "Students!J116",
+          "S. Silva"
+        ],
+        [
+          "Students!J117",
+          "R. Green"
+        ],
+        [
+          "Students!J118",
+          "R. Patel"
+        ],
+        [
+          "Students!J119",
+          "G. Ellis"
+        ],
+        [
+          "Students!J120",
+          "C. Jackson"
+        ],
+        [
+          "Students!J121",
+          "L. Green"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-easy-5",
+    "track": "excel",
+    "difficulty": "easy",
+    "title": "Faculty payroll",
+    "tags": [
+      "SUM",
+      "AVERAGE",
+      "MAX"
+    ],
+    "prompt_md": "The **Employees** sheet lists 100 faculty with salaries in column **F** (rows 2–101).\n\nOn **Answers**: `B2` = total payroll, `B3` = average salary, `B4` = highest salary.",
+    "example": {
+      "input_md": "`=SUM(Employees!F2:F101)`"
+    },
+    "hints": [
+      "`SUM`, `AVERAGE`, `MAX` over `Employees!F2:F101`.",
+      "Cross-sheet references look like `SheetName!A1:B9`."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "Total payroll",
+          ""
+        ],
+        [
+          "Average salary",
+          ""
+        ],
+        [
+          "Highest salary",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=SUM(Employees!F2:F101)"
+      ],
+      [
+        "Answers!B3",
+        "=AVERAGE(Employees!F2:F101)"
+      ],
+      [
+        "Answers!B4",
+        "=MAX(Employees!F2:F101)"
+      ]
+    ],
+    "oracle": "E = X['Employees']; cells = [['Answers!B2', int(E.salary.sum())], ['Answers!B3', E.salary.mean()], ['Answers!B4', int(E.salary.max())]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          10596000
+        ],
+        [
+          "Answers!B3",
+          105960.0
+        ],
+        [
+          "Answers!B4",
+          212000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-medium-1",
+    "track": "excel",
+    "difficulty": "medium",
+    "title": "Conditional aggregates",
+    "tags": [
+      "COUNTIFS",
+      "SUMIFS",
+      "AVERAGEIF"
+    ],
+    "prompt_md": "On **Answers**:\n\n- `B2` — number of students from **MO** with GPA **≥ 3.5** (Students: state in column D, GPA in F)\n- `B3` — total salary of employees in **department 1** (Employees: department_id in column E, salary in F)\n- `B4` — average GPA of students from **IL**\n\nThis engine has `AVERAGEIF` but **not** `AVERAGEIFS`.",
+    "example": {
+      "input_md": "`=COUNTIFS(Students!D2:D121,\"MO\",Students!F2:F121,\">=3.5\")`"
+    },
+    "hints": [
+      "Criteria with comparison operators are strings: `\">=3.5\"`.",
+      "`=SUMIFS(sum_range, criteria_range, criteria)` and `=AVERAGEIF(range, criteria, average_range)`."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "MO students with GPA >= 3.5",
+          ""
+        ],
+        [
+          "Department 1 payroll",
+          ""
+        ],
+        [
+          "Average GPA, IL students",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=COUNTIFS(Students!D2:D121,\"MO\",Students!F2:F121,\">=3.5\")"
+      ],
+      [
+        "Answers!B3",
+        "=SUMIFS(Employees!F2:F101,Employees!E2:E101,1)"
+      ],
+      [
+        "Answers!B4",
+        "=AVERAGEIF(Students!D2:D121,\"IL\",Students!F2:F121)"
+      ]
+    ],
+    "oracle": "S = X['Students']; E = X['Employees']; cells = [['Answers!B2', int(((S.home_state == 'MO') & (S.gpa >= 3.5)).sum())], ['Answers!B3', int(E[E.department_id == 1].salary.sum())], ['Answers!B4', S[S.home_state == 'IL'].gpa.mean()]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          12
+        ],
+        [
+          "Answers!B3",
+          1398000
+        ],
+        [
+          "Answers!B4",
+          3.157931034482759
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-medium-2",
+    "track": "excel",
+    "difficulty": "medium",
+    "title": "Look up the course with VLOOKUP",
+    "tags": [
+      "VLOOKUP",
+      "absolute references",
+      "fill down"
+    ],
+    "prompt_md": "Each row of **Enrollments** has a `section_id` in column **C**. The **Sections** sheet maps `section_id` (column A) to `course_id` (column B).\n\nColumn **H** of Enrollments has the header `course_id`. Fill `H2:H301` with the course id of each enrollment's section using `VLOOKUP` with an exact match. Lock the lookup table with `$` so it survives fill-down.",
+    "example": {
+      "input_md": "`=VLOOKUP(C2,Sections!$A$2:$E$237,2,FALSE)`"
+    },
+    "hints": [
+      "`VLOOKUP(lookup_value, table, column_index, FALSE)` — the 4th argument FALSE means exact match.",
+      "Use `$A$2:$E$237` so the table does not shift when you fill down."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Enrollments!H2:H301",
+          ""
+        ]
+      ],
+      "headers": {
+        "Enrollments!H1": "course_id"
+      }
+    },
+    "answerCells": "Enrollments!H2:H301",
+    "solution": [
+      [
+        "Enrollments!H2",
+        "=VLOOKUP(C2,Sections!$A$2:$E$237,2,FALSE)"
+      ]
+    ],
+    "solutionFill": "Enrollments!H2:H301",
+    "oracle": "sec = X['Sections'].set_index('section_id').course_id; cells = fill('Enrollments', 'H', lambda r: int(sec[r.section_id]))",
+    "expected": {
+      "cells": [
+        [
+          "Enrollments!H2",
+          17
+        ],
+        [
+          "Enrollments!H3",
+          55
+        ],
+        [
+          "Enrollments!H4",
+          39
+        ],
+        [
+          "Enrollments!H5",
+          61
+        ],
+        [
+          "Enrollments!H6",
+          2
+        ],
+        [
+          "Enrollments!H7",
+          1
+        ],
+        [
+          "Enrollments!H8",
+          122
+        ],
+        [
+          "Enrollments!H9",
+          122
+        ],
+        [
+          "Enrollments!H10",
+          38
+        ],
+        [
+          "Enrollments!H11",
+          77
+        ],
+        [
+          "Enrollments!H12",
+          111
+        ],
+        [
+          "Enrollments!H13",
+          37
+        ],
+        [
+          "Enrollments!H14",
+          121
+        ],
+        [
+          "Enrollments!H15",
+          70
+        ],
+        [
+          "Enrollments!H16",
+          128
+        ],
+        [
+          "Enrollments!H17",
+          58
+        ],
+        [
+          "Enrollments!H18",
+          78
+        ],
+        [
+          "Enrollments!H19",
+          77
+        ],
+        [
+          "Enrollments!H20",
+          37
+        ],
+        [
+          "Enrollments!H21",
+          91
+        ],
+        [
+          "Enrollments!H22",
+          119
+        ],
+        [
+          "Enrollments!H23",
+          49
+        ],
+        [
+          "Enrollments!H24",
+          50
+        ],
+        [
+          "Enrollments!H25",
+          122
+        ],
+        [
+          "Enrollments!H26",
+          112
+        ],
+        [
+          "Enrollments!H27",
+          48
+        ],
+        [
+          "Enrollments!H28",
+          109
+        ],
+        [
+          "Enrollments!H29",
+          48
+        ],
+        [
+          "Enrollments!H30",
+          109
+        ],
+        [
+          "Enrollments!H31",
+          119
+        ],
+        [
+          "Enrollments!H32",
+          44
+        ],
+        [
+          "Enrollments!H33",
+          45
+        ],
+        [
+          "Enrollments!H34",
+          79
+        ],
+        [
+          "Enrollments!H35",
+          19
+        ],
+        [
+          "Enrollments!H36",
+          44
+        ],
+        [
+          "Enrollments!H37",
+          46
+        ],
+        [
+          "Enrollments!H38",
+          83
+        ],
+        [
+          "Enrollments!H39",
+          97
+        ],
+        [
+          "Enrollments!H40",
+          45
+        ],
+        [
+          "Enrollments!H41",
+          44
+        ],
+        [
+          "Enrollments!H42",
+          1
+        ],
+        [
+          "Enrollments!H43",
+          69
+        ],
+        [
+          "Enrollments!H44",
+          69
+        ],
+        [
+          "Enrollments!H45",
+          129
+        ],
+        [
+          "Enrollments!H46",
+          65
+        ],
+        [
+          "Enrollments!H47",
+          109
+        ],
+        [
+          "Enrollments!H48",
+          30
+        ],
+        [
+          "Enrollments!H49",
+          92
+        ],
+        [
+          "Enrollments!H50",
+          121
+        ],
+        [
+          "Enrollments!H51",
+          101
+        ],
+        [
+          "Enrollments!H52",
+          35
+        ],
+        [
+          "Enrollments!H53",
+          74
+        ],
+        [
+          "Enrollments!H54",
+          45
+        ],
+        [
+          "Enrollments!H55",
+          100
+        ],
+        [
+          "Enrollments!H56",
+          39
+        ],
+        [
+          "Enrollments!H57",
+          9
+        ],
+        [
+          "Enrollments!H58",
+          70
+        ],
+        [
+          "Enrollments!H59",
+          96
+        ],
+        [
+          "Enrollments!H60",
+          108
+        ],
+        [
+          "Enrollments!H61",
+          80
+        ],
+        [
+          "Enrollments!H62",
+          101
+        ],
+        [
+          "Enrollments!H63",
+          23
+        ],
+        [
+          "Enrollments!H64",
+          79
+        ],
+        [
+          "Enrollments!H65",
+          15
+        ],
+        [
+          "Enrollments!H66",
+          97
+        ],
+        [
+          "Enrollments!H67",
+          129
+        ],
+        [
+          "Enrollments!H68",
+          109
+        ],
+        [
+          "Enrollments!H69",
+          39
+        ],
+        [
+          "Enrollments!H70",
+          1
+        ],
+        [
+          "Enrollments!H71",
+          2
+        ],
+        [
+          "Enrollments!H72",
+          88
+        ],
+        [
+          "Enrollments!H73",
+          1
+        ],
+        [
+          "Enrollments!H74",
+          87
+        ],
+        [
+          "Enrollments!H75",
+          15
+        ],
+        [
+          "Enrollments!H76",
+          97
+        ],
+        [
+          "Enrollments!H77",
+          1
+        ],
+        [
+          "Enrollments!H78",
+          18
+        ],
+        [
+          "Enrollments!H79",
+          66
+        ],
+        [
+          "Enrollments!H80",
+          122
+        ],
+        [
+          "Enrollments!H81",
+          8
+        ],
+        [
+          "Enrollments!H82",
+          2
+        ],
+        [
+          "Enrollments!H83",
+          7
+        ],
+        [
+          "Enrollments!H84",
+          3
+        ],
+        [
+          "Enrollments!H85",
+          5
+        ],
+        [
+          "Enrollments!H86",
+          4
+        ],
+        [
+          "Enrollments!H87",
+          95
+        ],
+        [
+          "Enrollments!H88",
+          1
+        ],
+        [
+          "Enrollments!H89",
+          12
+        ],
+        [
+          "Enrollments!H90",
+          53
+        ],
+        [
+          "Enrollments!H91",
+          48
+        ],
+        [
+          "Enrollments!H92",
+          128
+        ],
+        [
+          "Enrollments!H93",
+          48
+        ],
+        [
+          "Enrollments!H94",
+          15
+        ],
+        [
+          "Enrollments!H95",
+          50
+        ],
+        [
+          "Enrollments!H96",
+          49
+        ],
+        [
+          "Enrollments!H97",
+          48
+        ],
+        [
+          "Enrollments!H98",
+          50
+        ],
+        [
+          "Enrollments!H99",
+          121
+        ],
+        [
+          "Enrollments!H100",
+          3
+        ],
+        [
+          "Enrollments!H101",
+          88
+        ],
+        [
+          "Enrollments!H102",
+          48
+        ],
+        [
+          "Enrollments!H103",
+          49
+        ],
+        [
+          "Enrollments!H104",
+          34
+        ],
+        [
+          "Enrollments!H105",
+          39
+        ],
+        [
+          "Enrollments!H106",
+          65
+        ],
+        [
+          "Enrollments!H107",
+          61
+        ],
+        [
+          "Enrollments!H108",
+          36
+        ],
+        [
+          "Enrollments!H109",
+          38
+        ],
+        [
+          "Enrollments!H110",
+          67
+        ],
+        [
+          "Enrollments!H111",
+          102
+        ],
+        [
+          "Enrollments!H112",
+          35
+        ],
+        [
+          "Enrollments!H113",
+          122
+        ],
+        [
+          "Enrollments!H114",
+          62
+        ],
+        [
+          "Enrollments!H115",
+          6
+        ],
+        [
+          "Enrollments!H116",
+          7
+        ],
+        [
+          "Enrollments!H117",
+          6
+        ],
+        [
+          "Enrollments!H118",
+          95
+        ],
+        [
+          "Enrollments!H119",
+          110
+        ],
+        [
+          "Enrollments!H120",
+          92
+        ],
+        [
+          "Enrollments!H121",
+          79
+        ],
+        [
+          "Enrollments!H122",
+          125
+        ],
+        [
+          "Enrollments!H123",
+          70
+        ],
+        [
+          "Enrollments!H124",
+          83
+        ],
+        [
+          "Enrollments!H125",
+          108
+        ],
+        [
+          "Enrollments!H126",
+          26
+        ],
+        [
+          "Enrollments!H127",
+          36
+        ],
+        [
+          "Enrollments!H128",
+          16
+        ],
+        [
+          "Enrollments!H129",
+          109
+        ],
+        [
+          "Enrollments!H130",
+          93
+        ],
+        [
+          "Enrollments!H131",
+          131
+        ],
+        [
+          "Enrollments!H132",
+          122
+        ],
+        [
+          "Enrollments!H133",
+          69
+        ],
+        [
+          "Enrollments!H134",
+          71
+        ],
+        [
+          "Enrollments!H135",
+          70
+        ],
+        [
+          "Enrollments!H136",
+          69
+        ],
+        [
+          "Enrollments!H137",
+          25
+        ],
+        [
+          "Enrollments!H138",
+          17
+        ],
+        [
+          "Enrollments!H139",
+          36
+        ],
+        [
+          "Enrollments!H140",
+          16
+        ],
+        [
+          "Enrollments!H141",
+          71
+        ],
+        [
+          "Enrollments!H142",
+          62
+        ],
+        [
+          "Enrollments!H143",
+          29
+        ],
+        [
+          "Enrollments!H144",
+          70
+        ],
+        [
+          "Enrollments!H145",
+          40
+        ],
+        [
+          "Enrollments!H146",
+          63
+        ],
+        [
+          "Enrollments!H147",
+          106
+        ],
+        [
+          "Enrollments!H148",
+          95
+        ],
+        [
+          "Enrollments!H149",
+          71
+        ],
+        [
+          "Enrollments!H150",
+          70
+        ],
+        [
+          "Enrollments!H151",
+          101
+        ],
+        [
+          "Enrollments!H152",
+          70
+        ],
+        [
+          "Enrollments!H153",
+          71
+        ],
+        [
+          "Enrollments!H154",
+          24
+        ],
+        [
+          "Enrollments!H155",
+          69
+        ],
+        [
+          "Enrollments!H156",
+          70
+        ],
+        [
+          "Enrollments!H157",
+          46
+        ],
+        [
+          "Enrollments!H158",
+          69
+        ],
+        [
+          "Enrollments!H159",
+          70
+        ],
+        [
+          "Enrollments!H160",
+          71
+        ],
+        [
+          "Enrollments!H161",
+          49
+        ],
+        [
+          "Enrollments!H162",
+          111
+        ],
+        [
+          "Enrollments!H163",
+          16
+        ],
+        [
+          "Enrollments!H164",
+          23
+        ],
+        [
+          "Enrollments!H165",
+          122
+        ],
+        [
+          "Enrollments!H166",
+          83
+        ],
+        [
+          "Enrollments!H167",
+          73
+        ],
+        [
+          "Enrollments!H168",
+          110
+        ],
+        [
+          "Enrollments!H169",
+          109
+        ],
+        [
+          "Enrollments!H170",
+          1
+        ],
+        [
+          "Enrollments!H171",
+          74
+        ],
+        [
+          "Enrollments!H172",
+          78
+        ],
+        [
+          "Enrollments!H173",
+          16
+        ],
+        [
+          "Enrollments!H174",
+          15
+        ],
+        [
+          "Enrollments!H175",
+          75
+        ],
+        [
+          "Enrollments!H176",
+          77
+        ],
+        [
+          "Enrollments!H177",
+          93
+        ],
+        [
+          "Enrollments!H178",
+          20
+        ],
+        [
+          "Enrollments!H179",
+          15
+        ],
+        [
+          "Enrollments!H180",
+          95
+        ],
+        [
+          "Enrollments!H181",
+          128
+        ],
+        [
+          "Enrollments!H182",
+          18
+        ],
+        [
+          "Enrollments!H183",
+          43
+        ],
+        [
+          "Enrollments!H184",
+          55
+        ],
+        [
+          "Enrollments!H185",
+          38
+        ],
+        [
+          "Enrollments!H186",
+          99
+        ],
+        [
+          "Enrollments!H187",
+          123
+        ],
+        [
+          "Enrollments!H188",
+          49
+        ],
+        [
+          "Enrollments!H189",
+          77
+        ],
+        [
+          "Enrollments!H190",
+          99
+        ],
+        [
+          "Enrollments!H191",
+          104
+        ],
+        [
+          "Enrollments!H192",
+          63
+        ],
+        [
+          "Enrollments!H193",
+          92
+        ],
+        [
+          "Enrollments!H194",
+          99
+        ],
+        [
+          "Enrollments!H195",
+          97
+        ],
+        [
+          "Enrollments!H196",
+          18
+        ],
+        [
+          "Enrollments!H197",
+          63
+        ],
+        [
+          "Enrollments!H198",
+          96
+        ],
+        [
+          "Enrollments!H199",
+          95
+        ],
+        [
+          "Enrollments!H200",
+          25
+        ],
+        [
+          "Enrollments!H201",
+          15
+        ],
+        [
+          "Enrollments!H202",
+          56
+        ],
+        [
+          "Enrollments!H203",
+          128
+        ],
+        [
+          "Enrollments!H204",
+          67
+        ],
+        [
+          "Enrollments!H205",
+          16
+        ],
+        [
+          "Enrollments!H206",
+          97
+        ],
+        [
+          "Enrollments!H207",
+          96
+        ],
+        [
+          "Enrollments!H208",
+          87
+        ],
+        [
+          "Enrollments!H209",
+          83
+        ],
+        [
+          "Enrollments!H210",
+          92
+        ],
+        [
+          "Enrollments!H211",
+          4
+        ],
+        [
+          "Enrollments!H212",
+          16
+        ],
+        [
+          "Enrollments!H213",
+          128
+        ],
+        [
+          "Enrollments!H214",
+          110
+        ],
+        [
+          "Enrollments!H215",
+          49
+        ],
+        [
+          "Enrollments!H216",
+          99
+        ],
+        [
+          "Enrollments!H217",
+          98
+        ],
+        [
+          "Enrollments!H218",
+          5
+        ],
+        [
+          "Enrollments!H219",
+          123
+        ],
+        [
+          "Enrollments!H220",
+          83
+        ],
+        [
+          "Enrollments!H221",
+          99
+        ],
+        [
+          "Enrollments!H222",
+          96
+        ],
+        [
+          "Enrollments!H223",
+          35
+        ],
+        [
+          "Enrollments!H224",
+          88
+        ],
+        [
+          "Enrollments!H225",
+          95
+        ],
+        [
+          "Enrollments!H226",
+          96
+        ],
+        [
+          "Enrollments!H227",
+          103
+        ],
+        [
+          "Enrollments!H228",
+          108
+        ],
+        [
+          "Enrollments!H229",
+          82
+        ],
+        [
+          "Enrollments!H230",
+          84
+        ],
+        [
+          "Enrollments!H231",
+          95
+        ],
+        [
+          "Enrollments!H232",
+          98
+        ],
+        [
+          "Enrollments!H233",
+          62
+        ],
+        [
+          "Enrollments!H234",
+          87
+        ],
+        [
+          "Enrollments!H235",
+          62
+        ],
+        [
+          "Enrollments!H236",
+          109
+        ],
+        [
+          "Enrollments!H237",
+          97
+        ],
+        [
+          "Enrollments!H238",
+          119
+        ],
+        [
+          "Enrollments!H239",
+          7
+        ],
+        [
+          "Enrollments!H240",
+          48
+        ],
+        [
+          "Enrollments!H241",
+          113
+        ],
+        [
+          "Enrollments!H242",
+          115
+        ],
+        [
+          "Enrollments!H243",
+          97
+        ],
+        [
+          "Enrollments!H244",
+          110
+        ],
+        [
+          "Enrollments!H245",
+          114
+        ],
+        [
+          "Enrollments!H246",
+          111
+        ],
+        [
+          "Enrollments!H247",
+          2
+        ],
+        [
+          "Enrollments!H248",
+          91
+        ],
+        [
+          "Enrollments!H249",
+          48
+        ],
+        [
+          "Enrollments!H250",
+          115
+        ],
+        [
+          "Enrollments!H251",
+          111
+        ],
+        [
+          "Enrollments!H252",
+          74
+        ],
+        [
+          "Enrollments!H253",
+          129
+        ],
+        [
+          "Enrollments!H254",
+          44
+        ],
+        [
+          "Enrollments!H255",
+          55
+        ],
+        [
+          "Enrollments!H256",
+          128
+        ],
+        [
+          "Enrollments!H257",
+          129
+        ],
+        [
+          "Enrollments!H258",
+          12
+        ],
+        [
+          "Enrollments!H259",
+          128
+        ],
+        [
+          "Enrollments!H260",
+          129
+        ],
+        [
+          "Enrollments!H261",
+          13
+        ],
+        [
+          "Enrollments!H262",
+          121
+        ],
+        [
+          "Enrollments!H263",
+          132
+        ],
+        [
+          "Enrollments!H264",
+          130
+        ],
+        [
+          "Enrollments!H265",
+          25
+        ],
+        [
+          "Enrollments!H266",
+          67
+        ],
+        [
+          "Enrollments!H267",
+          131
+        ],
+        [
+          "Enrollments!H268",
+          129
+        ],
+        [
+          "Enrollments!H269",
+          96
+        ],
+        [
+          "Enrollments!H270",
+          19
+        ],
+        [
+          "Enrollments!H271",
+          17
+        ],
+        [
+          "Enrollments!H272",
+          43
+        ],
+        [
+          "Enrollments!H273",
+          16
+        ],
+        [
+          "Enrollments!H274",
+          17
+        ],
+        [
+          "Enrollments!H275",
+          15
+        ],
+        [
+          "Enrollments!H276",
+          118
+        ],
+        [
+          "Enrollments!H277",
+          21
+        ],
+        [
+          "Enrollments!H278",
+          1
+        ],
+        [
+          "Enrollments!H279",
+          97
+        ],
+        [
+          "Enrollments!H280",
+          35
+        ],
+        [
+          "Enrollments!H281",
+          21
+        ],
+        [
+          "Enrollments!H282",
+          16
+        ],
+        [
+          "Enrollments!H283",
+          69
+        ],
+        [
+          "Enrollments!H284",
+          96
+        ],
+        [
+          "Enrollments!H285",
+          121
+        ],
+        [
+          "Enrollments!H286",
+          122
+        ],
+        [
+          "Enrollments!H287",
+          16
+        ],
+        [
+          "Enrollments!H288",
+          35
+        ],
+        [
+          "Enrollments!H289",
+          124
+        ],
+        [
+          "Enrollments!H290",
+          121
+        ],
+        [
+          "Enrollments!H291",
+          20
+        ],
+        [
+          "Enrollments!H292",
+          62
+        ],
+        [
+          "Enrollments!H293",
+          122
+        ],
+        [
+          "Enrollments!H294",
+          125
+        ],
+        [
+          "Enrollments!H295",
+          117
+        ],
+        [
+          "Enrollments!H296",
+          125
+        ],
+        [
+          "Enrollments!H297",
+          121
+        ],
+        [
+          "Enrollments!H298",
+          84
+        ],
+        [
+          "Enrollments!H299",
+          66
+        ],
+        [
+          "Enrollments!H300",
+          93
+        ],
+        [
+          "Enrollments!H301",
+          62
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-medium-3",
+    "track": "excel",
+    "difficulty": "medium",
+    "title": "INDEX / MATCH for course titles",
+    "tags": [
+      "INDEX",
+      "MATCH",
+      "fill down"
+    ],
+    "prompt_md": "On the **Sections** sheet, column **F** has the header `course_title`. Fill `F2:F237` with the title of each section's course (`course_id` in column B). The **Courses** sheet has `course_id` in column A and `title` in column D.\n\nUse `INDEX` + `MATCH` (not VLOOKUP).",
+    "example": {
+      "input_md": "`=INDEX(Courses!$D$2:$D$137,MATCH(B2,Courses!$A$2:$A$137,0))`"
+    },
+    "hints": [
+      "`MATCH(value, one_column_range, 0)` returns the row position; `INDEX(range, position)` reads it.",
+      "Lock both ranges with `$`."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Sections!F2:F237",
+          ""
+        ]
+      ],
+      "headers": {
+        "Sections!F1": "course_title"
+      }
+    },
+    "answerCells": "Sections!F2:F237",
+    "solution": [
+      [
+        "Sections!F2",
+        "=INDEX(Courses!$D$2:$D$137,MATCH(B2,Courses!$A$2:$A$137,0))"
+      ]
+    ],
+    "solutionFill": "Sections!F2:F237",
+    "oracle": "t = X['Courses'].set_index('course_id').title; cells = fill('Sections', 'F', lambda r: t[r.course_id])",
+    "expected": {
+      "cells": [
+        [
+          "Sections!F2",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F3",
+          "Ecology"
+        ],
+        [
+          "Sections!F4",
+          "Microbiology"
+        ],
+        [
+          "Sections!F5",
+          "Human Anatomy"
+        ],
+        [
+          "Sections!F6",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F7",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F8",
+          "Organic Chemistry I"
+        ],
+        [
+          "Sections!F9",
+          "Organic Chemistry II"
+        ],
+        [
+          "Sections!F10",
+          "Analytical Chemistry"
+        ],
+        [
+          "Sections!F11",
+          "Calculus I"
+        ],
+        [
+          "Sections!F12",
+          "Differential Equations"
+        ],
+        [
+          "Sections!F13",
+          "Introduction to Proofs"
+        ],
+        [
+          "Sections!F14",
+          "Introduction to Philosophy"
+        ],
+        [
+          "Sections!F15",
+          "General Psychology"
+        ],
+        [
+          "Sections!F16",
+          "Research Methods"
+        ],
+        [
+          "Sections!F17",
+          "Social Psychology"
+        ],
+        [
+          "Sections!F18",
+          "Introduction to Sociology"
+        ],
+        [
+          "Sections!F19",
+          "Cultural Anthropology"
+        ],
+        [
+          "Sections!F20",
+          "Constitutional Law"
+        ],
+        [
+          "Sections!F21",
+          "Theological Foundations"
+        ],
+        [
+          "Sections!F22",
+          "Latin I"
+        ],
+        [
+          "Sections!F23",
+          "Public Speaking"
+        ],
+        [
+          "Sections!F24",
+          "Media and Society"
+        ],
+        [
+          "Sections!F25",
+          "Journalism"
+        ],
+        [
+          "Sections!F26",
+          "University Choir"
+        ],
+        [
+          "Sections!F27",
+          "Principles of Finance"
+        ],
+        [
+          "Sections!F28",
+          "Operations Management"
+        ],
+        [
+          "Sections!F29",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F30",
+          "Data Structures"
+        ],
+        [
+          "Sections!F31",
+          "Discrete Mathematics"
+        ],
+        [
+          "Sections!F32",
+          "Computer Architecture"
+        ],
+        [
+          "Sections!F33",
+          "Dynamics"
+        ],
+        [
+          "Sections!F34",
+          "Materials Science"
+        ],
+        [
+          "Sections!F35",
+          "Machine Design"
+        ],
+        [
+          "Sections!F36",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F37",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F38",
+          "Adult Health Nursing"
+        ],
+        [
+          "Sections!F39",
+          "Introduction to Health Sciences"
+        ],
+        [
+          "Sections!F40",
+          "Epidemiology"
+        ],
+        [
+          "Sections!F41",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F42",
+          "Principles of Biology II"
+        ],
+        [
+          "Sections!F43",
+          "Principles of Biology II"
+        ],
+        [
+          "Sections!F44",
+          "Human Anatomy"
+        ],
+        [
+          "Sections!F45",
+          "Human Physiology"
+        ],
+        [
+          "Sections!F46",
+          "Neurobiology"
+        ],
+        [
+          "Sections!F47",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F48",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F49",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F50",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F51",
+          "Organic Chemistry I"
+        ],
+        [
+          "Sections!F52",
+          "Physical Chemistry"
+        ],
+        [
+          "Sections!F53",
+          "Shakespeare"
+        ],
+        [
+          "Sections!F54",
+          "Calculus I"
+        ],
+        [
+          "Sections!F55",
+          "Calculus II"
+        ],
+        [
+          "Sections!F56",
+          "General Psychology"
+        ],
+        [
+          "Sections!F57",
+          "Theological Foundations"
+        ],
+        [
+          "Sections!F58",
+          "World Religions"
+        ],
+        [
+          "Sections!F59",
+          "Greek Mythology"
+        ],
+        [
+          "Sections!F60",
+          "Public Speaking"
+        ],
+        [
+          "Sections!F61",
+          "Managerial Accounting"
+        ],
+        [
+          "Sections!F62",
+          "Consumer Behavior"
+        ],
+        [
+          "Sections!F63",
+          "Organizational Behavior"
+        ],
+        [
+          "Sections!F64",
+          "Organizational Behavior"
+        ],
+        [
+          "Sections!F65",
+          "Object-Oriented Programming"
+        ],
+        [
+          "Sections!F66",
+          "Computer Architecture"
+        ],
+        [
+          "Sections!F67",
+          "Machine Learning"
+        ],
+        [
+          "Sections!F68",
+          "Dynamics"
+        ],
+        [
+          "Sections!F69",
+          "Aerodynamics"
+        ],
+        [
+          "Sections!F70",
+          "Physics II"
+        ],
+        [
+          "Sections!F71",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F72",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F73",
+          "Pediatric Nursing"
+        ],
+        [
+          "Sections!F74",
+          "Introduction to Health Sciences"
+        ],
+        [
+          "Sections!F75",
+          "Epidemiology"
+        ],
+        [
+          "Sections!F76",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F77",
+          "Principles of Biology II"
+        ],
+        [
+          "Sections!F78",
+          "Cell Biology"
+        ],
+        [
+          "Sections!F79",
+          "Genetics"
+        ],
+        [
+          "Sections!F80",
+          "Ecology"
+        ],
+        [
+          "Sections!F81",
+          "Evolution"
+        ],
+        [
+          "Sections!F82",
+          "Molecular Biology"
+        ],
+        [
+          "Sections!F83",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F84",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F85",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F86",
+          "Analytical Chemistry"
+        ],
+        [
+          "Sections!F87",
+          "Biochemistry"
+        ],
+        [
+          "Sections!F88",
+          "Introduction to Literature"
+        ],
+        [
+          "Sections!F89",
+          "Academic Writing"
+        ],
+        [
+          "Sections!F90",
+          "World History I"
+        ],
+        [
+          "Sections!F91",
+          "College Algebra"
+        ],
+        [
+          "Sections!F92",
+          "Calculus I"
+        ],
+        [
+          "Sections!F93",
+          "Linear Algebra"
+        ],
+        [
+          "Sections!F94",
+          "Differential Equations"
+        ],
+        [
+          "Sections!F95",
+          "Introduction to Philosophy"
+        ],
+        [
+          "Sections!F96",
+          "Ethics"
+        ],
+        [
+          "Sections!F97",
+          "General Psychology"
+        ],
+        [
+          "Sections!F98",
+          "General Psychology"
+        ],
+        [
+          "Sections!F99",
+          "Research Methods"
+        ],
+        [
+          "Sections!F100",
+          "Research Methods"
+        ],
+        [
+          "Sections!F101",
+          "Cognitive Psychology"
+        ],
+        [
+          "Sections!F102",
+          "Constitutional Law"
+        ],
+        [
+          "Sections!F103",
+          "Theological Foundations"
+        ],
+        [
+          "Sections!F104",
+          "Scripture"
+        ],
+        [
+          "Sections!F105",
+          "Public Speaking"
+        ],
+        [
+          "Sections!F106",
+          "Media and Society"
+        ],
+        [
+          "Sections!F107",
+          "Media and Society"
+        ],
+        [
+          "Sections!F108",
+          "Journalism"
+        ],
+        [
+          "Sections!F109",
+          "Art History"
+        ],
+        [
+          "Sections!F110",
+          "University Choir"
+        ],
+        [
+          "Sections!F111",
+          "Managerial Accounting"
+        ],
+        [
+          "Sections!F112",
+          "Principles of Management"
+        ],
+        [
+          "Sections!F113",
+          "Operations Management"
+        ],
+        [
+          "Sections!F114",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F115",
+          "Object-Oriented Programming"
+        ],
+        [
+          "Sections!F116",
+          "Data Structures"
+        ],
+        [
+          "Sections!F117",
+          "Data Structures"
+        ],
+        [
+          "Sections!F118",
+          "Algorithms"
+        ],
+        [
+          "Sections!F119",
+          "Software Engineering"
+        ],
+        [
+          "Sections!F120",
+          "Statics"
+        ],
+        [
+          "Sections!F121",
+          "Thermodynamics"
+        ],
+        [
+          "Sections!F122",
+          "Fluid Mechanics"
+        ],
+        [
+          "Sections!F123",
+          "Physics I"
+        ],
+        [
+          "Sections!F124",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F125",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F126",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F127",
+          "Mental Health Nursing"
+        ],
+        [
+          "Sections!F128",
+          "Introduction to Health Sciences"
+        ],
+        [
+          "Sections!F129",
+          "Epidemiology"
+        ],
+        [
+          "Sections!F130",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F131",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F132",
+          "Principles of Biology II"
+        ],
+        [
+          "Sections!F133",
+          "Cell Biology"
+        ],
+        [
+          "Sections!F134",
+          "Neurobiology"
+        ],
+        [
+          "Sections!F135",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F136",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F137",
+          "Organic Chemistry II"
+        ],
+        [
+          "Sections!F138",
+          "Physical Chemistry"
+        ],
+        [
+          "Sections!F139",
+          "Shakespeare"
+        ],
+        [
+          "Sections!F140",
+          "American Novel"
+        ],
+        [
+          "Sections!F141",
+          "World History II"
+        ],
+        [
+          "Sections!F142",
+          "Calculus II"
+        ],
+        [
+          "Sections!F143",
+          "Calculus III"
+        ],
+        [
+          "Sections!F144",
+          "Linear Algebra"
+        ],
+        [
+          "Sections!F145",
+          "Probability"
+        ],
+        [
+          "Sections!F146",
+          "Introduction to Philosophy"
+        ],
+        [
+          "Sections!F147",
+          "Logic"
+        ],
+        [
+          "Sections!F148",
+          "General Psychology"
+        ],
+        [
+          "Sections!F149",
+          "Cognitive Psychology"
+        ],
+        [
+          "Sections!F150",
+          "World Religions"
+        ],
+        [
+          "Sections!F151",
+          "World Religions"
+        ],
+        [
+          "Sections!F152",
+          "Greek Mythology"
+        ],
+        [
+          "Sections!F153",
+          "Public Speaking"
+        ],
+        [
+          "Sections!F154",
+          "Media and Society"
+        ],
+        [
+          "Sections!F155",
+          "Drawing I"
+        ],
+        [
+          "Sections!F156",
+          "Intermediate Accounting"
+        ],
+        [
+          "Sections!F157",
+          "Taxation"
+        ],
+        [
+          "Sections!F158",
+          "Principles of Finance"
+        ],
+        [
+          "Sections!F159",
+          "Principles of Finance"
+        ],
+        [
+          "Sections!F160",
+          "Investments"
+        ],
+        [
+          "Sections!F161",
+          "Principles of Marketing"
+        ],
+        [
+          "Sections!F162",
+          "Consumer Behavior"
+        ],
+        [
+          "Sections!F163",
+          "Consumer Behavior"
+        ],
+        [
+          "Sections!F164",
+          "Organizational Behavior"
+        ],
+        [
+          "Sections!F165",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F166",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F167",
+          "Object-Oriented Programming"
+        ],
+        [
+          "Sections!F168",
+          "Data Structures"
+        ],
+        [
+          "Sections!F169",
+          "Data Structures"
+        ],
+        [
+          "Sections!F170",
+          "Computer Architecture"
+        ],
+        [
+          "Sections!F171",
+          "Operating Systems"
+        ],
+        [
+          "Sections!F172",
+          "Artificial Intelligence"
+        ],
+        [
+          "Sections!F173",
+          "Senior Capstone"
+        ],
+        [
+          "Sections!F174",
+          "Statics"
+        ],
+        [
+          "Sections!F175",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F176",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F177",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F178",
+          "Introduction to Health Sciences"
+        ],
+        [
+          "Sections!F179",
+          "Health Policy"
+        ],
+        [
+          "Sections!F180",
+          "Nutrition"
+        ],
+        [
+          "Sections!F181",
+          "Principles of Biology I"
+        ],
+        [
+          "Sections!F182",
+          "Genetics"
+        ],
+        [
+          "Sections!F183",
+          "Microbiology"
+        ],
+        [
+          "Sections!F184",
+          "Human Anatomy"
+        ],
+        [
+          "Sections!F185",
+          "General Chemistry I"
+        ],
+        [
+          "Sections!F186",
+          "General Chemistry II"
+        ],
+        [
+          "Sections!F187",
+          "Organic Chemistry II"
+        ],
+        [
+          "Sections!F188",
+          "Biochemistry"
+        ],
+        [
+          "Sections!F189",
+          "Introduction to Literature"
+        ],
+        [
+          "Sections!F190",
+          "Shakespeare"
+        ],
+        [
+          "Sections!F191",
+          "Calculus I"
+        ],
+        [
+          "Sections!F192",
+          "Calculus III"
+        ],
+        [
+          "Sections!F193",
+          "Linear Algebra"
+        ],
+        [
+          "Sections!F194",
+          "Introduction to Proofs"
+        ],
+        [
+          "Sections!F195",
+          "Introduction to Philosophy"
+        ],
+        [
+          "Sections!F196",
+          "Ethics"
+        ],
+        [
+          "Sections!F197",
+          "General Psychology"
+        ],
+        [
+          "Sections!F198",
+          "General Psychology"
+        ],
+        [
+          "Sections!F199",
+          "Research Methods"
+        ],
+        [
+          "Sections!F200",
+          "Introduction to Sociology"
+        ],
+        [
+          "Sections!F201",
+          "American Government"
+        ],
+        [
+          "Sections!F202",
+          "Theological Foundations"
+        ],
+        [
+          "Sections!F203",
+          "Theological Foundations"
+        ],
+        [
+          "Sections!F204",
+          "Latin I"
+        ],
+        [
+          "Sections!F205",
+          "Public Speaking"
+        ],
+        [
+          "Sections!F206",
+          "Media and Society"
+        ],
+        [
+          "Sections!F207",
+          "Media and Society"
+        ],
+        [
+          "Sections!F208",
+          "Journalism"
+        ],
+        [
+          "Sections!F209",
+          "Music Theory"
+        ],
+        [
+          "Sections!F210",
+          "Music Theory"
+        ],
+        [
+          "Sections!F211",
+          "University Choir"
+        ],
+        [
+          "Sections!F212",
+          "Financial Accounting"
+        ],
+        [
+          "Sections!F213",
+          "Managerial Accounting"
+        ],
+        [
+          "Sections!F214",
+          "Investments"
+        ],
+        [
+          "Sections!F215",
+          "Principles of Marketing"
+        ],
+        [
+          "Sections!F216",
+          "Principles of Marketing"
+        ],
+        [
+          "Sections!F217",
+          "Principles of Management"
+        ],
+        [
+          "Sections!F218",
+          "Operations Management"
+        ],
+        [
+          "Sections!F219",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F220",
+          "Introduction to Computer Science"
+        ],
+        [
+          "Sections!F221",
+          "Object-Oriented Programming"
+        ],
+        [
+          "Sections!F222",
+          "Object-Oriented Programming"
+        ],
+        [
+          "Sections!F223",
+          "Data Structures"
+        ],
+        [
+          "Sections!F224",
+          "Discrete Mathematics"
+        ],
+        [
+          "Sections!F225",
+          "Databases"
+        ],
+        [
+          "Sections!F226",
+          "Statics"
+        ],
+        [
+          "Sections!F227",
+          "Dynamics"
+        ],
+        [
+          "Sections!F228",
+          "Thermodynamics"
+        ],
+        [
+          "Sections!F229",
+          "Machine Design"
+        ],
+        [
+          "Sections!F230",
+          "Modern Physics"
+        ],
+        [
+          "Sections!F231",
+          "Foundations of Nursing"
+        ],
+        [
+          "Sections!F232",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F233",
+          "Pharmacology"
+        ],
+        [
+          "Sections!F234",
+          "Mental Health Nursing"
+        ],
+        [
+          "Sections!F235",
+          "Introduction to Health Sciences"
+        ],
+        [
+          "Sections!F236",
+          "Epidemiology"
+        ],
+        [
+          "Sections!F237",
+          "Global Health"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-medium-4",
+    "track": "excel",
+    "difficulty": "medium",
+    "title": "Letter bands with IFS",
+    "tags": [
+      "IFS",
+      "nested IF",
+      "fill down"
+    ],
+    "prompt_md": "On **Students**, column **K** has the header `band`. Fill `K2:K121` with a letter based on GPA (column F):\n\n| GPA | band |\n|---|---|\n| ≥ 3.7 | A |\n| ≥ 3.3 | B |\n| ≥ 3.0 | C |\n| otherwise | D |\n\nUse `IFS` or nested `IF`s.",
+    "example": {
+      "input_md": "`=IFS(F2>=3.7,\"A\",F2>=3.3,\"B\",F2>=3,\"C\",TRUE,\"D\")`"
+    },
+    "hints": [
+      "Conditions are evaluated top to bottom; order them from the highest threshold down.",
+      "The final `TRUE,\"D\"` pair is the catch-all."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Students!K2:K121",
+          ""
+        ]
+      ],
+      "headers": {
+        "Students!K1": "band"
+      }
+    },
+    "answerCells": "Students!K2:K121",
+    "solution": [
+      [
+        "Students!K2",
+        "=IFS(F2>=3.7,\"A\",F2>=3.3,\"B\",F2>=3,\"C\",TRUE,\"D\")"
+      ]
+    ],
+    "solutionFill": "Students!K2:K121",
+    "oracle": "cells = fill('Students', 'K', lambda r: 'A' if r.gpa >= 3.7 else 'B' if r.gpa >= 3.3 else 'C' if r.gpa >= 3.0 else 'D')",
+    "expected": {
+      "cells": [
+        [
+          "Students!K2",
+          "B"
+        ],
+        [
+          "Students!K3",
+          "C"
+        ],
+        [
+          "Students!K4",
+          "C"
+        ],
+        [
+          "Students!K5",
+          "C"
+        ],
+        [
+          "Students!K6",
+          "D"
+        ],
+        [
+          "Students!K7",
+          "D"
+        ],
+        [
+          "Students!K8",
+          "C"
+        ],
+        [
+          "Students!K9",
+          "C"
+        ],
+        [
+          "Students!K10",
+          "B"
+        ],
+        [
+          "Students!K11",
+          "B"
+        ],
+        [
+          "Students!K12",
+          "C"
+        ],
+        [
+          "Students!K13",
+          "D"
+        ],
+        [
+          "Students!K14",
+          "A"
+        ],
+        [
+          "Students!K15",
+          "B"
+        ],
+        [
+          "Students!K16",
+          "B"
+        ],
+        [
+          "Students!K17",
+          "C"
+        ],
+        [
+          "Students!K18",
+          "B"
+        ],
+        [
+          "Students!K19",
+          "D"
+        ],
+        [
+          "Students!K20",
+          "C"
+        ],
+        [
+          "Students!K21",
+          "C"
+        ],
+        [
+          "Students!K22",
+          "A"
+        ],
+        [
+          "Students!K23",
+          "D"
+        ],
+        [
+          "Students!K24",
+          "C"
+        ],
+        [
+          "Students!K25",
+          "C"
+        ],
+        [
+          "Students!K26",
+          "C"
+        ],
+        [
+          "Students!K27",
+          "D"
+        ],
+        [
+          "Students!K28",
+          "C"
+        ],
+        [
+          "Students!K29",
+          "C"
+        ],
+        [
+          "Students!K30",
+          "D"
+        ],
+        [
+          "Students!K31",
+          "C"
+        ],
+        [
+          "Students!K32",
+          "D"
+        ],
+        [
+          "Students!K33",
+          "D"
+        ],
+        [
+          "Students!K34",
+          "B"
+        ],
+        [
+          "Students!K35",
+          "A"
+        ],
+        [
+          "Students!K36",
+          "D"
+        ],
+        [
+          "Students!K37",
+          "C"
+        ],
+        [
+          "Students!K38",
+          "C"
+        ],
+        [
+          "Students!K39",
+          "C"
+        ],
+        [
+          "Students!K40",
+          "D"
+        ],
+        [
+          "Students!K41",
+          "B"
+        ],
+        [
+          "Students!K42",
+          "B"
+        ],
+        [
+          "Students!K43",
+          "C"
+        ],
+        [
+          "Students!K44",
+          "B"
+        ],
+        [
+          "Students!K45",
+          "A"
+        ],
+        [
+          "Students!K46",
+          "B"
+        ],
+        [
+          "Students!K47",
+          "B"
+        ],
+        [
+          "Students!K48",
+          "D"
+        ],
+        [
+          "Students!K49",
+          "C"
+        ],
+        [
+          "Students!K50",
+          "B"
+        ],
+        [
+          "Students!K51",
+          "D"
+        ],
+        [
+          "Students!K52",
+          "A"
+        ],
+        [
+          "Students!K53",
+          "D"
+        ],
+        [
+          "Students!K54",
+          "B"
+        ],
+        [
+          "Students!K55",
+          "D"
+        ],
+        [
+          "Students!K56",
+          "A"
+        ],
+        [
+          "Students!K57",
+          "D"
+        ],
+        [
+          "Students!K58",
+          "D"
+        ],
+        [
+          "Students!K59",
+          "C"
+        ],
+        [
+          "Students!K60",
+          "D"
+        ],
+        [
+          "Students!K61",
+          "D"
+        ],
+        [
+          "Students!K62",
+          "B"
+        ],
+        [
+          "Students!K63",
+          "D"
+        ],
+        [
+          "Students!K64",
+          "D"
+        ],
+        [
+          "Students!K65",
+          "C"
+        ],
+        [
+          "Students!K66",
+          "D"
+        ],
+        [
+          "Students!K67",
+          "D"
+        ],
+        [
+          "Students!K68",
+          "C"
+        ],
+        [
+          "Students!K69",
+          "B"
+        ],
+        [
+          "Students!K70",
+          "B"
+        ],
+        [
+          "Students!K71",
+          "B"
+        ],
+        [
+          "Students!K72",
+          "D"
+        ],
+        [
+          "Students!K73",
+          "B"
+        ],
+        [
+          "Students!K74",
+          "C"
+        ],
+        [
+          "Students!K75",
+          "D"
+        ],
+        [
+          "Students!K76",
+          "D"
+        ],
+        [
+          "Students!K77",
+          "D"
+        ],
+        [
+          "Students!K78",
+          "D"
+        ],
+        [
+          "Students!K79",
+          "B"
+        ],
+        [
+          "Students!K80",
+          "D"
+        ],
+        [
+          "Students!K81",
+          "C"
+        ],
+        [
+          "Students!K82",
+          "D"
+        ],
+        [
+          "Students!K83",
+          "D"
+        ],
+        [
+          "Students!K84",
+          "B"
+        ],
+        [
+          "Students!K85",
+          "B"
+        ],
+        [
+          "Students!K86",
+          "C"
+        ],
+        [
+          "Students!K87",
+          "B"
+        ],
+        [
+          "Students!K88",
+          "B"
+        ],
+        [
+          "Students!K89",
+          "A"
+        ],
+        [
+          "Students!K90",
+          "C"
+        ],
+        [
+          "Students!K91",
+          "C"
+        ],
+        [
+          "Students!K92",
+          "C"
+        ],
+        [
+          "Students!K93",
+          "D"
+        ],
+        [
+          "Students!K94",
+          "D"
+        ],
+        [
+          "Students!K95",
+          "D"
+        ],
+        [
+          "Students!K96",
+          "D"
+        ],
+        [
+          "Students!K97",
+          "C"
+        ],
+        [
+          "Students!K98",
+          "A"
+        ],
+        [
+          "Students!K99",
+          "B"
+        ],
+        [
+          "Students!K100",
+          "D"
+        ],
+        [
+          "Students!K101",
+          "D"
+        ],
+        [
+          "Students!K102",
+          "C"
+        ],
+        [
+          "Students!K103",
+          "D"
+        ],
+        [
+          "Students!K104",
+          "A"
+        ],
+        [
+          "Students!K105",
+          "A"
+        ],
+        [
+          "Students!K106",
+          "C"
+        ],
+        [
+          "Students!K107",
+          "C"
+        ],
+        [
+          "Students!K108",
+          "B"
+        ],
+        [
+          "Students!K109",
+          "C"
+        ],
+        [
+          "Students!K110",
+          "B"
+        ],
+        [
+          "Students!K111",
+          "D"
+        ],
+        [
+          "Students!K112",
+          "D"
+        ],
+        [
+          "Students!K113",
+          "B"
+        ],
+        [
+          "Students!K114",
+          "B"
+        ],
+        [
+          "Students!K115",
+          "B"
+        ],
+        [
+          "Students!K116",
+          "B"
+        ],
+        [
+          "Students!K117",
+          "B"
+        ],
+        [
+          "Students!K118",
+          "B"
+        ],
+        [
+          "Students!K119",
+          "C"
+        ],
+        [
+          "Students!K120",
+          "A"
+        ],
+        [
+          "Students!K121",
+          "B"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-medium-5",
+    "track": "excel",
+    "difficulty": "medium",
+    "title": "Dates and IFERROR",
+    "tags": [
+      "YEAR",
+      "DATEDIF",
+      "DATE",
+      "IFERROR"
+    ],
+    "prompt_md": "**Employees** has `hire_date` in column **G** (real dates). Column **H** has the header `hire_year`.\n\n1. Fill `H2:H101` with the hire year (`YEAR`).\n2. `Answers!B2` — the number of **complete years** between the earliest hire date and 1 January 2025 (`DATEDIF(start, DATE(2025,1,1), \"Y\")`).\n3. `Answers!B3` — look up the course id for section **99999** on the Sections sheet with VLOOKUP, but show the text `not found` instead of an error (`IFERROR`).",
+    "example": {
+      "input_md": "`=DATEDIF(MIN(Employees!G2:G101),DATE(2025,1,1),\"Y\")`"
+    },
+    "hints": [
+      "`YEAR(G2)`; `MIN` of a date column gives the earliest date.",
+      "`=IFERROR(VLOOKUP(99999,Sections!A2:E237,2,FALSE),\"not found\")`"
+    ],
+    "setup": {
+      "answers": [
+        [
+          "Years from earliest hire to 2025-01-01",
+          ""
+        ],
+        [
+          "Course of section 99999",
+          ""
+        ]
+      ],
+      "headers": {
+        "Employees!H1": "hire_year"
+      }
+    },
+    "answerCells": [
+      "Employees!H2:H101",
+      "Answers!B2:B3"
+    ],
+    "solution": [
+      [
+        "Employees!H2",
+        "=YEAR(G2)"
+      ],
+      [
+        "Answers!B2",
+        "=DATEDIF(MIN(Employees!G2:G101),DATE(2025,1,1),\"Y\")"
+      ],
+      [
+        "Answers!B3",
+        "=IFERROR(VLOOKUP(99999,Sections!A2:E237,2,FALSE),\"not found\")"
+      ]
+    ],
+    "solutionFill": "Employees!H2:H101",
+    "oracle": "E = X['Employees']; cells = fill('Employees', 'H', lambda r: int(r.hire_date[:4])) + [['Answers!B2', datedif_y(E.hire_date.min(), '2025-01-01')], ['Answers!B3', 'not found']]",
+    "expected": {
+      "cells": [
+        [
+          "Employees!H2",
+          2013
+        ],
+        [
+          "Employees!H3",
+          2015
+        ],
+        [
+          "Employees!H4",
+          2016
+        ],
+        [
+          "Employees!H5",
+          2015
+        ],
+        [
+          "Employees!H6",
+          2009
+        ],
+        [
+          "Employees!H7",
+          2008
+        ],
+        [
+          "Employees!H8",
+          2010
+        ],
+        [
+          "Employees!H9",
+          2010
+        ],
+        [
+          "Employees!H10",
+          2019
+        ],
+        [
+          "Employees!H11",
+          2016
+        ],
+        [
+          "Employees!H12",
+          2006
+        ],
+        [
+          "Employees!H13",
+          2010
+        ],
+        [
+          "Employees!H14",
+          2017
+        ],
+        [
+          "Employees!H15",
+          2024
+        ],
+        [
+          "Employees!H16",
+          2005
+        ],
+        [
+          "Employees!H17",
+          2003
+        ],
+        [
+          "Employees!H18",
+          2007
+        ],
+        [
+          "Employees!H19",
+          2010
+        ],
+        [
+          "Employees!H20",
+          2014
+        ],
+        [
+          "Employees!H21",
+          2005
+        ],
+        [
+          "Employees!H22",
+          2013
+        ],
+        [
+          "Employees!H23",
+          2015
+        ],
+        [
+          "Employees!H24",
+          2004
+        ],
+        [
+          "Employees!H25",
+          2021
+        ],
+        [
+          "Employees!H26",
+          2012
+        ],
+        [
+          "Employees!H27",
+          2006
+        ],
+        [
+          "Employees!H28",
+          2011
+        ],
+        [
+          "Employees!H29",
+          2012
+        ],
+        [
+          "Employees!H30",
+          2023
+        ],
+        [
+          "Employees!H31",
+          2018
+        ],
+        [
+          "Employees!H32",
+          2023
+        ],
+        [
+          "Employees!H33",
+          2007
+        ],
+        [
+          "Employees!H34",
+          2019
+        ],
+        [
+          "Employees!H35",
+          2019
+        ],
+        [
+          "Employees!H36",
+          2007
+        ],
+        [
+          "Employees!H37",
+          2010
+        ],
+        [
+          "Employees!H38",
+          2010
+        ],
+        [
+          "Employees!H39",
+          2012
+        ],
+        [
+          "Employees!H40",
+          2023
+        ],
+        [
+          "Employees!H41",
+          2011
+        ],
+        [
+          "Employees!H42",
+          2007
+        ],
+        [
+          "Employees!H43",
+          2023
+        ],
+        [
+          "Employees!H44",
+          2023
+        ],
+        [
+          "Employees!H45",
+          2013
+        ],
+        [
+          "Employees!H46",
+          2018
+        ],
+        [
+          "Employees!H47",
+          2009
+        ],
+        [
+          "Employees!H48",
+          2014
+        ],
+        [
+          "Employees!H49",
+          2010
+        ],
+        [
+          "Employees!H50",
+          2013
+        ],
+        [
+          "Employees!H51",
+          2018
+        ],
+        [
+          "Employees!H52",
+          2014
+        ],
+        [
+          "Employees!H53",
+          2019
+        ],
+        [
+          "Employees!H54",
+          2013
+        ],
+        [
+          "Employees!H55",
+          2006
+        ],
+        [
+          "Employees!H56",
+          2022
+        ],
+        [
+          "Employees!H57",
+          2020
+        ],
+        [
+          "Employees!H58",
+          2008
+        ],
+        [
+          "Employees!H59",
+          2022
+        ],
+        [
+          "Employees!H60",
+          2013
+        ],
+        [
+          "Employees!H61",
+          2001
+        ],
+        [
+          "Employees!H62",
+          2024
+        ],
+        [
+          "Employees!H63",
+          2015
+        ],
+        [
+          "Employees!H64",
+          2006
+        ],
+        [
+          "Employees!H65",
+          2009
+        ],
+        [
+          "Employees!H66",
+          2012
+        ],
+        [
+          "Employees!H67",
+          2011
+        ],
+        [
+          "Employees!H68",
+          2011
+        ],
+        [
+          "Employees!H69",
+          2009
+        ],
+        [
+          "Employees!H70",
+          2019
+        ],
+        [
+          "Employees!H71",
+          2023
+        ],
+        [
+          "Employees!H72",
+          2004
+        ],
+        [
+          "Employees!H73",
+          2019
+        ],
+        [
+          "Employees!H74",
+          2006
+        ],
+        [
+          "Employees!H75",
+          2012
+        ],
+        [
+          "Employees!H76",
+          2008
+        ],
+        [
+          "Employees!H77",
+          2010
+        ],
+        [
+          "Employees!H78",
+          2006
+        ],
+        [
+          "Employees!H79",
+          2005
+        ],
+        [
+          "Employees!H80",
+          2013
+        ],
+        [
+          "Employees!H81",
+          1998
+        ],
+        [
+          "Employees!H82",
+          2004
+        ],
+        [
+          "Employees!H83",
+          2024
+        ],
+        [
+          "Employees!H84",
+          2010
+        ],
+        [
+          "Employees!H85",
+          2007
+        ],
+        [
+          "Employees!H86",
+          2013
+        ],
+        [
+          "Employees!H87",
+          2020
+        ],
+        [
+          "Employees!H88",
+          2024
+        ],
+        [
+          "Employees!H89",
+          2000
+        ],
+        [
+          "Employees!H90",
+          2019
+        ],
+        [
+          "Employees!H91",
+          2017
+        ],
+        [
+          "Employees!H92",
+          2009
+        ],
+        [
+          "Employees!H93",
+          2009
+        ],
+        [
+          "Employees!H94",
+          2018
+        ],
+        [
+          "Employees!H95",
+          2012
+        ],
+        [
+          "Employees!H96",
+          2006
+        ],
+        [
+          "Employees!H97",
+          2012
+        ],
+        [
+          "Employees!H98",
+          2011
+        ],
+        [
+          "Employees!H99",
+          2004
+        ],
+        [
+          "Employees!H100",
+          2012
+        ],
+        [
+          "Employees!H101",
+          2018
+        ],
+        [
+          "Answers!B2",
+          26
+        ],
+        [
+          "Answers!B3",
+          "not found"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-hard-1",
+    "track": "excel",
+    "difficulty": "hard",
+    "title": "Two-way INDEX / MATCH",
+    "tags": [
+      "INDEX",
+      "MATCH",
+      "two-way lookup"
+    ],
+    "prompt_md": "The **Answers** sheet has a `course_id` in column A and an `attribute` name (one of the Courses headers: `credits`, `level`, `title`, …) in column B for rows 2–4.\n\nFill `C2:C4` with a **single formula pattern** that looks up the row by course id **and** the column by header name: `INDEX(table, MATCH(id, id_column, 0), MATCH(attribute, header_row, 0))`. Include row 1 of Courses in the table so the header row lines up.",
+    "example": {
+      "input_md": "`=INDEX(Courses!$A$1:$F$137,MATCH(A2,Courses!$A$1:$A$137,0),MATCH(B2,Courses!$A$1:$F$1,0))`"
+    },
+    "hints": [
+      "The second MATCH searches the header row `Courses!A1:F1` for the attribute name.",
+      "Both MATCHes must use the same starting row as the INDEX table."
+    ],
+    "setup": {
+      "answersHeader": [
+        "course_id",
+        "attribute",
+        "answer"
+      ],
+      "answers": [
+        [
+          50,
+          "credits",
+          ""
+        ],
+        [
+          77,
+          "level",
+          ""
+        ],
+        [
+          12,
+          "title",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!C2:C4",
+    "solution": [
+      [
+        "Answers!C2",
+        "=INDEX(Courses!$A$1:$F$137,MATCH(A2,Courses!$A$1:$A$137,0),MATCH(B2,Courses!$A$1:$F$1,0))"
+      ]
+    ],
+    "solutionFill": "Answers!C2:C4",
+    "oracle": "C = X['Courses'].set_index('course_id'); v = lambda i, a: C.loc[i, a]; cells = [['Answers!C2', int(v(50, 'credits'))], ['Answers!C3', int(v(77, 'level'))], ['Answers!C4', v(12, 'title')]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!C2",
+          3
+        ],
+        [
+          "Answers!C3",
+          4000
+        ],
+        [
+          "Answers!C4",
+          "Neurobiology"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-hard-2",
+    "track": "excel",
+    "difficulty": "hard",
+    "title": "SUMPRODUCT with several criteria",
+    "tags": [
+      "SUMPRODUCT",
+      "array arithmetic"
+    ],
+    "prompt_md": "`SUMPRODUCT` multiplies arrays element-wise and sums the result; a comparison like `(range=\"MO\")` is an array of 1/0, so multiplying comparisons ANDs them.\n\nOn **Answers**:\n\n- `B2` — number of **completed** enrollments (Enrollments column E) with grade points (column G) **≥ 3.7**\n- `B3` — the **sum of GPAs** of students from **MO** who enrolled in **2023** (Students D, E, F)\n- `B4` — the **average GPA** of students from **IL** who enrolled in **2022** (a SUMPRODUCT divided by a SUMPRODUCT)",
+    "example": {
+      "input_md": "`=SUMPRODUCT((Enrollments!E2:E301=\"completed\")*(Enrollments!G2:G301>=3.7))`"
+    },
+    "hints": [
+      "Wrap each comparison in parentheses and multiply: `(A)*(B)*values`.",
+      "For the average: `SUMPRODUCT((cond1)*(cond2)*F)/SUMPRODUCT((cond1)*(cond2))`."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "Completed enrollments with grade points >= 3.7",
+          ""
+        ],
+        [
+          "Sum of GPAs: MO students enrolled 2023",
+          ""
+        ],
+        [
+          "Average GPA: IL students enrolled 2022",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=SUMPRODUCT((Enrollments!E2:E301=\"completed\")*(Enrollments!G2:G301>=3.7))"
+      ],
+      [
+        "Answers!B3",
+        "=SUMPRODUCT((Students!D2:D121=\"MO\")*(Students!E2:E121=2023)*Students!F2:F121)"
+      ],
+      [
+        "Answers!B4",
+        "=SUMPRODUCT((Students!D2:D121=\"IL\")*(Students!E2:E121=2022)*Students!F2:F121)/SUMPRODUCT((Students!D2:D121=\"IL\")*(Students!E2:E121=2022))"
+      ]
+    ],
+    "oracle": "S = X['Students']; En = X['Enrollments']; il22 = S[(S.home_state == 'IL') & (S.enrollment_year == 2022)]; cells = [['Answers!B2', int(((En.status == 'completed') & (En.grade_points >= 3.7)).sum())], ['Answers!B3', float(S[(S.home_state == 'MO') & (S.enrollment_year == 2023)].gpa.sum())], ['Answers!B4', il22.gpa.mean()]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          122
+        ],
+        [
+          "Answers!B3",
+          58.31
+        ],
+        [
+          "Answers!B4",
+          3.2628571428571433
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-hard-3",
+    "track": "excel",
+    "difficulty": "hard",
+    "title": "Nth largest / smallest with a condition",
+    "tags": [
+      "LARGE",
+      "SMALL",
+      "IF array",
+      "MAXIFS"
+    ],
+    "prompt_md": "`LARGE(IF(condition, values), n)` evaluates `IF` over whole ranges (array arithmetic is enabled in this workbook) and keeps only the values where the condition holds.\n\nOn **Answers**:\n\n- `B2` — the **2nd highest** salary in department **1** (Employees: department in E, salary in F)\n- `B3` — the **3rd lowest** GPA among students from **MO** (Students: state D, GPA F)\n- `B4` — the highest salary among employees whose title is exactly `Assistant Professor` (`MAXIFS` or `MAX(IF(...))`)",
+    "example": {
+      "input_md": "`=LARGE(IF(Employees!E2:E101=1,Employees!F2:F101),2)`"
+    },
+    "hints": [
+      "Inside `IF`, compare a whole range with a value: `Employees!E2:E101=1`.",
+      "`=MAXIFS(Employees!F2:F101,Employees!D2:D101,\"Assistant Professor\")`"
+    ],
+    "setup": {
+      "answers": [
+        [
+          "2nd highest salary, department 1",
+          ""
+        ],
+        [
+          "3rd lowest GPA, MO students",
+          ""
+        ],
+        [
+          "Top Assistant Professor salary",
+          ""
+        ]
+      ]
+    },
+    "answerCells": "Answers!B2:B4",
+    "solution": [
+      [
+        "Answers!B2",
+        "=LARGE(IF(Employees!E2:E101=1,Employees!F2:F101),2)"
+      ],
+      [
+        "Answers!B3",
+        "=SMALL(IF(Students!D2:D121=\"MO\",Students!F2:F121),3)"
+      ],
+      [
+        "Answers!B4",
+        "=MAXIFS(Employees!F2:F101,Employees!D2:D101,\"Assistant Professor\")"
+      ]
+    ],
+    "oracle": "S = X['Students']; E = X['Employees']; cells = [['Answers!B2', int(E[E.department_id == 1].salary.sort_values(ascending=False).iloc[1])], ['Answers!B3', float(S[S.home_state == 'MO'].gpa.sort_values().iloc[2])], ['Answers!B4', int(E[E.title == 'Assistant Professor'].salary.max())]]",
+    "expected": {
+      "cells": [
+        [
+          "Answers!B2",
+          142000
+        ],
+        [
+          "Answers!B3",
+          2.47
+        ],
+        [
+          "Answers!B4",
+          92000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-hard-4",
+    "track": "excel",
+    "difficulty": "hard",
+    "title": "Department of each enrollment (three-sheet lookup)",
+    "tags": [
+      "VLOOKUP",
+      "INDEX/MATCH",
+      "chained lookups",
+      "fill down"
+    ],
+    "prompt_md": "Column **I** of **Enrollments** has the header `department`. Fill `I2:I301` with the **name of the department** that owns the course of each enrollment's section.\n\nThe chain is: `Enrollments.section_id` (C) → `Sections.course_id` (B) → `Courses.department_id` (B) → `Departments.name` (C). Nest the lookups in one formula.",
+    "example": {
+      "input_md": "`=INDEX(Departments!$C$2:$C$25,MATCH(INDEX(Courses!$B$2:$B$137,MATCH(VLOOKUP(C2,Sections!$A$2:$E$237,2,FALSE),Courses!$A$2:$A$137,0)),Departments!$A$2:$A$25,0))`"
+    },
+    "hints": [
+      "Build it inside-out: first the course id (VLOOKUP into Sections), then the department id (INDEX/MATCH into Courses), then the name (INDEX/MATCH into Departments).",
+      "Test each layer in a spare cell before nesting."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Enrollments!I2:I301",
+          ""
+        ]
+      ],
+      "headers": {
+        "Enrollments!I1": "department"
+      }
+    },
+    "answerCells": "Enrollments!I2:I301",
+    "solution": [
+      [
+        "Enrollments!I2",
+        "=INDEX(Departments!$C$2:$C$25,MATCH(INDEX(Courses!$B$2:$B$137,MATCH(VLOOKUP(C2,Sections!$A$2:$E$237,2,FALSE),Courses!$A$2:$A$137,0)),Departments!$A$2:$A$25,0))"
+      ]
+    ],
+    "solutionFill": "Enrollments!I2:I301",
+    "oracle": "sec = X['Sections'].set_index('section_id').course_id; cdep = X['Courses'].set_index('course_id').department_id; dn = X['Departments'].set_index('department_id').name; cells = fill('Enrollments', 'I', lambda r: dn[cdep[sec[r.section_id]]])",
+    "expected": {
+      "cells": [
+        [
+          "Enrollments!I2",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I3",
+          "Sociology and Anthropology"
+        ],
+        [
+          "Enrollments!I4",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I5",
+          "Political Science"
+        ],
+        [
+          "Enrollments!I6",
+          "Biology"
+        ],
+        [
+          "Enrollments!I7",
+          "Biology"
+        ],
+        [
+          "Enrollments!I8",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I9",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I10",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I11",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I12",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I13",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I14",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I15",
+          "Communication"
+        ],
+        [
+          "Enrollments!I16",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I17",
+          "Political Science"
+        ],
+        [
+          "Enrollments!I18",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I19",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I20",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I21",
+          "Management"
+        ],
+        [
+          "Enrollments!I22",
+          "Physics"
+        ],
+        [
+          "Enrollments!I23",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I24",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I25",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I26",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I27",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I28",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I29",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I30",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I31",
+          "Physics"
+        ],
+        [
+          "Enrollments!I32",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I33",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I34",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I35",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I36",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I37",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I38",
+          "Finance"
+        ],
+        [
+          "Enrollments!I39",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I40",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I41",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I42",
+          "Biology"
+        ],
+        [
+          "Enrollments!I43",
+          "Communication"
+        ],
+        [
+          "Enrollments!I44",
+          "Communication"
+        ],
+        [
+          "Enrollments!I45",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I46",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I47",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I48",
+          "History"
+        ],
+        [
+          "Enrollments!I49",
+          "Management"
+        ],
+        [
+          "Enrollments!I50",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I51",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I52",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I53",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I54",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I55",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I56",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I57",
+          "Biology"
+        ],
+        [
+          "Enrollments!I58",
+          "Communication"
+        ],
+        [
+          "Enrollments!I59",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I60",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I61",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I62",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I63",
+          "English"
+        ],
+        [
+          "Enrollments!I64",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I65",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I66",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I67",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I68",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I69",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I70",
+          "Biology"
+        ],
+        [
+          "Enrollments!I71",
+          "Biology"
+        ],
+        [
+          "Enrollments!I72",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I73",
+          "Biology"
+        ],
+        [
+          "Enrollments!I74",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I75",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I76",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I77",
+          "Biology"
+        ],
+        [
+          "Enrollments!I78",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I79",
+          "Classics"
+        ],
+        [
+          "Enrollments!I80",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I81",
+          "Biology"
+        ],
+        [
+          "Enrollments!I82",
+          "Biology"
+        ],
+        [
+          "Enrollments!I83",
+          "Biology"
+        ],
+        [
+          "Enrollments!I84",
+          "Biology"
+        ],
+        [
+          "Enrollments!I85",
+          "Biology"
+        ],
+        [
+          "Enrollments!I86",
+          "Biology"
+        ],
+        [
+          "Enrollments!I87",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I88",
+          "Biology"
+        ],
+        [
+          "Enrollments!I89",
+          "Biology"
+        ],
+        [
+          "Enrollments!I90",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I91",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I92",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I93",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I94",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I95",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I96",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I97",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I98",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I99",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I100",
+          "Biology"
+        ],
+        [
+          "Enrollments!I101",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I102",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I103",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I104",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I105",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I106",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I107",
+          "Political Science"
+        ],
+        [
+          "Enrollments!I108",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I109",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I110",
+          "Classics"
+        ],
+        [
+          "Enrollments!I111",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I112",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I113",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I114",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I115",
+          "Biology"
+        ],
+        [
+          "Enrollments!I116",
+          "Biology"
+        ],
+        [
+          "Enrollments!I117",
+          "Biology"
+        ],
+        [
+          "Enrollments!I118",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I119",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I120",
+          "Management"
+        ],
+        [
+          "Enrollments!I121",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I122",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I123",
+          "Communication"
+        ],
+        [
+          "Enrollments!I124",
+          "Finance"
+        ],
+        [
+          "Enrollments!I125",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I126",
+          "English"
+        ],
+        [
+          "Enrollments!I127",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I128",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I129",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I130",
+          "Management"
+        ],
+        [
+          "Enrollments!I131",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I132",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I133",
+          "Communication"
+        ],
+        [
+          "Enrollments!I134",
+          "Communication"
+        ],
+        [
+          "Enrollments!I135",
+          "Communication"
+        ],
+        [
+          "Enrollments!I136",
+          "Communication"
+        ],
+        [
+          "Enrollments!I137",
+          "English"
+        ],
+        [
+          "Enrollments!I138",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I139",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I140",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I141",
+          "Communication"
+        ],
+        [
+          "Enrollments!I142",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I143",
+          "History"
+        ],
+        [
+          "Enrollments!I144",
+          "Communication"
+        ],
+        [
+          "Enrollments!I145",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I146",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I147",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I148",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I149",
+          "Communication"
+        ],
+        [
+          "Enrollments!I150",
+          "Communication"
+        ],
+        [
+          "Enrollments!I151",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I152",
+          "Communication"
+        ],
+        [
+          "Enrollments!I153",
+          "Communication"
+        ],
+        [
+          "Enrollments!I154",
+          "English"
+        ],
+        [
+          "Enrollments!I155",
+          "Communication"
+        ],
+        [
+          "Enrollments!I156",
+          "Communication"
+        ],
+        [
+          "Enrollments!I157",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I158",
+          "Communication"
+        ],
+        [
+          "Enrollments!I159",
+          "Communication"
+        ],
+        [
+          "Enrollments!I160",
+          "Communication"
+        ],
+        [
+          "Enrollments!I161",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I162",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I163",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I164",
+          "English"
+        ],
+        [
+          "Enrollments!I165",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I166",
+          "Finance"
+        ],
+        [
+          "Enrollments!I167",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I168",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I169",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I170",
+          "Biology"
+        ],
+        [
+          "Enrollments!I171",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I172",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I173",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I174",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I175",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I176",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I177",
+          "Management"
+        ],
+        [
+          "Enrollments!I178",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I179",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I180",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I181",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I182",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I183",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I184",
+          "Sociology and Anthropology"
+        ],
+        [
+          "Enrollments!I185",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I186",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I187",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I188",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I189",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I190",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I191",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I192",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I193",
+          "Management"
+        ],
+        [
+          "Enrollments!I194",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I195",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I196",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I197",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I198",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I199",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I200",
+          "English"
+        ],
+        [
+          "Enrollments!I201",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I202",
+          "Sociology and Anthropology"
+        ],
+        [
+          "Enrollments!I203",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I204",
+          "Classics"
+        ],
+        [
+          "Enrollments!I205",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I206",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I207",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I208",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I209",
+          "Finance"
+        ],
+        [
+          "Enrollments!I210",
+          "Management"
+        ],
+        [
+          "Enrollments!I211",
+          "Biology"
+        ],
+        [
+          "Enrollments!I212",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I213",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I214",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I215",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I216",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I217",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I218",
+          "Biology"
+        ],
+        [
+          "Enrollments!I219",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I220",
+          "Finance"
+        ],
+        [
+          "Enrollments!I221",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I222",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I223",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I224",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I225",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I226",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I227",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I228",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I229",
+          "Accounting"
+        ],
+        [
+          "Enrollments!I230",
+          "Finance"
+        ],
+        [
+          "Enrollments!I231",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I232",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I233",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I234",
+          "Marketing"
+        ],
+        [
+          "Enrollments!I235",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I236",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I237",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I238",
+          "Physics"
+        ],
+        [
+          "Enrollments!I239",
+          "Biology"
+        ],
+        [
+          "Enrollments!I240",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I241",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I242",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I243",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I244",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I245",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I246",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I247",
+          "Biology"
+        ],
+        [
+          "Enrollments!I248",
+          "Management"
+        ],
+        [
+          "Enrollments!I249",
+          "Psychology"
+        ],
+        [
+          "Enrollments!I250",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I251",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "Enrollments!I252",
+          "Fine and Performing Arts"
+        ],
+        [
+          "Enrollments!I253",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I254",
+          "Philosophy"
+        ],
+        [
+          "Enrollments!I255",
+          "Sociology and Anthropology"
+        ],
+        [
+          "Enrollments!I256",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I257",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I258",
+          "Biology"
+        ],
+        [
+          "Enrollments!I259",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I260",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I261",
+          "Biology"
+        ],
+        [
+          "Enrollments!I262",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I263",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I264",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I265",
+          "English"
+        ],
+        [
+          "Enrollments!I266",
+          "Classics"
+        ],
+        [
+          "Enrollments!I267",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I268",
+          "Health Sciences"
+        ],
+        [
+          "Enrollments!I269",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I270",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I271",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I272",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I273",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I274",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I275",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I276",
+          "Physics"
+        ],
+        [
+          "Enrollments!I277",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I278",
+          "Biology"
+        ],
+        [
+          "Enrollments!I279",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I280",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I281",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I282",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I283",
+          "Communication"
+        ],
+        [
+          "Enrollments!I284",
+          "Computer Science"
+        ],
+        [
+          "Enrollments!I285",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I286",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I287",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I288",
+          "Mathematics and Statistics"
+        ],
+        [
+          "Enrollments!I289",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I290",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I291",
+          "Chemistry"
+        ],
+        [
+          "Enrollments!I292",
+          "Theological Studies"
+        ],
+        [
+          "Enrollments!I293",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I294",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I295",
+          "Physics"
+        ],
+        [
+          "Enrollments!I296",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I297",
+          "Nursing"
+        ],
+        [
+          "Enrollments!I298",
+          "Finance"
+        ],
+        [
+          "Enrollments!I299",
+          "Classics"
+        ],
+        [
+          "Enrollments!I300",
+          "Management"
+        ],
+        [
+          "Enrollments!I301",
+          "Theological Studies"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "excel-hard-5",
+    "track": "excel",
+    "difficulty": "hard",
+    "title": "Per-student average grade points",
+    "tags": [
+      "SUMPRODUCT",
+      "COUNTIF",
+      "IF",
+      "fill down"
+    ],
+    "prompt_md": "Column **L** of **Students** has the header `avg_grade_points`. For each student (id in column A), fill `L2:L121` with the **average of `grade_points`** over that student's rows on the Enrollments sheet (student_id in B, grade_points in G).\n\nStudents with **no** enrollment rows on the sheet must show an empty string `\"\"` (guard with `IF(COUNTIF(...)=0, \"\", ...)`). Use SUMPRODUCT and COUNTIF with locked ranges.",
+    "example": {
+      "input_md": "`=IF(COUNTIF(Enrollments!$B$2:$B$301,A2)=0,\"\",SUMPRODUCT((Enrollments!$B$2:$B$301=A2)*Enrollments!$G$2:$G$301)/COUNTIF(Enrollments!$B$2:$B$301,A2))`"
+    },
+    "hints": [
+      "`SUMPRODUCT((Enrollments!$B$2:$B$301=A2)*Enrollments!$G$2:$G$301)` sums the grade points of one student.",
+      "Divide by `COUNTIF(Enrollments!$B$2:$B$301,A2)`; wrap in `IF(COUNTIF(...)=0,\"\",...)`."
+    ],
+    "setup": {
+      "answers": [
+        [
+          "See Students!L2:L121",
+          ""
+        ]
+      ],
+      "headers": {
+        "Students!L1": "avg_grade_points"
+      }
+    },
+    "answerCells": "Students!L2:L121",
+    "solution": [
+      [
+        "Students!L2",
+        "=IF(COUNTIF(Enrollments!$B$2:$B$301,A2)=0,\"\",SUMPRODUCT((Enrollments!$B$2:$B$301=A2)*Enrollments!$G$2:$G$301)/COUNTIF(Enrollments!$B$2:$B$301,A2))"
+      ]
+    ],
+    "solutionFill": "Students!L2:L121",
+    "oracle": "g = X['Enrollments'].groupby('student_id').grade_points.mean(); cells = fill('Students', 'L', lambda r: float(g[r.student_id]) if r.student_id in g.index else '')",
+    "expected": {
+      "cells": [
+        [
+          "Students!L2",
+          3.1666666666666665
+        ],
+        [
+          "Students!L3",
+          3.9
+        ],
+        [
+          "Students!L4",
+          3.1888888888888887
+        ],
+        [
+          "Students!L5",
+          2.8249999999999997
+        ],
+        [
+          "Students!L6",
+          2.972727272727273
+        ],
+        [
+          "Students!L7",
+          2.809090909090909
+        ],
+        [
+          "Students!L8",
+          3.2454545454545456
+        ],
+        [
+          "Students!L9",
+          2.930769230769231
+        ],
+        [
+          "Students!L10",
+          3.4071428571428575
+        ],
+        [
+          "Students!L11",
+          3.225
+        ],
+        [
+          "Students!L12",
+          3.1705882352941175
+        ],
+        [
+          "Students!L13",
+          3.0631578947368423
+        ],
+        [
+          "Students!L14",
+          2.77
+        ],
+        [
+          "Students!L15",
+          3.036363636363636
+        ],
+        [
+          "Students!L16",
+          3.207692307692308
+        ],
+        [
+          "Students!L17",
+          3.18
+        ],
+        [
+          "Students!L18",
+          2.9733333333333336
+        ],
+        [
+          "Students!L19",
+          3.005263157894737
+        ],
+        [
+          "Students!L20",
+          3.5
+        ],
+        [
+          "Students!L21",
+          3.0
+        ],
+        [
+          "Students!L22",
+          2.9916666666666667
+        ],
+        [
+          "Students!L23",
+          3.2823529411764705
+        ],
+        [
+          "Students!L24",
+          2.94
+        ],
+        [
+          "Students!L25",
+          3.4066666666666667
+        ],
+        [
+          "Students!L26",
+          2.85
+        ],
+        [
+          "Students!L27",
+          ""
+        ],
+        [
+          "Students!L28",
+          ""
+        ],
+        [
+          "Students!L29",
+          ""
+        ],
+        [
+          "Students!L30",
+          ""
+        ],
+        [
+          "Students!L31",
+          ""
+        ],
+        [
+          "Students!L32",
+          ""
+        ],
+        [
+          "Students!L33",
+          ""
+        ],
+        [
+          "Students!L34",
+          ""
+        ],
+        [
+          "Students!L35",
+          ""
+        ],
+        [
+          "Students!L36",
+          ""
+        ],
+        [
+          "Students!L37",
+          ""
+        ],
+        [
+          "Students!L38",
+          ""
+        ],
+        [
+          "Students!L39",
+          ""
+        ],
+        [
+          "Students!L40",
+          ""
+        ],
+        [
+          "Students!L41",
+          ""
+        ],
+        [
+          "Students!L42",
+          ""
+        ],
+        [
+          "Students!L43",
+          ""
+        ],
+        [
+          "Students!L44",
+          ""
+        ],
+        [
+          "Students!L45",
+          ""
+        ],
+        [
+          "Students!L46",
+          ""
+        ],
+        [
+          "Students!L47",
+          ""
+        ],
+        [
+          "Students!L48",
+          ""
+        ],
+        [
+          "Students!L49",
+          ""
+        ],
+        [
+          "Students!L50",
+          ""
+        ],
+        [
+          "Students!L51",
+          ""
+        ],
+        [
+          "Students!L52",
+          ""
+        ],
+        [
+          "Students!L53",
+          ""
+        ],
+        [
+          "Students!L54",
+          ""
+        ],
+        [
+          "Students!L55",
+          ""
+        ],
+        [
+          "Students!L56",
+          ""
+        ],
+        [
+          "Students!L57",
+          ""
+        ],
+        [
+          "Students!L58",
+          ""
+        ],
+        [
+          "Students!L59",
+          ""
+        ],
+        [
+          "Students!L60",
+          ""
+        ],
+        [
+          "Students!L61",
+          ""
+        ],
+        [
+          "Students!L62",
+          ""
+        ],
+        [
+          "Students!L63",
+          ""
+        ],
+        [
+          "Students!L64",
+          ""
+        ],
+        [
+          "Students!L65",
+          ""
+        ],
+        [
+          "Students!L66",
+          ""
+        ],
+        [
+          "Students!L67",
+          ""
+        ],
+        [
+          "Students!L68",
+          ""
+        ],
+        [
+          "Students!L69",
+          ""
+        ],
+        [
+          "Students!L70",
+          ""
+        ],
+        [
+          "Students!L71",
+          ""
+        ],
+        [
+          "Students!L72",
+          ""
+        ],
+        [
+          "Students!L73",
+          ""
+        ],
+        [
+          "Students!L74",
+          ""
+        ],
+        [
+          "Students!L75",
+          ""
+        ],
+        [
+          "Students!L76",
+          ""
+        ],
+        [
+          "Students!L77",
+          ""
+        ],
+        [
+          "Students!L78",
+          ""
+        ],
+        [
+          "Students!L79",
+          ""
+        ],
+        [
+          "Students!L80",
+          ""
+        ],
+        [
+          "Students!L81",
+          ""
+        ],
+        [
+          "Students!L82",
+          ""
+        ],
+        [
+          "Students!L83",
+          ""
+        ],
+        [
+          "Students!L84",
+          ""
+        ],
+        [
+          "Students!L85",
+          ""
+        ],
+        [
+          "Students!L86",
+          ""
+        ],
+        [
+          "Students!L87",
+          ""
+        ],
+        [
+          "Students!L88",
+          ""
+        ],
+        [
+          "Students!L89",
+          ""
+        ],
+        [
+          "Students!L90",
+          ""
+        ],
+        [
+          "Students!L91",
+          ""
+        ],
+        [
+          "Students!L92",
+          ""
+        ],
+        [
+          "Students!L93",
+          ""
+        ],
+        [
+          "Students!L94",
+          ""
+        ],
+        [
+          "Students!L95",
+          ""
+        ],
+        [
+          "Students!L96",
+          ""
+        ],
+        [
+          "Students!L97",
+          ""
+        ],
+        [
+          "Students!L98",
+          ""
+        ],
+        [
+          "Students!L99",
+          ""
+        ],
+        [
+          "Students!L100",
+          ""
+        ],
+        [
+          "Students!L101",
+          ""
+        ],
+        [
+          "Students!L102",
+          ""
+        ],
+        [
+          "Students!L103",
+          ""
+        ],
+        [
+          "Students!L104",
+          ""
+        ],
+        [
+          "Students!L105",
+          ""
+        ],
+        [
+          "Students!L106",
+          ""
+        ],
+        [
+          "Students!L107",
+          ""
+        ],
+        [
+          "Students!L108",
+          ""
+        ],
+        [
+          "Students!L109",
+          ""
+        ],
+        [
+          "Students!L110",
+          ""
+        ],
+        [
+          "Students!L111",
+          ""
+        ],
+        [
+          "Students!L112",
+          ""
+        ],
+        [
+          "Students!L113",
+          ""
+        ],
+        [
+          "Students!L114",
+          ""
+        ],
+        [
+          "Students!L115",
+          ""
+        ],
+        [
+          "Students!L116",
+          ""
+        ],
+        [
+          "Students!L117",
+          ""
+        ],
+        [
+          "Students!L118",
+          ""
+        ],
+        [
+          "Students!L119",
+          ""
+        ],
+        [
+          "Students!L120",
+          ""
+        ],
+        [
+          "Students!L121",
+          ""
+        ]
+      ]
+    }
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "title": "Excel formulas — reference for this workbook",
+  "intro_md": "The Excel tab is a small spreadsheet grid powered by **HyperFormula** (an open-source Excel-compatible formula engine). It is not Microsoft Excel: it evaluates ~400 Excel functions faithfully, but there are **no pivot tables, charts, macros, formatting or dynamic-array spill ranges**. Only functions listed on this page are taught and graded.\n\n**Workbook**: sheets `Students` (120 rows), `Enrollments` (300), `Sections` (236), `Courses` (136), `Departments` (24), `Employees` (100 faculty), `Terms` (6) and `Answers`. Headers are in row 1; data starts in row 2. Dates are real dates.\n\n**Using the grid**: click a cell and type (or use the formula bar), **Enter** to commit, **Esc** to cancel, arrows / Tab to move, Shift+click to select a range, **Ctrl+D** or the *Fill down* button to copy the top formula down a selection (relative references adjust). While typing a formula, clicking another cell inserts its reference. Cross-sheet references: `Students!F2:F121`. Lock a reference with `$`: `Sections!$A$2:$E$237`.\n\n**Not available** (will show `#NAME?`): `CONCAT` (use `CONCATENATE` or `&`), `AVERAGEIFS` (use `SUMIFS/COUNTIFS` or `AVERAGEIF`), `LET`, `LAMBDA`, `RANK`, `SORTBY`, `TEXTSPLIT`, and dynamic-array spilling. `XLOOKUP`, `FILTER`, `UNIQUE` exist in the engine but are deliberately out of scope for v1.",
+  "sandbox_md": "Sandbox workbook: every sheet is editable, nothing is graded. Put a formula in **Answers!B2** (selected for you) or anywhere else.",
+  "sandbox_starter": "=AVERAGE(Students!F2:F121)",
+  "sections": [
+    {
+      "heading": "Maths and statistics",
+      "body_md": "`SUM`, `AVERAGE`, `MIN`, `MAX`, `COUNT` (numbers only), `COUNTA` (non-empty), `COUNTBLANK`, `ROUND(x, n)`, `ROUNDUP`, `ROUNDDOWN`, `INT`, `MOD`, `ABS`, `MEDIAN`, `LARGE(range, n)`, `SMALL(range, n)`, `STDEV`, `PRODUCT`, `SUMSQ`.",
+      "examples": [
+        { "label": "Average rounded to 2 decimals", "code": "=ROUND(AVERAGE(Students!F2:F121),2)" },
+        { "label": "Third-highest salary", "code": "=LARGE(Employees!F2:F101,3)" },
+        { "label": "Median salary", "code": "=MEDIAN(Employees!F2:F101)" }
+      ]
+    },
+    {
+      "heading": "Logical",
+      "body_md": "`IF(test, yes, no)`, `IFS(test1, v1, test2, v2, …, TRUE, default)`, `AND`, `OR`, `NOT`, `IFERROR(value, fallback)`, `IFNA`, `ISBLANK`, `ISNUMBER`, `ISTEXT`, `ISERROR`. `TRUE`/`FALSE` literals work. Comparison operators: `=`, `<>`, `<`, `<=`, `>`, `>=`.",
+      "examples": [
+        { "label": "Nested IF", "code": "=IF(Students!F2>=3.7,\"A\",IF(Students!F2>=3.3,\"B\",\"C\"))" },
+        { "label": "IFS with default", "code": "=IFS(Students!F2>=3.7,\"A\",Students!F2>=3.3,\"B\",TRUE,\"C\")" },
+        { "label": "IFERROR around a lookup", "code": "=IFERROR(VLOOKUP(99999,Sections!A2:E237,2,FALSE),\"not found\")" }
+      ]
+    },
+    {
+      "heading": "Conditional aggregates",
+      "body_md": "`COUNTIF(range, criteria)`, `COUNTIFS(r1, c1, r2, c2, …)`, `SUMIF(range, criteria, sum_range)`, `SUMIFS(sum_range, r1, c1, …)`, `AVERAGEIF(range, criteria, avg_range)`, `MAXIFS(max_range, r1, c1)`, `MINIFS`. Criteria are text: `\"MO\"`, `\">=3.5\"`, `\"<>completed\"`, or a cell reference. Wildcards `*` and `?` work in text criteria.",
+      "examples": [
+        { "label": "COUNTIFS with two conditions", "code": "=COUNTIFS(Students!D2:D121,\"MO\",Students!F2:F121,\">=3.5\")" },
+        { "label": "SUMIFS payroll of department 1", "code": "=SUMIFS(Employees!F2:F101,Employees!E2:E101,1)" },
+        { "label": "MAXIFS", "code": "=MAXIFS(Students!F2:F121,Students!D2:D121,\"IL\")" }
+      ]
+    },
+    {
+      "heading": "Lookups: VLOOKUP, HLOOKUP, INDEX, MATCH",
+      "body_md": "`VLOOKUP(value, table, col_index, FALSE)` — exact match, the key must be the first column of `table`. `HLOOKUP` is the horizontal twin. `MATCH(value, one_row_or_column, 0)` returns the position; `INDEX(range, row, [col])` reads from it — together they look up to the left and do **two-way** lookups: `INDEX(table, MATCH(row_key, key_col, 0), MATCH(col_name, header_row, 0))`. Lock table ranges with `$` before filling down.",
+      "examples": [
+        { "label": "VLOOKUP exact match", "code": "=VLOOKUP(50,Courses!A2:F137,4,FALSE)" },
+        { "label": "INDEX / MATCH", "code": "=INDEX(Courses!D2:D137,MATCH(50,Courses!A2:A137,0))" },
+        { "label": "Two-way INDEX / MATCH", "code": "=INDEX(Courses!A1:F137,MATCH(50,Courses!A1:A137,0),MATCH(\"credits\",Courses!A1:F1,0))" }
+      ]
+    },
+    {
+      "heading": "Text",
+      "body_md": "`LEFT(t, n)`, `RIGHT(t, n)`, `MID(t, start, n)`, `LEN`, `UPPER`, `LOWER`, `PROPER`, `TRIM` (collapses spaces), `CLEAN`, `CONCATENATE(a, b, …)` or `a & b`, `TEXTJOIN(sep, ignore_empty, range)`, `SUBSTITUTE(t, old, new)`, `REPLACE`, `FIND` (case-sensitive) / `SEARCH`, `EXACT`, `VALUE(text)` → number, `TEXT(number, format)` → text, `REPT`, `CHAR`, `CODE`. No `CONCAT`.",
+      "examples": [
+        { "label": "Initial + last name", "code": "=CONCATENATE(UPPER(LEFT(Students!B2,1)),\". \",Students!C2)" },
+        { "label": "TEXTJOIN a range", "code": "=TEXTJOIN(\", \",TRUE,Students!B2:B5)" },
+        { "label": "VALUE and TEXT", "code": "=VALUE(\"3.50\")+TEXT(Employees!G2,\"yyyy\")" }
+      ]
+    },
+    {
+      "heading": "Dates",
+      "body_md": "Dates are serial numbers displayed as `YYYY-MM-DD`. `DATE(y, m, d)`, `TODAY()`, `YEAR`, `MONTH`, `DAY`, `WEEKDAY`, `EDATE(d, months)`, `EOMONTH(d, 0)`, `DAYS(end, start)`, `DATEDIF(start, end, \"Y\"|\"M\"|\"D\")` (complete years/months/days), `NETWORKDAYS`, `DATEVALUE(\"2024-01-16\")`, `TEXT(d, \"yyyy-mm\")`. Subtracting two dates gives days.",
+      "examples": [
+        { "label": "Year of a date", "code": "=YEAR(Employees!G2)" },
+        { "label": "Complete years between two dates", "code": "=DATEDIF(Employees!G2,DATE(2025,1,1),\"Y\")" },
+        { "label": "Days until the end of the month", "code": "=EOMONTH(Terms!E2,0)-Terms!E2" }
+      ]
+    },
+    {
+      "heading": "Array-style formulas: SUMPRODUCT and IF over ranges",
+      "body_md": "Array arithmetic is enabled in this workbook, so a comparison over a range (`Students!D2:D121=\"MO\"`) yields an array of TRUE/FALSE that behaves like 1/0 in arithmetic. `SUMPRODUCT((cond1)*(cond2)*values)` sums with multiple criteria; `SUMPRODUCT(--(cond))` counts. `LARGE(IF(cond, values), n)`, `MAX(IF(...))`, `AVERAGE(IF(...))` filter before aggregating — no Ctrl+Shift+Enter needed here. Results are single values; spilling arrays into neighbouring cells is not supported.",
+      "examples": [
+        { "label": "Multi-criteria sum", "code": "=SUMPRODUCT((Students!D2:D121=\"MO\")*(Students!E2:E121=2023)*Students!F2:F121)" },
+        { "label": "Conditional LARGE", "code": "=LARGE(IF(Employees!E2:E101=1,Employees!F2:F101),2)" },
+        { "label": "Conditional average via SUMPRODUCT", "code": "=SUMPRODUCT((Students!D2:D121=\"IL\")*Students!F2:F121)/SUMPRODUCT(--(Students!D2:D121=\"IL\"))" }
+      ]
+    }
+  ]
+}

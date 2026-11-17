@@ -1,0 +1,2411 @@
+[
+  {
+    "id": "sql-easy-1",
+    "track": "sql",
+    "difficulty": "easy",
+    "title": "Missouri honor roll",
+    "tags": [
+      "filter",
+      "order by"
+    ],
+    "prompt_md": "List every student from Missouri (`home_state = 'MO'`) whose GPA is **3.8 or higher**.\n\nReturn the columns `student_id`, `first_name`, `last_name`, `gpa`, sorted by GPA from highest to lowest; break ties by `last_name` then `first_name` (A→Z).",
+    "example": {
+      "input_md": "Table `students` (500 rows): `student_id`, `first_name`, `last_name`, `home_state`, `gpa`, …",
+      "output": {
+        "columns": [
+          "student_id",
+          "first_name",
+          "last_name",
+          "gpa"
+        ],
+        "rows": [
+          [
+            1022,
+            "Victor",
+            "Young",
+            4.0
+          ],
+          [
+            1403,
+            "Omar",
+            "Hayes",
+            3.98
+          ]
+        ],
+        "total": 7
+      }
+    },
+    "constraints_md": "- Students with a NULL GPA must not appear.\n- The order matters.",
+    "hints": [
+      "Filter with `WHERE` on two conditions joined by `AND`.",
+      "`ORDER BY gpa DESC, last_name, first_name` sorts high GPA first and alphabetically within ties."
+    ],
+    "starter": "-- Students from MO with gpa >= 3.8\nSELECT \nFROM students\n",
+    "orderMatters": true,
+    "solution": "SELECT student_id, first_name, last_name, gpa\nFROM students\nWHERE home_state = 'MO' AND gpa >= 3.8\nORDER BY gpa DESC, last_name, first_name",
+    "expected": {
+      "columns": [
+        "student_id",
+        "first_name",
+        "last_name",
+        "gpa"
+      ],
+      "rows": [
+        [
+          1022,
+          "Victor",
+          "Young",
+          4.0
+        ],
+        [
+          1403,
+          "Omar",
+          "Hayes",
+          3.98
+        ],
+        [
+          1466,
+          "Hannah",
+          "Smith",
+          3.91
+        ],
+        [
+          1039,
+          "Henry",
+          "Thomas",
+          3.88
+        ],
+        [
+          1158,
+          "Chloe",
+          "Hernandez",
+          3.83
+        ],
+        [
+          1297,
+          "David",
+          "Kim",
+          3.83
+        ],
+        [
+          1386,
+          "Andre",
+          "Foster",
+          3.81
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-easy-2",
+    "track": "sql",
+    "difficulty": "easy",
+    "title": "Faculty salary snapshot",
+    "tags": [
+      "aggregate",
+      "count",
+      "avg",
+      "max"
+    ],
+    "prompt_md": "Produce a one-row summary of all **faculty** (`employees.employee_type = 'faculty'`):\n\n| column | meaning |\n|---|---|\n| `n_faculty` | how many faculty employees there are |\n| `avg_salary` | their average salary, rounded to 2 decimals |\n| `max_salary` | the highest faculty salary |",
+    "example": {
+      "input_md": "Table `employees`: `employee_id`, `title`, `salary`, `employee_type` ('faculty' or 'staff'), …",
+      "output": {
+        "columns": [
+          "n_faculty",
+          "avg_salary",
+          "max_salary"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "constraints_md": "- Exactly one row.\n- Use `ROUND(x, 2)` for the average.",
+    "hints": [
+      "Aggregates without `GROUP BY` collapse the whole table into one row.",
+      "`ROUND(AVG(salary), 2)`"
+    ],
+    "starter": "SELECT \nFROM employees\nWHERE \n",
+    "orderMatters": false,
+    "decimals": 2,
+    "solution": "SELECT COUNT(*) AS n_faculty, ROUND(AVG(salary), 2) AS avg_salary, MAX(salary) AS max_salary\nFROM employees\nWHERE employee_type = 'faculty'",
+    "expected": {
+      "columns": [
+        "n_faculty",
+        "avg_salary",
+        "max_salary"
+      ],
+      "rows": [
+        [
+          143,
+          101356.64,
+          212000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-easy-3",
+    "track": "sql",
+    "difficulty": "easy",
+    "title": "Active students per entry year",
+    "tags": [
+      "group by",
+      "count"
+    ],
+    "prompt_md": "For each `enrollment_year`, count the students whose `status` is `'active'`.\n\nReturn `enrollment_year` and `n_active`, ordered by year ascending. Years with no active students should not appear.",
+    "example": {
+      "input_md": "Table `students`: `enrollment_year`, `status` ('active', 'graduated', 'withdrawn', 'leave').",
+      "output": {
+        "columns": [
+          "enrollment_year",
+          "n_active"
+        ],
+        "rows": [
+          [
+            2019,
+            3
+          ],
+          [
+            2020,
+            11
+          ]
+        ],
+        "total": 6
+      }
+    },
+    "hints": [
+      "Filter first (`WHERE status = 'active'`), then `GROUP BY enrollment_year`.",
+      "`COUNT(*)` counts the rows in each group."
+    ],
+    "starter": "SELECT enrollment_year, \nFROM students\n",
+    "orderMatters": true,
+    "solution": "SELECT enrollment_year, COUNT(*) AS n_active\nFROM students\nWHERE status = 'active'\nGROUP BY enrollment_year\nORDER BY enrollment_year",
+    "expected": {
+      "columns": [
+        "enrollment_year",
+        "n_active"
+      ],
+      "rows": [
+        [
+          2019,
+          3
+        ],
+        [
+          2020,
+          11
+        ],
+        [
+          2021,
+          51
+        ],
+        [
+          2022,
+          94
+        ],
+        [
+          2023,
+          100
+        ],
+        [
+          2024,
+          127
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-easy-4",
+    "track": "sql",
+    "difficulty": "easy",
+    "title": "Hometowns of the M-students up north",
+    "tags": [
+      "distinct",
+      "like",
+      "in"
+    ],
+    "prompt_md": "Which distinct (`home_state`, `home_city`) pairs do we have among students from **Illinois, Wisconsin or Minnesota** whose last name starts with the letter **M**?\n\nReturn `home_state`, `home_city` with no duplicate pairs, ordered by state then city.",
+    "example": {
+      "input_md": "Table `students`: `home_state` (two-letter code), `home_city`, `last_name`.",
+      "output": {
+        "columns": [
+          "home_state",
+          "home_city"
+        ],
+        "rows": [
+          [
+            "IL",
+            "Edwardsville"
+          ],
+          [
+            "IL",
+            "Naperville"
+          ]
+        ],
+        "total": 5
+      }
+    },
+    "hints": [
+      "`IN ('IL', 'WI', 'MN')` and `LIKE 'M%'` (the `%` wildcard matches anything after the M).",
+      "`SELECT DISTINCT` removes duplicate rows."
+    ],
+    "starter": "SELECT DISTINCT \nFROM students\nWHERE \n",
+    "orderMatters": true,
+    "solution": "SELECT DISTINCT home_state, home_city\nFROM students\nWHERE home_state IN ('IL', 'WI', 'MN') AND last_name LIKE 'M%'\nORDER BY home_state, home_city",
+    "expected": {
+      "columns": [
+        "home_state",
+        "home_city"
+      ],
+      "rows": [
+        [
+          "IL",
+          "Edwardsville"
+        ],
+        [
+          "IL",
+          "Naperville"
+        ],
+        [
+          "IL",
+          "Peoria"
+        ],
+        [
+          "MN",
+          "Minneapolis"
+        ],
+        [
+          "WI",
+          "Milwaukee"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-easy-5",
+    "track": "sql",
+    "difficulty": "easy",
+    "title": "Senior-level catalog",
+    "tags": [
+      "inner join"
+    ],
+    "prompt_md": "List every **4000-level** course with the name of the department that owns it.\n\nReturn `course_code`, `title`, and the department's `name` as `department`, ordered by `course_code`.",
+    "example": {
+      "input_md": "`courses` (`course_id`, `department_id`, `course_code`, `title`, `credits`, `level`) joins to `departments` (`department_id`, `name`, …).",
+      "output": {
+        "columns": [
+          "course_code",
+          "title",
+          "department"
+        ],
+        "rows": [
+          [
+            "ACCT 4250",
+            "Taxation",
+            "Accounting"
+          ],
+          [
+            "ACCT 4420",
+            "Auditing",
+            "Accounting"
+          ]
+        ],
+        "total": 39
+      }
+    },
+    "hints": [
+      "`JOIN departments d ON d.department_id = c.department_id`",
+      "Alias the department name: `d.name AS department`."
+    ],
+    "starter": "SELECT \nFROM courses c\nJOIN departments d ON \nWHERE \n",
+    "orderMatters": true,
+    "solution": "SELECT c.course_code, c.title, d.name AS department\nFROM courses c\nJOIN departments d ON d.department_id = c.department_id\nWHERE c.level = 4000\nORDER BY c.course_code",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title",
+        "department"
+      ],
+      "rows": [
+        [
+          "ACCT 4250",
+          "Taxation",
+          "Accounting"
+        ],
+        [
+          "ACCT 4420",
+          "Auditing",
+          "Accounting"
+        ],
+        [
+          "AME 4460",
+          "Machine Design",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "AME 4630",
+          "Propulsion",
+          "Aerospace and Mechanical Engineering"
+        ],
+        [
+          "BIOL 4150",
+          "Biology Senior Seminar",
+          "Biology"
+        ],
+        [
+          "BIOL 4340",
+          "Developmental Biology",
+          "Biology"
+        ],
+        [
+          "BIOL 4500",
+          "Neurobiology",
+          "Biology"
+        ],
+        [
+          "BIOL 4540",
+          "Molecular Biology",
+          "Biology"
+        ],
+        [
+          "CHEM 4280",
+          "Biochemistry",
+          "Chemistry"
+        ],
+        [
+          "CHEM 4450",
+          "Inorganic Chemistry",
+          "Chemistry"
+        ],
+        [
+          "CLAS 4110",
+          "Roman History",
+          "Classics"
+        ],
+        [
+          "CMM 4120",
+          "Strategic Communication",
+          "Communication"
+        ],
+        [
+          "CSCI 4250",
+          "Computer Networks",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4550",
+          "Artificial Intelligence",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4580",
+          "Senior Capstone",
+          "Computer Science"
+        ],
+        [
+          "CSCI 4620",
+          "Compilers",
+          "Computer Science"
+        ],
+        [
+          "ENGL 4700",
+          "Modern Poetry",
+          "English"
+        ],
+        [
+          "ENGL 4750",
+          "Creative Writing Workshop",
+          "English"
+        ],
+        [
+          "FIN 4380",
+          "Financial Markets",
+          "Finance"
+        ],
+        [
+          "FPA 4220",
+          "University Choir",
+          "Fine and Performing Arts"
+        ],
+        [
+          "FPA 4280",
+          "Studio Painting",
+          "Fine and Performing Arts"
+        ],
+        [
+          "HIST 4650",
+          "US Civil War",
+          "History"
+        ],
+        [
+          "HIST 4820",
+          "Modern Europe",
+          "History"
+        ],
+        [
+          "HSCI 4500",
+          "Nutrition",
+          "Health Sciences"
+        ],
+        [
+          "HSCI 4560",
+          "Global Health",
+          "Health Sciences"
+        ],
+        [
+          "MATH 4280",
+          "Mathematical Statistics",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MATH 4540",
+          "Introduction to Proofs",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MATH 4560",
+          "Real Analysis",
+          "Mathematics and Statistics"
+        ],
+        [
+          "MGT 4100",
+          "Strategic Management",
+          "Management"
+        ],
+        [
+          "MKT 4820",
+          "Marketing Research",
+          "Marketing"
+        ],
+        [
+          "NURS 4740",
+          "Nursing Leadership",
+          "Nursing"
+        ],
+        [
+          "NURS 4790",
+          "Community Health",
+          "Nursing"
+        ],
+        [
+          "PHIL 4680",
+          "Philosophy of Mind",
+          "Philosophy"
+        ],
+        [
+          "PHYS 4470",
+          "Quantum Mechanics",
+          "Physics"
+        ],
+        [
+          "POLS 4830",
+          "Constitutional Law",
+          "Political Science"
+        ],
+        [
+          "PSY 4210",
+          "Social Psychology",
+          "Psychology"
+        ],
+        [
+          "PSY 4720",
+          "Statistics for Psychology",
+          "Psychology"
+        ],
+        [
+          "SOC 4180",
+          "Urban Sociology",
+          "Sociology and Anthropology"
+        ],
+        [
+          "THEO 4580",
+          "Scripture",
+          "Theological Studies"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-medium-1",
+    "track": "sql",
+    "difficulty": "medium",
+    "title": "Big sections in Fall 2024",
+    "tags": [
+      "join",
+      "group by",
+      "having"
+    ],
+    "prompt_md": "Find every section offered in the term named **'Fall 2024'** that has **20 or more** enrollment rows (any status).\n\nReturn `course_code`, `section_number`, and the count as `enrolled`, ordered by `enrolled` descending, then `course_code`, then `section_number`.",
+    "example": {
+      "input_md": "`sections` → `terms` (by `term_id`), `sections` → `courses` (by `course_id`), `enrollments` → `sections` (by `section_id`).",
+      "output": {
+        "columns": [
+          "course_code",
+          "section_number",
+          "enrolled"
+        ],
+        "rows": [
+          [
+            "HSCI 4560",
+            "01",
+            25
+          ],
+          [
+            "CHEM 2840",
+            "01",
+            24
+          ]
+        ],
+        "total": 12
+      }
+    },
+    "hints": [
+      "Join four tables, filter on `t.name = 'Fall 2024'`, group by the section.",
+      "`HAVING COUNT(*) >= 20` filters groups after aggregation; `WHERE` cannot do that."
+    ],
+    "starter": "SELECT c.course_code, s.section_number, COUNT(*) AS enrolled\nFROM sections s\n-- join terms, courses, enrollments\n",
+    "orderMatters": true,
+    "solution": "SELECT c.course_code, s.section_number, COUNT(e.enrollment_id) AS enrolled\nFROM sections s\nJOIN terms t ON t.term_id = s.term_id\nJOIN courses c ON c.course_id = s.course_id\nJOIN enrollments e ON e.section_id = s.section_id\nWHERE t.name = 'Fall 2024'\nGROUP BY s.section_id\nHAVING COUNT(e.enrollment_id) >= 20\nORDER BY enrolled DESC, c.course_code, s.section_number",
+    "expected": {
+      "columns": [
+        "course_code",
+        "section_number",
+        "enrolled"
+      ],
+      "rows": [
+        [
+          "HSCI 4560",
+          "01",
+          25
+        ],
+        [
+          "CHEM 2840",
+          "01",
+          24
+        ],
+        [
+          "AME 1810",
+          "02",
+          22
+        ],
+        [
+          "HSCI 1160",
+          "01",
+          22
+        ],
+        [
+          "BIOL 1720",
+          "01",
+          21
+        ],
+        [
+          "BIOL 1720",
+          "02",
+          21
+        ],
+        [
+          "CMM 3660",
+          "01",
+          21
+        ],
+        [
+          "HSCI 1800",
+          "01",
+          21
+        ],
+        [
+          "PSY 1470",
+          "02",
+          21
+        ],
+        [
+          "CSCI 3770",
+          "01",
+          20
+        ],
+        [
+          "PSY 1140",
+          "03",
+          20
+        ],
+        [
+          "PSY 1470",
+          "01",
+          20
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-medium-2",
+    "track": "sql",
+    "difficulty": "medium",
+    "title": "Second-highest salary per department",
+    "tags": [
+      "nth highest",
+      "subquery",
+      "distinct",
+      "null"
+    ],
+    "prompt_md": "For **every** department, report the second-highest *distinct* salary among its employees.\n\nReturn `department` (the department name) and `second_highest`. If a department has fewer than two distinct salaries (including departments with no employees at all), `second_highest` must be **NULL** — the department still appears. Order by `department`.\n\n> Biology's top salary is shared by three people. The second-highest *distinct* salary is the next value down, not the same number again.",
+    "example": {
+      "input_md": "`departments` (24 rows, two have no employees) and `employees.department_id`.",
+      "output": {
+        "columns": [
+          "department",
+          "second_highest"
+        ],
+        "rows": [
+          [
+            "Accounting",
+            148000
+          ],
+          [
+            "Aerospace and Mechanical Engineering",
+            117000
+          ]
+        ],
+        "total": 24
+      }
+    },
+    "hints": [
+      "A correlated subquery per department: `SELECT DISTINCT salary ... ORDER BY salary DESC LIMIT 1 OFFSET 1` returns NULL when there is no second row.",
+      "Alternatively use `DENSE_RANK()` in a CTE and `LEFT JOIN` departments to the rows ranked 2."
+    ],
+    "starter": "SELECT d.name AS department,\n       (SELECT ...) AS second_highest\nFROM departments d\nORDER BY d.name\n",
+    "orderMatters": true,
+    "solution": "SELECT d.name AS department,\n       (SELECT DISTINCT salary FROM employees e WHERE e.department_id = d.department_id\n        ORDER BY salary DESC LIMIT 1 OFFSET 1) AS second_highest\nFROM departments d\nORDER BY d.name",
+    "expected": {
+      "columns": [
+        "department",
+        "second_highest"
+      ],
+      "rows": [
+        [
+          "Accounting",
+          148000
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          117000
+        ],
+        [
+          "Biology",
+          132000
+        ],
+        [
+          "Chemistry",
+          139000
+        ],
+        [
+          "Classics",
+          102000
+        ],
+        [
+          "Communication",
+          142000
+        ],
+        [
+          "Computer Science",
+          138000
+        ],
+        [
+          "Data Science Institute",
+          null
+        ],
+        [
+          "English",
+          108000
+        ],
+        [
+          "Finance",
+          81000
+        ],
+        [
+          "Fine and Performing Arts",
+          148000
+        ],
+        [
+          "Health Sciences",
+          145000
+        ],
+        [
+          "History",
+          113000
+        ],
+        [
+          "Interdisciplinary Studies",
+          null
+        ],
+        [
+          "Management",
+          115000
+        ],
+        [
+          "Marketing",
+          148000
+        ],
+        [
+          "Mathematics and Statistics",
+          145000
+        ],
+        [
+          "Nursing",
+          139000
+        ],
+        [
+          "Philosophy",
+          142000
+        ],
+        [
+          "Physics",
+          72000
+        ],
+        [
+          "Political Science",
+          142000
+        ],
+        [
+          "Psychology",
+          104000
+        ],
+        [
+          "Sociology and Anthropology",
+          147000
+        ],
+        [
+          "Theological Studies",
+          131000
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-medium-3",
+    "track": "sql",
+    "difficulty": "medium",
+    "title": "Courses never offered",
+    "tags": [
+      "left join",
+      "anti-join",
+      "null"
+    ],
+    "prompt_md": "Some courses exist in the catalog but have **never had a section**. List them.\n\nReturn `course_code` and `title`, ordered by `course_code`.",
+    "example": {
+      "input_md": "`courses` and `sections` (`sections.course_id` references `courses`).",
+      "output": {
+        "columns": [
+          "course_code",
+          "title"
+        ],
+        "rows": [
+          [
+            "CMM 4120",
+            "Strategic Communication"
+          ],
+          [
+            "CSCI 4250",
+            "Computer Networks"
+          ]
+        ],
+        "total": 13
+      }
+    },
+    "hints": [
+      "`LEFT JOIN sections s ON s.course_id = c.course_id` keeps courses with no match; the unmatched side is NULL.",
+      "Filter with `WHERE s.section_id IS NULL`. (`NOT EXISTS` works too.)"
+    ],
+    "starter": "SELECT c.course_code, c.title\nFROM courses c\nLEFT JOIN sections s ON \nWHERE \n",
+    "orderMatters": true,
+    "solution": "SELECT c.course_code, c.title\nFROM courses c\nLEFT JOIN sections s ON s.course_id = c.course_id\nWHERE s.section_id IS NULL\nORDER BY c.course_code",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title"
+      ],
+      "rows": [
+        [
+          "CMM 4120",
+          "Strategic Communication"
+        ],
+        [
+          "CSCI 4250",
+          "Computer Networks"
+        ],
+        [
+          "CSCI 4620",
+          "Compilers"
+        ],
+        [
+          "DSCI 1410",
+          "Data Visualization"
+        ],
+        [
+          "DSCI 1580",
+          "Introduction to Data Science"
+        ],
+        [
+          "HIST 4820",
+          "Modern Europe"
+        ],
+        [
+          "IDS 1600",
+          "Interdisciplinary Inquiry"
+        ],
+        [
+          "IDS 1830",
+          "Capstone Project"
+        ],
+        [
+          "MGT 4100",
+          "Strategic Management"
+        ],
+        [
+          "MKT 4820",
+          "Marketing Research"
+        ],
+        [
+          "NURS 4740",
+          "Nursing Leadership"
+        ],
+        [
+          "PHIL 4680",
+          "Philosophy of Mind"
+        ],
+        [
+          "PHYS 4470",
+          "Quantum Mechanics"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-medium-4",
+    "track": "sql",
+    "difficulty": "medium",
+    "title": "Chairs and who they report to",
+    "tags": [
+      "self join",
+      "string concat"
+    ],
+    "prompt_md": "Every employee with the title **'Department Chair'** has a `manager_id` pointing at another row of `employees`.\n\nReturn one row per chair with:\n\n- `chair` — the chair's `first_name || ' ' || last_name`\n- `department` — the name of the chair's department\n- `reports_to` — the manager's full name (same format), or NULL if there is no manager\n\nOrder by `department`.",
+    "example": {
+      "input_md": "`employees` joined to itself on `manager_id = employee_id`, plus `departments`.",
+      "output": {
+        "columns": [
+          "chair",
+          "department",
+          "reports_to"
+        ],
+        "rows": [
+          [
+            "Owen Sullivan",
+            "Accounting",
+            "Hannah Nguyen"
+          ],
+          [
+            "Eli Campbell",
+            "Aerospace and Mechanical Engineering",
+            "Nia Schmidt"
+          ]
+        ],
+        "total": 22
+      }
+    },
+    "hints": [
+      "Give the two copies of `employees` different aliases: `employees e` for the chair and `employees m` for the manager.",
+      "Use `LEFT JOIN` for the manager so a chair without a manager still appears."
+    ],
+    "starter": "SELECT \nFROM employees e\nJOIN departments d ON d.department_id = e.department_id\nLEFT JOIN employees m ON \nWHERE e.title = 'Department Chair'\nORDER BY d.name\n",
+    "orderMatters": true,
+    "solution": "SELECT e.first_name || ' ' || e.last_name AS chair, d.name AS department,\n       m.first_name || ' ' || m.last_name AS reports_to\nFROM employees e\nJOIN departments d ON d.department_id = e.department_id\nLEFT JOIN employees m ON m.employee_id = e.manager_id\nWHERE e.title = 'Department Chair'\nORDER BY d.name",
+    "expected": {
+      "columns": [
+        "chair",
+        "department",
+        "reports_to"
+      ],
+      "rows": [
+        [
+          "Owen Sullivan",
+          "Accounting",
+          "Hannah Nguyen"
+        ],
+        [
+          "Eli Campbell",
+          "Aerospace and Mechanical Engineering",
+          "Nia Schmidt"
+        ],
+        [
+          "Isaac Howard",
+          "Biology",
+          "Olivia Perez"
+        ],
+        [
+          "Sophia Ward",
+          "Chemistry",
+          "Olivia Perez"
+        ],
+        [
+          "Zoe Morgan",
+          "Classics",
+          "Olivia Perez"
+        ],
+        [
+          "Tariq Alvarez",
+          "Communication",
+          "Olivia Perez"
+        ],
+        [
+          "Asha Park",
+          "Computer Science",
+          "Nia Schmidt"
+        ],
+        [
+          "Carter Lee",
+          "English",
+          "Olivia Perez"
+        ],
+        [
+          "David Okafor",
+          "Finance",
+          "Hannah Nguyen"
+        ],
+        [
+          "Bianca Ramirez",
+          "Fine and Performing Arts",
+          "Olivia Perez"
+        ],
+        [
+          "Liam Clark",
+          "Health Sciences",
+          "Kenji Wright"
+        ],
+        [
+          "Darius Price",
+          "History",
+          "Olivia Perez"
+        ],
+        [
+          "Grace Robinson",
+          "Management",
+          "Hannah Nguyen"
+        ],
+        [
+          "Evelyn Johnson",
+          "Marketing",
+          "Hannah Nguyen"
+        ],
+        [
+          "Nadia Sanders",
+          "Mathematics and Statistics",
+          "Olivia Perez"
+        ],
+        [
+          "Deja Stewart",
+          "Nursing",
+          "Kenji Wright"
+        ],
+        [
+          "Wei Young",
+          "Philosophy",
+          "Olivia Perez"
+        ],
+        [
+          "Evelyn Hernandez",
+          "Physics",
+          "Nia Schmidt"
+        ],
+        [
+          "James Martin",
+          "Political Science",
+          "Olivia Perez"
+        ],
+        [
+          "Camila Taylor",
+          "Psychology",
+          "Olivia Perez"
+        ],
+        [
+          "Mila Baker",
+          "Sociology and Anthropology",
+          "Olivia Perez"
+        ],
+        [
+          "Bianca Turner",
+          "Theological Studies",
+          "Olivia Perez"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-medium-5",
+    "track": "sql",
+    "difficulty": "medium",
+    "title": "GPA bands by college",
+    "tags": [
+      "case",
+      "conditional aggregation",
+      "multi-join"
+    ],
+    "prompt_md": "Bucket students by GPA and count them per **college**, using each student's *primary* major (`student_majors.is_primary = 1`) → `majors` → `departments` → `colleges`.\n\nReturn one row per college with:\n\n| column | rule |\n|---|---|\n| `college` | `colleges.abbreviation` |\n| `honors` | students with `gpa >= 3.5` |\n| `good` | `3.0 <= gpa < 3.5` |\n| `below` | `gpa < 3.0` |\n| `no_gpa` | `gpa IS NULL` |\n\nOrder by `college`. Undeclared students (no primary major) are not counted anywhere.",
+    "example": {
+      "input_md": "Five tables: `students`, `student_majors`, `majors`, `departments`, `colleges`.",
+      "output": {
+        "columns": [
+          "college",
+          "honors",
+          "good",
+          "below",
+          "no_gpa"
+        ],
+        "rows": [
+          [
+            "BUS",
+            6,
+            16,
+            7,
+            4
+          ],
+          [
+            "CAS",
+            44,
+            94,
+            86,
+            47
+          ]
+        ],
+        "total": 4
+      }
+    },
+    "hints": [
+      "`SUM(CASE WHEN gpa >= 3.5 THEN 1 ELSE 0 END)` counts rows that satisfy a condition inside an aggregate.",
+      "Put the `is_primary = 1` condition in the JOIN's ON clause (or WHERE)."
+    ],
+    "starter": "SELECT co.abbreviation AS college,\n       SUM(CASE WHEN s.gpa >= 3.5 THEN 1 ELSE 0 END) AS honors,\n       -- good, below, no_gpa\nFROM students s\nJOIN student_majors sm ON sm.student_id = s.student_id AND sm.is_primary = 1\n-- majors, departments, colleges\nGROUP BY co.abbreviation\nORDER BY co.abbreviation\n",
+    "orderMatters": true,
+    "solution": "SELECT co.abbreviation AS college,\n       SUM(CASE WHEN s.gpa >= 3.5 THEN 1 ELSE 0 END) AS honors,\n       SUM(CASE WHEN s.gpa >= 3.0 AND s.gpa < 3.5 THEN 1 ELSE 0 END) AS good,\n       SUM(CASE WHEN s.gpa < 3.0 THEN 1 ELSE 0 END) AS below,\n       SUM(CASE WHEN s.gpa IS NULL THEN 1 ELSE 0 END) AS no_gpa\nFROM students s\nJOIN student_majors sm ON sm.student_id = s.student_id AND sm.is_primary = 1\nJOIN majors m ON m.major_id = sm.major_id\nJOIN departments d ON d.department_id = m.department_id\nJOIN colleges co ON co.college_id = d.college_id\nGROUP BY co.abbreviation\nORDER BY co.abbreviation",
+    "expected": {
+      "columns": [
+        "college",
+        "honors",
+        "good",
+        "below",
+        "no_gpa"
+      ],
+      "rows": [
+        [
+          "BUS",
+          6,
+          16,
+          7,
+          4
+        ],
+        [
+          "CAS",
+          44,
+          94,
+          86,
+          47
+        ],
+        [
+          "NHS",
+          6,
+          17,
+          16,
+          5
+        ],
+        [
+          "SSE",
+          19,
+          37,
+          32,
+          17
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-hard-1",
+    "track": "sql",
+    "difficulty": "hard",
+    "title": "Top 3 earners per department (with ties)",
+    "tags": [
+      "window",
+      "dense_rank",
+      "top-n per group"
+    ],
+    "prompt_md": "For each department, list the employees in the **top 3 salary ranks**, where equal salaries share a rank and do not consume the next one (`DENSE_RANK` semantics). A department where three people tie for first place therefore returns *more* than 3 rows.\n\nReturn `department`, `first_name`, `last_name`, `salary`, `rnk`, ordered by `department`, then `rnk`, then `last_name`, then `first_name`. Employees without a department are excluded.",
+    "example": {
+      "input_md": "`employees` joined to `departments`. Salaries are rounded to the nearest $1,000, so ties are common.",
+      "output": {
+        "columns": [
+          "department",
+          "first_name",
+          "last_name",
+          "salary",
+          "rnk"
+        ],
+        "rows": [
+          [
+            "Accounting",
+            "Chloe",
+            "Morgan",
+            156000,
+            1
+          ],
+          [
+            "Accounting",
+            "Owen",
+            "Sullivan",
+            148000,
+            2
+          ]
+        ],
+        "total": 70
+      }
+    },
+    "hints": [
+      "`DENSE_RANK() OVER (PARTITION BY department_id ORDER BY salary DESC)`",
+      "Window functions cannot be used in `WHERE`; compute the rank in a CTE and filter in the outer query."
+    ],
+    "starter": "WITH ranked AS (\n  SELECT d.name AS department, e.first_name, e.last_name, e.salary,\n         DENSE_RANK() OVER (...) AS rnk\n  FROM employees e\n  JOIN departments d ON d.department_id = e.department_id\n)\nSELECT ...\n",
+    "orderMatters": true,
+    "solution": "WITH ranked AS (\n  SELECT d.name AS department, e.first_name, e.last_name, e.salary,\n         DENSE_RANK() OVER (PARTITION BY e.department_id ORDER BY e.salary DESC) AS rnk\n  FROM employees e\n  JOIN departments d ON d.department_id = e.department_id\n)\nSELECT department, first_name, last_name, salary, rnk\nFROM ranked\nWHERE rnk <= 3\nORDER BY department, rnk, last_name, first_name",
+    "expected": {
+      "columns": [
+        "department",
+        "first_name",
+        "last_name",
+        "salary",
+        "rnk"
+      ],
+      "rows": [
+        [
+          "Accounting",
+          "Chloe",
+          "Morgan",
+          156000,
+          1
+        ],
+        [
+          "Accounting",
+          "Owen",
+          "Sullivan",
+          148000,
+          2
+        ],
+        [
+          "Accounting",
+          "Luis",
+          "Ortiz",
+          111000,
+          3
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Eli",
+          "Campbell",
+          148000,
+          1
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Yara",
+          "Nelson",
+          117000,
+          2
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          "Julia",
+          "White",
+          109000,
+          3
+        ],
+        [
+          "Biology",
+          "Elijah",
+          "Abbott",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Victor",
+          "Hernandez",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Isaac",
+          "Howard",
+          142000,
+          1
+        ],
+        [
+          "Biology",
+          "Eli",
+          "Flores",
+          132000,
+          2
+        ],
+        [
+          "Biology",
+          "Leo",
+          "Perez",
+          132000,
+          2
+        ],
+        [
+          "Biology",
+          "Jamal",
+          "Young",
+          104000,
+          3
+        ],
+        [
+          "Chemistry",
+          "Sophia",
+          "Ward",
+          148000,
+          1
+        ],
+        [
+          "Chemistry",
+          "Nia",
+          "Rossi",
+          139000,
+          2
+        ],
+        [
+          "Chemistry",
+          "Daniel",
+          "Foster",
+          118000,
+          3
+        ],
+        [
+          "Classics",
+          "Zoe",
+          "Morgan",
+          162000,
+          1
+        ],
+        [
+          "Classics",
+          "David",
+          "Peterson",
+          102000,
+          2
+        ],
+        [
+          "Communication",
+          "Henry",
+          "Smith",
+          151000,
+          1
+        ],
+        [
+          "Communication",
+          "Tariq",
+          "Alvarez",
+          142000,
+          2
+        ],
+        [
+          "Communication",
+          "Tariq",
+          "Abbott",
+          101000,
+          3
+        ],
+        [
+          "Computer Science",
+          "Asha",
+          "Park",
+          142000,
+          1
+        ],
+        [
+          "Computer Science",
+          "Xavier",
+          "Chen",
+          138000,
+          2
+        ],
+        [
+          "Computer Science",
+          "Jordan",
+          "Garcia",
+          129000,
+          3
+        ],
+        [
+          "English",
+          "Carter",
+          "Lee",
+          155000,
+          1
+        ],
+        [
+          "English",
+          "Valeria",
+          "Rivera",
+          108000,
+          2
+        ],
+        [
+          "English",
+          "Jamal",
+          "Patel",
+          100000,
+          3
+        ],
+        [
+          "Finance",
+          "David",
+          "Okafor",
+          155000,
+          1
+        ],
+        [
+          "Finance",
+          "Yara",
+          "Reed",
+          81000,
+          2
+        ],
+        [
+          "Finance",
+          "Jada",
+          "Silva",
+          80000,
+          3
+        ],
+        [
+          "Fine and Performing Arts",
+          "Hannah",
+          "Taylor",
+          161000,
+          1
+        ],
+        [
+          "Fine and Performing Arts",
+          "Bianca",
+          "Ramirez",
+          148000,
+          2
+        ],
+        [
+          "Fine and Performing Arts",
+          "Bianca",
+          "Edwards",
+          101000,
+          3
+        ],
+        [
+          "Health Sciences",
+          "Liam",
+          "Clark",
+          155000,
+          1
+        ],
+        [
+          "Health Sciences",
+          "Grace",
+          "Flores",
+          145000,
+          2
+        ],
+        [
+          "Health Sciences",
+          "Diego",
+          "Young",
+          111000,
+          3
+        ],
+        [
+          "History",
+          "Darius",
+          "Price",
+          142000,
+          1
+        ],
+        [
+          "History",
+          "Jack",
+          "Abbott",
+          113000,
+          2
+        ],
+        [
+          "History",
+          "Diego",
+          "Carter",
+          90000,
+          3
+        ],
+        [
+          "History",
+          "James",
+          "Robinson",
+          90000,
+          3
+        ],
+        [
+          "Management",
+          "Grace",
+          "Robinson",
+          142000,
+          1
+        ],
+        [
+          "Management",
+          "Olivia",
+          "Ruiz",
+          115000,
+          2
+        ],
+        [
+          "Management",
+          "Leo",
+          "Sanders",
+          100000,
+          3
+        ],
+        [
+          "Marketing",
+          "Evelyn",
+          "Johnson",
+          155000,
+          1
+        ],
+        [
+          "Marketing",
+          "Jordan",
+          "Shah",
+          148000,
+          2
+        ],
+        [
+          "Marketing",
+          "Santiago",
+          "Ward",
+          137000,
+          3
+        ],
+        [
+          "Mathematics and Statistics",
+          "Nadia",
+          "Sanders",
+          148000,
+          1
+        ],
+        [
+          "Mathematics and Statistics",
+          "Julia",
+          "Thomas",
+          145000,
+          2
+        ],
+        [
+          "Mathematics and Statistics",
+          "Leo",
+          "Lee",
+          113000,
+          3
+        ],
+        [
+          "Nursing",
+          "Deja",
+          "Stewart",
+          148000,
+          1
+        ],
+        [
+          "Nursing",
+          "Jack",
+          "Perez",
+          139000,
+          2
+        ],
+        [
+          "Nursing",
+          "Javier",
+          "Ramirez",
+          104000,
+          3
+        ],
+        [
+          "Philosophy",
+          "Luna",
+          "Shah",
+          163000,
+          1
+        ],
+        [
+          "Philosophy",
+          "Wei",
+          "Young",
+          142000,
+          2
+        ],
+        [
+          "Philosophy",
+          "Jordan",
+          "Campbell",
+          37000,
+          3
+        ],
+        [
+          "Physics",
+          "Evelyn",
+          "Hernandez",
+          155000,
+          1
+        ],
+        [
+          "Physics",
+          "Rahul",
+          "Baker",
+          72000,
+          2
+        ],
+        [
+          "Physics",
+          "Caleb",
+          "Khan",
+          39000,
+          3
+        ],
+        [
+          "Political Science",
+          "Nia",
+          "Anderson",
+          143000,
+          1
+        ],
+        [
+          "Political Science",
+          "Zara",
+          "White",
+          143000,
+          1
+        ],
+        [
+          "Political Science",
+          "James",
+          "Martin",
+          142000,
+          2
+        ],
+        [
+          "Political Science",
+          "Isabella",
+          "Singh",
+          89000,
+          3
+        ],
+        [
+          "Psychology",
+          "Camila",
+          "Taylor",
+          148000,
+          1
+        ],
+        [
+          "Psychology",
+          "Theo",
+          "Mitchell",
+          104000,
+          2
+        ],
+        [
+          "Psychology",
+          "Nathan",
+          "Kelly",
+          91000,
+          3
+        ],
+        [
+          "Sociology and Anthropology",
+          "Mila",
+          "Baker",
+          162000,
+          1
+        ],
+        [
+          "Sociology and Anthropology",
+          "Jordan",
+          "Ortiz",
+          147000,
+          2
+        ],
+        [
+          "Sociology and Anthropology",
+          "Rahul",
+          "Roberts",
+          42000,
+          3
+        ],
+        [
+          "Theological Studies",
+          "Bianca",
+          "Turner",
+          148000,
+          1
+        ],
+        [
+          "Theological Studies",
+          "Anika",
+          "Kim",
+          131000,
+          2
+        ],
+        [
+          "Theological Studies",
+          "Naomi",
+          "Morgan",
+          84000,
+          3
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-hard-2",
+    "track": "sql",
+    "difficulty": "hard",
+    "title": "Monthly tuition: running total and 3-month moving average",
+    "tags": [
+      "window frame",
+      "running total",
+      "moving average",
+      "strftime"
+    ],
+    "prompt_md": "Using only **posted** tuition payments (`status = 'posted'`), aggregate by calendar month of `paid_on` (format `YYYY-MM`, use `strftime('%Y-%m', paid_on)`).\n\nReturn, ordered by month:\n\n| column | meaning |\n|---|---|\n| `month` | `YYYY-MM` |\n| `total` | sum of amounts that month, rounded to 2 decimals |\n| `running_total` | cumulative sum of `total` from the first month to this one, rounded to 2 |\n| `moving_avg_3` | average of `total` over this month and the two before it (fewer at the start), rounded to 2 |",
+    "example": {
+      "input_md": "`tuition_payments`: `amount` (REAL), `paid_on` (ISO date text), `status`.",
+      "output": {
+        "columns": [
+          "month",
+          "total",
+          "running_total",
+          "moving_avg_3"
+        ],
+        "rows": [
+          [
+            "2022-07",
+            296450.0,
+            296450.0,
+            296450.0
+          ],
+          [
+            "2022-08",
+            1278410.0,
+            1574860.0,
+            787430.0
+          ]
+        ],
+        "total": 33
+      }
+    },
+    "hints": [
+      "Build the monthly totals in a CTE, then apply window functions over it.",
+      "Frames: `ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW` for the running total, `ROWS BETWEEN 2 PRECEDING AND CURRENT ROW` for the moving average."
+    ],
+    "starter": "WITH monthly AS (\n  SELECT strftime('%Y-%m', paid_on) AS month, ROUND(SUM(amount), 2) AS total\n  FROM tuition_payments\n  WHERE status = 'posted'\n  GROUP BY month\n)\nSELECT month, total,\n       ... AS running_total,\n       ... AS moving_avg_3\nFROM monthly\nORDER BY month\n",
+    "orderMatters": true,
+    "decimals": 2,
+    "solution": "WITH monthly AS (\n  SELECT strftime('%Y-%m', paid_on) AS month, ROUND(SUM(amount), 2) AS total\n  FROM tuition_payments\n  WHERE status = 'posted'\n  GROUP BY month\n)\nSELECT month, total,\n       ROUND(SUM(total) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW), 2) AS running_total,\n       ROUND(AVG(total) OVER (ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS moving_avg_3\nFROM monthly\nORDER BY month",
+    "expected": {
+      "columns": [
+        "month",
+        "total",
+        "running_total",
+        "moving_avg_3"
+      ],
+      "rows": [
+        [
+          "2022-07",
+          296450.0,
+          296450.0,
+          296450.0
+        ],
+        [
+          "2022-08",
+          1278410.0,
+          1574860.0,
+          787430.0
+        ],
+        [
+          "2022-09",
+          1502095.0,
+          3076955.0,
+          1025651.67
+        ],
+        [
+          "2022-10",
+          1576820.0,
+          4653775.0,
+          1452441.67
+        ],
+        [
+          "2022-11",
+          515480.0,
+          5169255.0,
+          1198131.67
+        ],
+        [
+          "2022-12",
+          592900.0,
+          5762155.0,
+          895066.67
+        ],
+        [
+          "2023-01",
+          1447950.0,
+          7210105.0,
+          852110.0
+        ],
+        [
+          "2023-02",
+          1366120.0,
+          8576225.0,
+          1135656.67
+        ],
+        [
+          "2023-03",
+          1059870.0,
+          9636095.0,
+          1291313.33
+        ],
+        [
+          "2023-04",
+          368235.0,
+          10004330.0,
+          931408.33
+        ],
+        [
+          "2023-05",
+          58310.0,
+          10062640.0,
+          495471.67
+        ],
+        [
+          "2023-07",
+          289100.0,
+          10351740.0,
+          238548.33
+        ],
+        [
+          "2023-08",
+          1707405.0,
+          12059145.0,
+          684938.33
+        ],
+        [
+          "2023-09",
+          2362535.0,
+          14421680.0,
+          1453013.33
+        ],
+        [
+          "2023-10",
+          1918840.0,
+          16340520.0,
+          1996260.0
+        ],
+        [
+          "2023-11",
+          691635.0,
+          17032155.0,
+          1657670.0
+        ],
+        [
+          "2023-12",
+          966525.0,
+          17998680.0,
+          1192333.33
+        ],
+        [
+          "2024-01",
+          1647380.0,
+          19646060.0,
+          1101846.67
+        ],
+        [
+          "2024-02",
+          2143995.0,
+          21790055.0,
+          1585966.67
+        ],
+        [
+          "2024-03",
+          1689275.0,
+          23479330.0,
+          1826883.33
+        ],
+        [
+          "2024-04",
+          531405.0,
+          24010735.0,
+          1454891.67
+        ],
+        [
+          "2024-05",
+          72765.0,
+          24083500.0,
+          764481.67
+        ],
+        [
+          "2024-07",
+          502250.0,
+          24585750.0,
+          368806.67
+        ],
+        [
+          "2024-08",
+          2138115.0,
+          26723865.0,
+          904376.67
+        ],
+        [
+          "2024-09",
+          3307010.0,
+          30030875.0,
+          1982458.33
+        ],
+        [
+          "2024-10",
+          2811130.0,
+          32842005.0,
+          2752085.0
+        ],
+        [
+          "2024-11",
+          995435.0,
+          33837440.0,
+          2371191.67
+        ],
+        [
+          "2024-12",
+          1005480.0,
+          34842920.0,
+          1604015.0
+        ],
+        [
+          "2025-01",
+          2270905.0,
+          37113825.0,
+          1423940.0
+        ],
+        [
+          "2025-02",
+          2535505.0,
+          39649330.0,
+          1937296.67
+        ],
+        [
+          "2025-03",
+          2533300.0,
+          42182630.0,
+          2446570.0
+        ],
+        [
+          "2025-04",
+          669095.0,
+          42851725.0,
+          1912633.33
+        ],
+        [
+          "2025-05",
+          102655.0,
+          42954380.0,
+          1101683.33
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-hard-3",
+    "track": "sql",
+    "difficulty": "hard",
+    "title": "Everything you must take before Compilers",
+    "tags": [
+      "recursive cte",
+      "graph",
+      "transitive closure"
+    ],
+    "prompt_md": "`course_prerequisites(course_id, prereq_course_id)` is a directed graph. Find **every** course that is a direct *or indirect* prerequisite of the course titled **'Compilers'** (`CSCI 4620`).\n\nReturn `course_code`, `title`, and `depth` — the *shortest* number of prerequisite hops from Compilers to that course (direct prerequisites have depth 1). A course reachable along several paths appears **once**, with its minimum depth. Order by `depth`, then `course_code`.",
+    "example": {
+      "input_md": "Chain: Compilers ← Algorithms ← Data Structures ← Object-Oriented Programming ← Intro to CS; Algorithms also requires Discrete Mathematics, which requires College Algebra.",
+      "output": {
+        "columns": [
+          "course_code",
+          "title",
+          "depth"
+        ],
+        "rows": [
+          [
+            "CSCI 2710",
+            "Algorithms",
+            1
+          ],
+          [
+            "CSCI 1780",
+            "Data Structures",
+            2
+          ]
+        ],
+        "total": 6
+      }
+    },
+    "hints": [
+      "`WITH RECURSIVE pre(course_id, depth) AS (base case UNION ALL recursive step joining course_prerequisites to pre)`.",
+      "The same course can appear at several depths; `GROUP BY` it and take `MIN(depth)`."
+    ],
+    "starter": "WITH RECURSIVE pre(course_id, depth) AS (\n  SELECT p.prereq_course_id, 1\n  FROM course_prerequisites p\n  JOIN courses c ON c.course_id = p.course_id\n  WHERE c.title = 'Compilers'\n  UNION ALL\n  -- recursive step\n)\nSELECT ...\n",
+    "orderMatters": true,
+    "solution": "WITH RECURSIVE pre(course_id, depth) AS (\n  SELECT p.prereq_course_id, 1\n  FROM course_prerequisites p\n  JOIN courses c ON c.course_id = p.course_id\n  WHERE c.title = 'Compilers'\n  UNION ALL\n  SELECT p.prereq_course_id, pre.depth + 1\n  FROM course_prerequisites p\n  JOIN pre ON pre.course_id = p.course_id\n)\nSELECT c.course_code, c.title, MIN(pre.depth) AS depth\nFROM pre\nJOIN courses c ON c.course_id = pre.course_id\nGROUP BY c.course_id\nORDER BY depth, c.course_code",
+    "expected": {
+      "columns": [
+        "course_code",
+        "title",
+        "depth"
+      ],
+      "rows": [
+        [
+          "CSCI 2710",
+          "Algorithms",
+          1
+        ],
+        [
+          "CSCI 1780",
+          "Data Structures",
+          2
+        ],
+        [
+          "CSCI 2470",
+          "Discrete Mathematics",
+          2
+        ],
+        [
+          "CSCI 1690",
+          "Object-Oriented Programming",
+          3
+        ],
+        [
+          "MATH 1020",
+          "College Algebra",
+          3
+        ],
+        [
+          "CSCI 1430",
+          "Introduction to Computer Science",
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-hard-4",
+    "track": "sql",
+    "difficulty": "hard",
+    "title": "Students who took a term off",
+    "tags": [
+      "gaps and islands",
+      "row_number",
+      "window"
+    ],
+    "prompt_md": "`terms.term_id` is chronological: consecutive ids are consecutive semesters. A student is *enrolled in a term* if they have at least one row in `enrollments` for a section of that term.\n\nFind students whose enrolled terms are **not one unbroken run** — i.e. they have a gap. For each such student return:\n\n- `student_id`\n- `n_islands` — how many separate runs of consecutive terms they have\n- `longest_streak` — the length (in terms) of their longest run\n\nOrder by `student_id`.",
+    "example": {
+      "input_md": "A student enrolled in terms 1, 2, 4, 5, 6 has two islands ({1,2} and {4,5,6}) and a longest streak of 3.",
+      "output": {
+        "columns": [
+          "student_id",
+          "n_islands",
+          "longest_streak"
+        ],
+        "rows": [
+          [
+            1013,
+            2,
+            4
+          ],
+          [
+            1016,
+            2,
+            3
+          ]
+        ],
+        "total": 42
+      }
+    },
+    "hints": [
+      "Classic trick: `term_id - ROW_NUMBER() OVER (PARTITION BY student_id ORDER BY term_id)` is constant within a run of consecutive terms.",
+      "Start from the DISTINCT (student_id, term_id) pairs — a student takes several sections per term."
+    ],
+    "starter": "WITH st AS (\n  SELECT DISTINCT e.student_id, s.term_id\n  FROM enrollments e\n  JOIN sections s ON s.section_id = e.section_id\n),\ngrp AS (\n  SELECT student_id, term_id,\n         term_id - ROW_NUMBER() OVER (...) AS island\n  FROM st\n)\n-- count islands per student, keep students with more than one\n",
+    "orderMatters": true,
+    "solution": "WITH st AS (\n  SELECT DISTINCT e.student_id, s.term_id\n  FROM enrollments e\n  JOIN sections s ON s.section_id = e.section_id\n),\ngrp AS (\n  SELECT student_id, term_id,\n         term_id - ROW_NUMBER() OVER (PARTITION BY student_id ORDER BY term_id) AS island\n  FROM st\n),\nislands AS (\n  SELECT student_id, island, COUNT(*) AS len\n  FROM grp\n  GROUP BY student_id, island\n)\nSELECT student_id, COUNT(*) AS n_islands, MAX(len) AS longest_streak\nFROM islands\nGROUP BY student_id\nHAVING COUNT(*) > 1\nORDER BY student_id",
+    "expected": {
+      "columns": [
+        "student_id",
+        "n_islands",
+        "longest_streak"
+      ],
+      "rows": [
+        [
+          1013,
+          2,
+          4
+        ],
+        [
+          1016,
+          2,
+          3
+        ],
+        [
+          1028,
+          2,
+          3
+        ],
+        [
+          1039,
+          2,
+          3
+        ],
+        [
+          1041,
+          2,
+          3
+        ],
+        [
+          1042,
+          2,
+          3
+        ],
+        [
+          1059,
+          2,
+          3
+        ],
+        [
+          1065,
+          2,
+          3
+        ],
+        [
+          1087,
+          2,
+          3
+        ],
+        [
+          1090,
+          2,
+          2
+        ],
+        [
+          1096,
+          2,
+          2
+        ],
+        [
+          1103,
+          2,
+          3
+        ],
+        [
+          1107,
+          2,
+          3
+        ],
+        [
+          1109,
+          2,
+          2
+        ],
+        [
+          1128,
+          2,
+          4
+        ],
+        [
+          1132,
+          2,
+          4
+        ],
+        [
+          1135,
+          2,
+          2
+        ],
+        [
+          1155,
+          2,
+          3
+        ],
+        [
+          1156,
+          2,
+          4
+        ],
+        [
+          1169,
+          2,
+          3
+        ],
+        [
+          1170,
+          2,
+          3
+        ],
+        [
+          1180,
+          2,
+          4
+        ],
+        [
+          1200,
+          2,
+          3
+        ],
+        [
+          1204,
+          2,
+          3
+        ],
+        [
+          1213,
+          2,
+          4
+        ],
+        [
+          1272,
+          2,
+          3
+        ],
+        [
+          1279,
+          2,
+          4
+        ],
+        [
+          1282,
+          2,
+          3
+        ],
+        [
+          1284,
+          2,
+          4
+        ],
+        [
+          1292,
+          2,
+          4
+        ],
+        [
+          1298,
+          2,
+          4
+        ],
+        [
+          1337,
+          2,
+          3
+        ],
+        [
+          1362,
+          2,
+          4
+        ],
+        [
+          1377,
+          2,
+          4
+        ],
+        [
+          1397,
+          2,
+          3
+        ],
+        [
+          1401,
+          2,
+          4
+        ],
+        [
+          1447,
+          2,
+          4
+        ],
+        [
+          1456,
+          2,
+          3
+        ],
+        [
+          1463,
+          2,
+          4
+        ],
+        [
+          1479,
+          2,
+          4
+        ],
+        [
+          1480,
+          2,
+          3
+        ],
+        [
+          1492,
+          2,
+          4
+        ]
+      ]
+    }
+  },
+  {
+    "id": "sql-hard-5",
+    "track": "sql",
+    "difficulty": "hard",
+    "title": "Median salary per department (no MEDIAN function)",
+    "tags": [
+      "median",
+      "row_number",
+      "window",
+      "percentile"
+    ],
+    "prompt_md": "SQLite has no `MEDIAN()`. Compute the median salary of each department that has at least one employee.\n\nReturn `department` (name) and `median_salary`. For an even number of employees, the median is the **average of the two middle values**. Order by `department`.",
+    "example": {
+      "input_md": "Salaries [80, 90, 100, 110] → median 95. Salaries [80, 90, 100] → median 90.",
+      "output": {
+        "columns": [
+          "department",
+          "median_salary"
+        ],
+        "rows": [
+          [
+            "Accounting",
+            97500.0
+          ],
+          [
+            "Aerospace and Mechanical Engineering",
+            96000.0
+          ]
+        ],
+        "total": 22
+      }
+    },
+    "hints": [
+      "Number the rows within each department by salary (`ROW_NUMBER`) and also count the rows per department (`COUNT(*) OVER`).",
+      "The middle positions are `(cnt + 1) / 2` and `(cnt + 2) / 2` using integer division — they coincide when `cnt` is odd. Average the salaries at those positions."
+    ],
+    "starter": "WITH ordered AS (\n  SELECT d.name AS department, e.salary,\n         ROW_NUMBER() OVER (PARTITION BY e.department_id ORDER BY e.salary) AS rn,\n         COUNT(*) OVER (PARTITION BY e.department_id) AS cnt\n  FROM employees e\n  JOIN departments d ON d.department_id = e.department_id\n)\nSELECT ...\n",
+    "orderMatters": true,
+    "solution": "WITH ordered AS (\n  SELECT d.name AS department, e.salary,\n         ROW_NUMBER() OVER (PARTITION BY e.department_id ORDER BY e.salary) AS rn,\n         COUNT(*) OVER (PARTITION BY e.department_id) AS cnt\n  FROM employees e\n  JOIN departments d ON d.department_id = e.department_id\n)\nSELECT department, AVG(salary) AS median_salary\nFROM ordered\nWHERE rn IN ((cnt + 1) / 2, (cnt + 2) / 2)\nGROUP BY department\nORDER BY department",
+    "expected": {
+      "columns": [
+        "department",
+        "median_salary"
+      ],
+      "rows": [
+        [
+          "Accounting",
+          97500.0
+        ],
+        [
+          "Aerospace and Mechanical Engineering",
+          96000.0
+        ],
+        [
+          "Biology",
+          98000.0
+        ],
+        [
+          "Chemistry",
+          89500.0
+        ],
+        [
+          "Classics",
+          132000.0
+        ],
+        [
+          "Communication",
+          81000.0
+        ],
+        [
+          "Computer Science",
+          88000.0
+        ],
+        [
+          "English",
+          86000.0
+        ],
+        [
+          "Finance",
+          75000.0
+        ],
+        [
+          "Fine and Performing Arts",
+          100500.0
+        ],
+        [
+          "Health Sciences",
+          95500.0
+        ],
+        [
+          "History",
+          90000.0
+        ],
+        [
+          "Management",
+          85500.0
+        ],
+        [
+          "Marketing",
+          134000.0
+        ],
+        [
+          "Mathematics and Statistics",
+          73000.0
+        ],
+        [
+          "Nursing",
+          71000.0
+        ],
+        [
+          "Philosophy",
+          142000.0
+        ],
+        [
+          "Physics",
+          72000.0
+        ],
+        [
+          "Political Science",
+          115500.0
+        ],
+        [
+          "Psychology",
+          89000.0
+        ],
+        [
+          "Sociology and Anthropology",
+          147000.0
+        ],
+        [
+          "Theological Studies",
+          76000.0
+        ]
+      ]
+    }
+  }
+]

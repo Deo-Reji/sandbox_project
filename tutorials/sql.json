@@ -1,0 +1,83 @@
+{
+  "title": "SQL on SQLite — function-by-function reference",
+  "intro_md": "Everything here runs on **SQLite** (via sql.js in your browser) against the fictional Saint Louis University dataset. Open the **Schema** drawer for tables, columns, keys and previews. Every example has a *Try in sandbox* button that loads and runs it.\n\n> SQLite is not MySQL or Postgres. Differences that bite: no `PIVOT`, no `MEDIAN()`, no `YEAR()`/`DATE_PART` (use `strftime`), `||` for string concatenation (not `+` or `CONCAT`), `LIMIT n OFFSET m` instead of `TOP`, integer division for `INTEGER / INTEGER`, booleans are `0`/`1`, and `TRUE`/`FALSE` are just aliases for 1/0. Window functions, CTEs and recursive CTEs *are* supported.",
+  "sandbox_md": "Free play on the whole database. All statements are allowed here (CREATE, INSERT, UPDATE…). Press **Reset DB** to reload the original file. Ctrl/Cmd+Enter runs; the last statement's result is shown.",
+  "sandbox_starter": "-- Full dataset, nothing graded. Try:\nSELECT d.name AS department, COUNT(*) AS employees, ROUND(AVG(e.salary)) AS avg_salary\nFROM employees e\nJOIN departments d ON d.department_id = e.department_id\nGROUP BY d.name\nORDER BY employees DESC;\n",
+  "sections": [
+    {
+      "heading": "SELECT, WHERE, ORDER BY, LIMIT",
+      "body_md": "`SELECT` picks columns, `WHERE` filters rows *before* grouping, `ORDER BY` sorts (`DESC` for descending, several keys allowed), `LIMIT` caps the row count. `DISTINCT` removes duplicate rows. Text patterns: `LIKE 'M%'` (`%` = anything, `_` = one char, case-insensitive for ASCII in SQLite), `IN (...)`, `BETWEEN a AND b`.",
+      "examples": [
+        { "label": "Filter + sort + limit", "code": "SELECT first_name, last_name, gpa\nFROM students\nWHERE home_state = 'IL' AND gpa >= 3.5\nORDER BY gpa DESC, last_name\nLIMIT 10;" },
+        { "label": "DISTINCT with LIKE and IN", "code": "SELECT DISTINCT home_state, home_city\nFROM students\nWHERE home_state IN ('MO', 'KS') AND home_city LIKE 'S%'\nORDER BY 1, 2;", "note_md": "`ORDER BY 1, 2` refers to column positions." }
+      ]
+    },
+    {
+      "heading": "Aggregates, GROUP BY and HAVING",
+      "body_md": "`COUNT(*)`, `COUNT(col)` (ignores NULL), `COUNT(DISTINCT col)`, `SUM`, `AVG`, `MIN`, `MAX`, `GROUP_CONCAT(col, ', ')`. `GROUP BY` folds rows into groups; `HAVING` filters *groups* after aggregation (`WHERE` cannot see aggregates). `ROUND(x, 2)` for presentation.",
+      "examples": [
+        { "label": "One-row summary", "code": "SELECT COUNT(*) AS n, ROUND(AVG(salary), 2) AS avg_salary, MAX(salary) AS top\nFROM employees\nWHERE employee_type = 'staff';" },
+        { "label": "GROUP BY + HAVING", "code": "SELECT home_state, COUNT(*) AS n_students, ROUND(AVG(gpa), 2) AS avg_gpa\nFROM students\nGROUP BY home_state\nHAVING COUNT(*) >= 10\nORDER BY n_students DESC;" },
+        { "label": "GROUP_CONCAT", "code": "SELECT d.name, GROUP_CONCAT(m.name, ', ') AS majors\nFROM departments d\nJOIN majors m ON m.department_id = d.department_id\nGROUP BY d.name\nORDER BY d.name;" }
+      ]
+    },
+    {
+      "heading": "Joins: INNER, LEFT, self-join, anti-join",
+      "body_md": "`JOIN ... ON` keeps matching rows only. `LEFT JOIN` keeps every row of the left table and fills the right side with NULL when nothing matches — the basis of the **anti-join** pattern (`WHERE right.id IS NULL`). A **self-join** joins a table to itself under two aliases (employee ↔ manager). `USING (col)` is shorthand when both sides share the column name. SQLite has no `RIGHT JOIN` before 3.39 and no `FULL JOIN` — swap the table order instead.",
+      "examples": [
+        { "label": "Inner join across three tables", "code": "SELECT c.course_code, t.name AS term, s.section_number, s.capacity\nFROM sections s\nJOIN courses c ON c.course_id = s.course_id\nJOIN terms t ON t.term_id = s.term_id\nWHERE c.course_code LIKE 'CSCI%'\nORDER BY t.term_id, c.course_code\nLIMIT 15;" },
+        { "label": "Anti-join: departments with no employees", "code": "SELECT d.name\nFROM departments d\nLEFT JOIN employees e ON e.department_id = d.department_id\nWHERE e.employee_id IS NULL;" },
+        { "label": "Self-join: employee and manager", "code": "SELECT e.first_name || ' ' || e.last_name AS employee, e.title,\n       m.first_name || ' ' || m.last_name AS manager\nFROM employees e\nLEFT JOIN employees m ON m.employee_id = e.manager_id\nWHERE e.title LIKE 'Dean%';" }
+      ]
+    },
+    {
+      "heading": "Subqueries and CTEs",
+      "body_md": "A subquery can appear in `FROM` (derived table), in `WHERE ... IN (...)` / `EXISTS (...)`, or as a scalar in `SELECT`. A **CTE** (`WITH name AS (...)`) is the same idea with a name — easier to read and reusable within the statement. A *correlated* subquery references the outer row; `LIMIT 1 OFFSET 1` in one gives \"the second value\".",
+      "examples": [
+        { "label": "Scalar subquery vs CTE", "code": "WITH dept_avg AS (\n  SELECT department_id, AVG(salary) AS avg_salary\n  FROM employees\n  GROUP BY department_id\n)\nSELECT e.last_name, e.salary, ROUND(a.avg_salary) AS dept_avg\nFROM employees e\nJOIN dept_avg a ON a.department_id = e.department_id\nWHERE e.salary > a.avg_salary\nORDER BY e.salary DESC\nLIMIT 10;" },
+        { "label": "EXISTS", "code": "SELECT c.course_code, c.title\nFROM courses c\nWHERE NOT EXISTS (SELECT 1 FROM sections s WHERE s.course_id = c.course_id)\nORDER BY c.course_code;" }
+      ]
+    },
+    {
+      "heading": "CASE and conditional aggregation",
+      "body_md": "`CASE WHEN cond THEN x WHEN cond2 THEN y ELSE z END` is SQL's if/else. Inside `SUM(...)` it counts rows that satisfy a condition — the standard way to build a pivot-like table in SQLite, which has no `PIVOT`/`FILTER`.",
+      "examples": [
+        { "label": "Bucketing", "code": "SELECT CASE WHEN gpa >= 3.5 THEN 'honors' WHEN gpa >= 3.0 THEN 'good' WHEN gpa IS NULL THEN 'no gpa' ELSE 'below' END AS band,\n       COUNT(*) AS n\nFROM students\nGROUP BY band\nORDER BY n DESC;" },
+        { "label": "Conditional aggregation (pivot by hand)", "code": "SELECT t.name AS term,\n       SUM(CASE WHEN e.status = 'completed' THEN 1 ELSE 0 END) AS completed,\n       SUM(CASE WHEN e.status = 'dropped' THEN 1 ELSE 0 END) AS dropped,\n       SUM(CASE WHEN e.status = 'enrolled' THEN 1 ELSE 0 END) AS in_progress\nFROM enrollments e\nJOIN sections s ON s.section_id = e.section_id\nJOIN terms t ON t.term_id = s.term_id\nGROUP BY t.term_id\nORDER BY t.term_id;" }
+      ]
+    },
+    {
+      "heading": "Window functions",
+      "body_md": "`func() OVER (PARTITION BY ... ORDER BY ... frame)` computes a value per row *without* collapsing rows. Ranking: `ROW_NUMBER()` (1,2,3,4), `RANK()` (1,1,3,4), `DENSE_RANK()` (1,1,2,3). Offsets: `LAG(col)`, `LEAD(col)`. Aggregates as windows: `SUM(x) OVER (ORDER BY d ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)` is a running total; `ROWS BETWEEN 2 PRECEDING AND CURRENT ROW` is a 3-row moving window. Window functions are not allowed in `WHERE` — wrap them in a CTE and filter outside.",
+      "examples": [
+        { "label": "RANK vs DENSE_RANK vs ROW_NUMBER", "code": "SELECT last_name, salary,\n       ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num,\n       RANK() OVER (ORDER BY salary DESC) AS rnk,\n       DENSE_RANK() OVER (ORDER BY salary DESC) AS dense\nFROM employees\nWHERE department_id = 1\nORDER BY salary DESC;" },
+        { "label": "Top-N per group", "code": "WITH r AS (\n  SELECT d.name AS department, e.last_name, e.salary,\n         DENSE_RANK() OVER (PARTITION BY e.department_id ORDER BY e.salary DESC) AS rnk\n  FROM employees e JOIN departments d ON d.department_id = e.department_id\n)\nSELECT * FROM r WHERE rnk <= 2 ORDER BY department, rnk;" },
+        { "label": "Running total and LAG", "code": "WITH m AS (\n  SELECT strftime('%Y-%m', paid_on) AS month, SUM(amount) AS total\n  FROM tuition_payments WHERE status = 'posted' GROUP BY month\n)\nSELECT month, total,\n       SUM(total) OVER (ORDER BY month) AS running_total,\n       total - LAG(total) OVER (ORDER BY month) AS change_vs_prev\nFROM m ORDER BY month;" }
+      ]
+    },
+    {
+      "heading": "Recursive CTEs",
+      "body_md": "`WITH RECURSIVE name(cols) AS (base UNION ALL step)` walks hierarchies and graphs: org charts (`manager_id`), prerequisite chains, date series. The step selects from `name` itself; it stops when the step returns no rows. Always carry a `depth` column and guard against cycles (`WHERE depth < 20`) while experimenting — an unbounded recursion is killed after 15 s here.",
+      "examples": [
+        { "label": "Org chart under the Provost", "code": "WITH RECURSIVE org(employee_id, name, depth) AS (\n  SELECT employee_id, first_name || ' ' || last_name, 0\n  FROM employees WHERE title = 'Provost'\n  UNION ALL\n  SELECT e.employee_id, e.first_name || ' ' || e.last_name, org.depth + 1\n  FROM employees e JOIN org ON e.manager_id = org.employee_id\n)\nSELECT depth, name FROM org ORDER BY depth, name LIMIT 30;" },
+        { "label": "Prerequisite chain", "code": "WITH RECURSIVE pre(course_id, depth) AS (\n  SELECT p.prereq_course_id, 1 FROM course_prerequisites p\n  JOIN courses c ON c.course_id = p.course_id WHERE c.title = 'Machine Learning'\n  UNION ALL\n  SELECT p.prereq_course_id, pre.depth + 1\n  FROM course_prerequisites p JOIN pre ON pre.course_id = p.course_id\n)\nSELECT c.course_code, c.title, MIN(depth) AS depth\nFROM pre JOIN courses c ON c.course_id = pre.course_id\nGROUP BY c.course_id ORDER BY depth, course_code;" },
+        { "label": "Generate a series", "code": "WITH RECURSIVE n(x) AS (SELECT 1 UNION ALL SELECT x + 1 FROM n WHERE x < 10)\nSELECT x, x * x AS square FROM n;" }
+      ]
+    },
+    {
+      "heading": "Strings, dates and NULL in SQLite",
+      "body_md": "Strings: `||` concatenates, `UPPER`, `LOWER`, `TRIM(x)` / `TRIM(x, chars)`, `SUBSTR(x, start, len)`, `LENGTH`, `REPLACE(x, from, to)`, `INSTR(x, needle)`, `GLOB` (case-sensitive wildcard with `*`, `?`, `[0-9]`). Dates are ISO text: `strftime('%Y', d)` year, `'%m'` month, `'%Y-%m'` month key, `date(d, '+30 days')`, `julianday(a) - julianday(b)` for day differences. NULL: `IS NULL` / `IS NOT NULL` (never `= NULL`), `COALESCE(a, b, ...)` first non-null, `IFNULL(a, b)`, `NULLIF(a, b)` turns a placeholder into NULL. Aggregates skip NULL; `COUNT(*)` does not.",
+      "examples": [
+        { "label": "Date parts and arithmetic", "code": "SELECT first_name, hire_date,\n       strftime('%Y', hire_date) AS hire_year,\n       CAST((julianday('2025-01-01') - julianday(hire_date)) / 365.25 AS INTEGER) AS years_of_service\nFROM employees\nORDER BY hire_date LIMIT 10;" },
+        { "label": "COALESCE and NULLIF", "code": "SELECT s.student_id, COALESCE(e.last_name, '(no advisor)') AS advisor,\n       NULLIF(s.gpa, 0) AS gpa\nFROM students s\nLEFT JOIN employees e ON e.employee_id = s.advisor_id\nWHERE s.advisor_id IS NULL\nLIMIT 10;" }
+      ]
+    },
+    {
+      "heading": "SQLite vs MySQL / PostgreSQL cheat-sheet",
+      "body_md": "| Task | SQLite (here) | MySQL | PostgreSQL |\n|---|---|---|---|\n| concat | `a \\|\\| b` | `CONCAT(a, b)` | `a \\|\\| b` |\n| year of date | `strftime('%Y', d)` | `YEAR(d)` | `EXTRACT(YEAR FROM d)` |\n| median | window trick (see Hard 5) | none | `PERCENTILE_CONT(0.5)` |\n| integer division | `7 / 2 = 3` | `7 / 2 = 3.5` | `7 / 2 = 3` |\n| limit | `LIMIT n OFFSET m` | same | same |\n| boolean | 0 / 1 | 0 / 1 | `true` / `false` |\n| pivot | CASE + SUM | CASE + SUM | `FILTER (WHERE …)` or crosstab |\n| string case in LIKE | case-insensitive (ASCII) | depends on collation | case-sensitive (`ILIKE`) |\n| `RIGHT/FULL JOIN` | RIGHT since 3.39; no FULL | both | both |\n\nType affinity: SQLite stores whatever you insert; `CAST(x AS INTEGER)` / `CAST(x AS REAL)` convert explicitly.",
+      "examples": [
+        { "label": "Integer division pitfall", "code": "SELECT 7 / 2 AS integer_division, 7 / 2.0 AS real_division, CAST(7 AS REAL) / 2 AS cast_first;" }
+      ]
+    }
+  ]
+}

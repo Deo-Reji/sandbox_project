@@ -150,11 +150,11 @@ all_rows = rows + exact_dups + near_dups
 rng.shuffle(all_rows)
 m["total_rows"] = len(all_rows)
 m["distinct_student_ids"] = len({r["student_id"] for r in all_rows})
-# ground truth for "standardize state": count per canonical state over DISTINCT student_id, excluding shifted rows
+# ground truth for "standardize state": count per canonical state over DISTINCT student_id
 canon = {}
 seen_ids = set()
 for r in all_rows:
-    if r["student_id"] in seen_ids or int(r["student_id"]) in m["shifted_student_ids"]:
+    if r["student_id"] in seen_ids:
         continue
     seen_ids.add(r["student_id"])
     s = r["home_state"].strip().rstrip(".").upper()
@@ -308,6 +308,29 @@ for r in all_rows:
 m["posted_amount_total_clean"] = round(total, 2)
 write("payments_raw", all_rows, cols)
 manifest["tables"]["payments_raw"] = m
+
+# ================================================================ messy.sqlite (all-TEXT raw tables + typed clean reference tables)
+import sqlite3
+db_path = os.path.join(MESSY, "messy.sqlite")
+if os.path.exists(db_path):
+    os.remove(db_path)
+con = sqlite3.connect(db_path)
+for name in ["students_raw", "employees_raw", "enrollments_raw", "payments_raw"]:
+    with open(os.path.join(MESSY, f"{name}.csv"), newline="", encoding="utf-8") as fh:
+        rdr = csv.reader(fh)
+        header = next(rdr)
+        con.execute(f"CREATE TABLE {name} ({', '.join(c + ' TEXT' for c in header)})")
+        con.executemany(f"INSERT INTO {name} VALUES ({','.join('?' * len(header))})", list(rdr))
+clean_con = sqlite3.connect(os.path.join(HERE, "university.sqlite"))
+for name in ["students", "employees", "sections", "departments", "terms", "courses"]:
+    ddl = clean_con.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (name,)).fetchone()[0]
+    con.execute(ddl)
+    rows = clean_con.execute(f"SELECT * FROM {name}").fetchall()
+    con.executemany(f"INSERT INTO {name} VALUES ({','.join('?' * len(rows[0]))})", rows)
+con.commit()
+con.execute("VACUUM")
+con.close()
+clean_con.close()
 
 with open(os.path.join(MESSY, "defects_manifest.json"), "w", encoding="utf-8") as fh:
     json.dump(manifest, fh, indent=2)

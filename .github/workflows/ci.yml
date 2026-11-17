@@ -1,0 +1,45 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  harness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate data and expected outputs, fail if anything committed is stale
+        run: |
+          pip install "pandas==2.2.3" "numpy<3"
+          python data/generate.py > /dev/null
+          python data/make_messy.py > /dev/null
+          python data/build_expected.py --check
+          git diff --exit-code --stat -- data/clean data/messy/*.csv data/messy/defects_manifest.json data/schema.sql data/excel_extract.json docs/schema.md
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Run the browser harness (every problem, wrong answers, tutorials, edge cases)
+        run: npx playwright test --config tests/playwright.config.js
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report
+            tests/last-summary.md
+          retention-days: 14

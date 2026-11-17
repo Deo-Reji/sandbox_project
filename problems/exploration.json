@@ -1,0 +1,758 @@
+[
+  {
+    "id": "exploration-1",
+    "track": "exploration",
+    "difficulty": "easy",
+    "title": "Missing GPAs, placeholders included",
+    "tags": [
+      "NULL vs empty vs placeholder",
+      "COUNT DISTINCT",
+      "isin"
+    ],
+    "prompt_md": "`students_raw` is a raw export: every column is **text**, nothing was cleaned, and some students appear more than once.\n\nHow many **distinct students** (`student_id`) have a missing GPA, where *missing* means the `gpa` value (after trimming whitespace) is one of: empty string, `N/A`, `-1`, `unknown`?\n\nReturn a single column `n_missing`.",
+    "example": {
+      "input_md": "Raw placeholders are strings: `'-1'`, not the number -1. Check them with `IN` / `isin`. Count distinct ids, not rows.",
+      "output": {
+        "columns": [
+          "n_missing"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "SQL: `WHERE TRIM(gpa) IN ('', 'N/A', '-1', 'unknown')` then `COUNT(DISTINCT student_id)`.",
+      "pandas: `students_raw.gpa.str.strip().isin([...])`, then `.student_id.nunique()`; wrap in `pd.DataFrame({'n_missing': [n]})`."
+    ],
+    "starter": {
+      "sql": "-- every column of students_raw is TEXT\nSELECT COUNT(DISTINCT student_id) AS n_missing\nFROM students_raw\nWHERE \n",
+      "pandas": "# every column of students_raw is a string; '' stays ''\nmissing = \nresult = pd.DataFrame({'n_missing': [students_raw[missing].student_id.nunique()]})\n"
+    },
+    "orderMatters": false,
+    "solution": {
+      "sql": "SELECT COUNT(DISTINCT student_id) AS n_missing\nFROM students_raw\nWHERE TRIM(gpa) IN ('', 'N/A', '-1', 'unknown')",
+      "pandas": "missing = students_raw.gpa.str.strip().isin(['', 'N/A', '-1', 'unknown'])\nresult = pd.DataFrame({'n_missing': [students_raw[missing].student_id.nunique()]})"
+    },
+    "expected": {
+      "columns": [
+        "n_missing"
+      ],
+      "rows": [
+        [
+          116
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-2",
+    "track": "exploration",
+    "difficulty": "easy",
+    "title": "Exact duplicate rows",
+    "tags": [
+      "duplicates",
+      "DISTINCT *",
+      "duplicated()"
+    ],
+    "prompt_md": "How many rows of `enrollments_raw` are **exact duplicates** of another row (every column identical)? Count the *extra* copies: a row that appears twice contributes 1.\n\nReturn one column `n_duplicates`.",
+    "example": {
+      "input_md": "Total rows minus the number of distinct rows.",
+      "output": {
+        "columns": [
+          "n_duplicates"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "SQL: `COUNT(*)` minus `COUNT(*)` of `(SELECT DISTINCT * FROM enrollments_raw)`.",
+      "pandas: `enrollments_raw.duplicated().sum()`."
+    ],
+    "starter": {
+      "sql": "SELECT COUNT(*) - (SELECT COUNT(*) FROM (SELECT DISTINCT * FROM enrollments_raw)) AS n_duplicates\nFROM enrollments_raw\n",
+      "pandas": "result = pd.DataFrame({'n_duplicates': [int(enrollments_raw.duplicated().sum())]})\n"
+    },
+    "orderMatters": false,
+    "solution": {
+      "sql": "SELECT COUNT(*) - (SELECT COUNT(*) FROM (SELECT DISTINCT * FROM enrollments_raw)) AS n_duplicates\nFROM enrollments_raw",
+      "pandas": "result = pd.DataFrame({'n_duplicates': [int(enrollments_raw.duplicated().sum())]})"
+    },
+    "expected": {
+      "columns": [
+        "n_duplicates"
+      ],
+      "rows": [
+        [
+          15
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-3",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Near-duplicate students",
+    "tags": [
+      "near duplicates",
+      "GROUP BY HAVING",
+      "duplicated(keep=False)"
+    ],
+    "prompt_md": "Some students appear twice in `students_raw` with the **same `student_id`** but slightly different text — different casing, stray spaces, an upper-cased email. (Other students appear twice as exact copies.)\n\nList the `student_id`s (as integers) that have more than one row **where the rows are not identical**, sorted ascending. Return one column `student_id`.",
+    "example": {
+      "input_md": "`' Omar'` vs `'OMAR'` and `'omar@…'` vs `'OMAR@…'` are near-duplicates; two byte-identical rows are not.",
+      "output": {
+        "columns": [
+          "student_id"
+        ],
+        "rows": [
+          [
+            1138
+          ],
+          [
+            1164
+          ]
+        ],
+        "total": 8
+      }
+    },
+    "hints": [
+      "SQL: `GROUP BY student_id HAVING COUNT(*) > 1 AND COUNT(DISTINCT first_name || '|' || last_name || '|' || email) > 1`.",
+      "pandas: rows sharing an id → `duplicated('student_id', keep=False)`; then drop the ones that are full duplicates with `duplicated(keep=False)`."
+    ],
+    "starter": {
+      "sql": "SELECT CAST(student_id AS INTEGER) AS student_id\nFROM students_raw\nGROUP BY student_id\nHAVING \nORDER BY student_id\n",
+      "pandas": "multi = students_raw[students_raw.duplicated('student_id', keep=False)]\nnear = \nresult = pd.DataFrame({'student_id': sorted(near.student_id.astype(int).unique())})\n"
+    },
+    "orderMatters": true,
+    "solution": {
+      "sql": "SELECT CAST(student_id AS INTEGER) AS student_id\nFROM students_raw\nGROUP BY student_id\nHAVING COUNT(*) > 1\n   AND COUNT(DISTINCT first_name || '|' || last_name || '|' || email) > 1\nORDER BY student_id",
+      "pandas": "multi = students_raw[students_raw.duplicated('student_id', keep=False)]\nnear = multi[~multi.duplicated(keep=False)]\nresult = pd.DataFrame({'student_id': sorted(near.student_id.astype(int).unique())})"
+    },
+    "expected": {
+      "columns": [
+        "student_id"
+      ],
+      "rows": [
+        [
+          1138
+        ],
+        [
+          1164
+        ],
+        [
+          1207
+        ],
+        [
+          1213
+        ],
+        [
+          1219
+        ],
+        [
+          1374
+        ],
+        [
+          1388
+        ],
+        [
+          1454
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-4",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Standardise home_state and count per state",
+    "tags": [
+      "TRIM",
+      "UPPER",
+      "CASE mapping",
+      "replace()"
+    ],
+    "prompt_md": "`home_state` in `students_raw` is a mess: `MO`, `Missouri`, `mo.`, `' MO'`, `Ill.`, `Illinois`, …\n\nStandardise it to the two-letter code (trim spaces and trailing periods, upper-case, and map these full names: Missouri, Illinois/Ill, Kansas, Texas, California, Wisconsin, Minnesota, Indiana, Ohio, Tennessee). Then count **distinct students** per state.\n\nReturn `state`, `n_students`, ordered by `n_students` descending, then `state`.",
+    "example": {
+      "input_md": "SQLite: `TRIM(home_state, ' .')` strips spaces and dots from both ends. pandas: `.str.strip().str.strip('.').str.upper().replace({...})`.",
+      "output": {
+        "columns": [
+          "state",
+          "n_students"
+        ],
+        "rows": [
+          [
+            "MO",
+            189
+          ],
+          [
+            "IL",
+            112
+          ]
+        ],
+        "total": 20
+      }
+    },
+    "hints": [
+      "Canonicalise first (CTE / new column), then de-duplicate (student_id, state), then count.",
+      "A student's two rows may spell the state differently; after canonicalising they collapse into one."
+    ],
+    "starter": {
+      "sql": "WITH canon AS (\n  SELECT DISTINCT student_id,\n    CASE UPPER(TRIM(home_state, ' .'))\n      WHEN 'MISSOURI' THEN 'MO'\n      -- more mappings\n      ELSE UPPER(TRIM(home_state, ' .'))\n    END AS state\n  FROM students_raw\n)\nSELECT state, COUNT(*) AS n_students\nFROM canon\nGROUP BY state\nORDER BY n_students DESC, state\n",
+      "pandas": "names = {'MISSOURI': 'MO', 'ILLINOIS': 'IL', 'ILL': 'IL', 'KANSAS': 'KS', 'TEXAS': 'TX', 'CALIFORNIA': 'CA',\n         'WISCONSIN': 'WI', 'MINNESOTA': 'MN', 'INDIANA': 'IN', 'OHIO': 'OH', 'TENNESSEE': 'TN'}\ns = students_raw.copy()\ns['state'] = \nresult = \n"
+    },
+    "orderMatters": true,
+    "solution": {
+      "sql": "WITH canon AS (\n  SELECT DISTINCT student_id,\n    CASE UPPER(TRIM(home_state, ' .'))\n      WHEN 'MISSOURI' THEN 'MO' WHEN 'ILLINOIS' THEN 'IL' WHEN 'ILL' THEN 'IL'\n      WHEN 'KANSAS' THEN 'KS' WHEN 'TEXAS' THEN 'TX' WHEN 'CALIFORNIA' THEN 'CA'\n      WHEN 'WISCONSIN' THEN 'WI' WHEN 'MINNESOTA' THEN 'MN' WHEN 'INDIANA' THEN 'IN'\n      WHEN 'OHIO' THEN 'OH' WHEN 'TENNESSEE' THEN 'TN'\n      ELSE UPPER(TRIM(home_state, ' .'))\n    END AS state\n  FROM students_raw\n)\nSELECT state, COUNT(*) AS n_students\nFROM canon\nGROUP BY state\nORDER BY n_students DESC, state",
+      "pandas": "names = {'MISSOURI': 'MO', 'ILLINOIS': 'IL', 'ILL': 'IL', 'KANSAS': 'KS', 'TEXAS': 'TX', 'CALIFORNIA': 'CA',\n         'WISCONSIN': 'WI', 'MINNESOTA': 'MN', 'INDIANA': 'IN', 'OHIO': 'OH', 'TENNESSEE': 'TN'}\ns = students_raw.copy()\ns['state'] = s.home_state.str.strip().str.strip('.').str.upper().replace(names)\nresult = (s.drop_duplicates(['student_id', 'state']).groupby('state').size()\n          .reset_index(name='n_students').sort_values(['n_students', 'state'], ascending=[False, True]))"
+    },
+    "expected": {
+      "columns": [
+        "state",
+        "n_students"
+      ],
+      "rows": [
+        [
+          "MO",
+          189
+        ],
+        [
+          "IL",
+          112
+        ],
+        [
+          "CA",
+          25
+        ],
+        [
+          "KS",
+          22
+        ],
+        [
+          "MN",
+          20
+        ],
+        [
+          "TX",
+          18
+        ],
+        [
+          "WI",
+          16
+        ],
+        [
+          "NY",
+          13
+        ],
+        [
+          "IN",
+          12
+        ],
+        [
+          "IA",
+          10
+        ],
+        [
+          "OH",
+          10
+        ],
+        [
+          "CO",
+          9
+        ],
+        [
+          "TN",
+          9
+        ],
+        [
+          "AR",
+          7
+        ],
+        [
+          "FL",
+          6
+        ],
+        [
+          "MI",
+          6
+        ],
+        [
+          "OK",
+          6
+        ],
+        [
+          "GA",
+          4
+        ],
+        [
+          "NE",
+          4
+        ],
+        [
+          "KY",
+          2
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-5",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Enrollments pointing at sections that do not exist",
+    "tags": [
+      "orphaned foreign keys",
+      "LEFT JOIN",
+      "CAST",
+      "isin"
+    ],
+    "prompt_md": "`enrollments_raw.section_id` is text and some values reference sections that are not in the clean `sections` table (also loaded here).\n\nList the distinct `enrollment_id`s (as integers) of those orphaned rows, sorted ascending. Return one column `enrollment_id`.",
+    "example": {
+      "input_md": "Join (or `isin`) on the numeric form of the text id.",
+      "output": {
+        "columns": [
+          "enrollment_id"
+        ],
+        "rows": [
+          [
+            404
+          ],
+          [
+            1010
+          ]
+        ],
+        "total": 12
+      }
+    },
+    "hints": [
+      "SQL: `LEFT JOIN sections s ON s.section_id = CAST(e.section_id AS INTEGER)` and keep `WHERE s.section_id IS NULL`.",
+      "pandas: `pd.to_numeric(enrollments_raw.section_id, errors='coerce')`, then `~sid.isin(sections.section_id)`."
+    ],
+    "starter": {
+      "sql": "SELECT DISTINCT CAST(e.enrollment_id AS INTEGER) AS enrollment_id\nFROM enrollments_raw e\nLEFT JOIN sections s ON \nWHERE \nORDER BY enrollment_id\n",
+      "pandas": "sid = pd.to_numeric(enrollments_raw.section_id, errors='coerce')\norphans = \nresult = pd.DataFrame({'enrollment_id': sorted(orphans.enrollment_id.astype(int).unique())})\n"
+    },
+    "orderMatters": true,
+    "solution": {
+      "sql": "SELECT DISTINCT CAST(e.enrollment_id AS INTEGER) AS enrollment_id\nFROM enrollments_raw e\nLEFT JOIN sections s ON s.section_id = CAST(e.section_id AS INTEGER)\nWHERE s.section_id IS NULL\nORDER BY enrollment_id",
+      "pandas": "sid = pd.to_numeric(enrollments_raw.section_id, errors='coerce')\norphans = enrollments_raw[~sid.isin(sections.section_id)]\nresult = pd.DataFrame({'enrollment_id': sorted(orphans.enrollment_id.astype(int).unique())})"
+    },
+    "expected": {
+      "columns": [
+        "enrollment_id"
+      ],
+      "rows": [
+        [
+          404
+        ],
+        [
+          1010
+        ],
+        [
+          1248
+        ],
+        [
+          2043
+        ],
+        [
+          2402
+        ],
+        [
+          2508
+        ],
+        [
+          2997
+        ],
+        [
+          3305
+        ],
+        [
+          4888
+        ],
+        [
+          5960
+        ],
+        [
+          6060
+        ],
+        [
+          7264
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-6",
+    "track": "exploration",
+    "difficulty": "easy",
+    "title": "Impossible GPAs",
+    "tags": [
+      "outliers",
+      "CAST",
+      "to_numeric"
+    ],
+    "prompt_md": "A GPA cannot exceed 4.0. Find every distinct (`student_id`, `gpa`) pair in `students_raw` whose `gpa` parses as a number **greater than 4.0**.\n\nReturn `student_id` (integer) and `gpa` (number), sorted by `student_id`.\n\n> Some of the hits are not typos at all: in a few rows the columns are shifted left by one, so the `gpa` column holds an advisor id. Report them anyway — that is how you discover the shift.",
+    "example": {
+      "input_md": "`CAST('N/A' AS REAL)` is 0 in SQLite; `pd.to_numeric(..., errors='coerce')` gives NaN. Both are safely not > 4.",
+      "output": {
+        "columns": [
+          "student_id",
+          "gpa"
+        ],
+        "rows": [
+          [
+            1063,
+            12.0
+          ],
+          [
+            1130,
+            7.2
+          ]
+        ],
+        "total": 7
+      }
+    },
+    "hints": [
+      "Convert the text column to a number before comparing; comparing text `'12' > '4.0'` would be a string comparison.",
+      "Cast the output ids/gpas to integer/float so the result is numeric."
+    ],
+    "starter": {
+      "sql": "SELECT DISTINCT CAST(student_id AS INTEGER) AS student_id, CAST(gpa AS REAL) AS gpa\nFROM students_raw\nWHERE \nORDER BY student_id\n",
+      "pandas": "g = pd.to_numeric(students_raw.gpa, errors='coerce')\nbad = \nresult = pd.DataFrame({'student_id': bad.student_id.astype(int), 'gpa': bad.gpa.astype(float)}).sort_values('student_id')\n"
+    },
+    "orderMatters": true,
+    "solution": {
+      "sql": "SELECT DISTINCT CAST(student_id AS INTEGER) AS student_id, CAST(gpa AS REAL) AS gpa\nFROM students_raw\nWHERE CAST(gpa AS REAL) > 4.0\nORDER BY student_id",
+      "pandas": "g = pd.to_numeric(students_raw.gpa, errors='coerce')\nbad = students_raw[g > 4.0][['student_id', 'gpa']].drop_duplicates()\nresult = pd.DataFrame({'student_id': bad.student_id.astype(int), 'gpa': bad.gpa.astype(float)}).sort_values('student_id')"
+    },
+    "expected": {
+      "columns": [
+        "student_id",
+        "gpa"
+      ],
+      "rows": [
+        [
+          1063,
+          12.0
+        ],
+        [
+          1130,
+          7.2
+        ],
+        [
+          1167,
+          4.8
+        ],
+        [
+          1214,
+          28.0
+        ],
+        [
+          1296,
+          43.0
+        ],
+        [
+          1367,
+          12.0
+        ],
+        [
+          1469,
+          5.5
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-7",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Payroll from salaries stored as text",
+    "tags": [
+      "numbers stored as text",
+      "REPLACE",
+      "str.replace regex",
+      "placeholders"
+    ],
+    "prompt_md": "`employees_raw.salary` contains values like `$85,000.00`, `85000`, `$ 85000`, `85000.00 USD`, plus placeholders (`''`, `N/A`, `-1`, `unknown`) and a few duplicated employees.\n\nCompute the **total payroll** over distinct `employee_id`s, excluding the placeholders. Strip `$`, commas, spaces and `USD` before converting. Return one column `total_payroll`, rounded to 2 decimals.",
+    "example": {
+      "input_md": "SQL: nested `REPLACE(...)` calls then `CAST(... AS REAL)`. pandas: `.str.replace(r'[$,\\sA-Za-z]', '', regex=True)` then `pd.to_numeric(..., errors='coerce')`.",
+      "output": {
+        "columns": [
+          "total_payroll"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "De-duplicate on employee_id first (`SELECT DISTINCT employee_id, salary` / `drop_duplicates('employee_id')`).",
+      "Exclude `-1` and the text placeholders — in pandas keep only values `> 0`."
+    ],
+    "starter": {
+      "sql": "WITH e AS (\n  SELECT DISTINCT employee_id, salary FROM employees_raw\n),\nc AS (\n  SELECT CAST(REPLACE(REPLACE(REPLACE(REPLACE(TRIM(salary), '$', ''), ',', ''), 'USD', ''), ' ', '') AS REAL) AS sal\n  FROM e\n  WHERE \n)\nSELECT ROUND(SUM(sal), 2) AS total_payroll FROM c\n",
+      "pandas": "e = employees_raw.drop_duplicates('employee_id')\nclean = e.salary.str.replace(r'[$,\\sA-Za-z]', '', regex=True)\nsal = pd.to_numeric(clean, errors='coerce')\nresult = \n"
+    },
+    "orderMatters": false,
+    "decimals": 2,
+    "solution": {
+      "sql": "WITH e AS (\n  SELECT DISTINCT employee_id, salary FROM employees_raw\n),\nc AS (\n  SELECT CAST(REPLACE(REPLACE(REPLACE(REPLACE(TRIM(salary), '$', ''), ',', ''), 'USD', ''), ' ', '') AS REAL) AS sal\n  FROM e\n  WHERE TRIM(salary) NOT IN ('', 'N/A', '-1', 'unknown')\n)\nSELECT ROUND(SUM(sal), 2) AS total_payroll FROM c",
+      "pandas": "e = employees_raw.drop_duplicates('employee_id')\nclean = e.salary.str.replace(r'[$,\\sA-Za-z]', '', regex=True)\nsal = pd.to_numeric(clean, errors='coerce')\nresult = pd.DataFrame({'total_payroll': [round(float(sal[sal > 0].sum()), 2)]})"
+    },
+    "expected": {
+      "columns": [
+        "total_payroll"
+      ],
+      "rows": [
+        [
+          16821000.0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-8",
+    "track": "exploration",
+    "difficulty": "easy",
+    "title": "How many A grades, really?",
+    "tags": [
+      "inconsistent casing",
+      "whitespace",
+      "UPPER/TRIM"
+    ],
+    "prompt_md": "In `enrollments_raw.grade` an A can be written `A`, `a`, `'A '` or `' A'`. Count the **distinct** `enrollment_id`s whose grade is an A after trimming and upper-casing (`A-` is not an A). Return one column `n_a`.",
+    "example": {
+      "input_md": "`UPPER(TRIM(grade)) = 'A'` / `.str.strip().str.upper() == 'A'`",
+      "output": {
+        "columns": [
+          "n_a"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "Normalise before comparing.",
+      "Duplicated rows share an enrollment_id — count distinct ids."
+    ],
+    "starter": {
+      "sql": "SELECT COUNT(DISTINCT enrollment_id) AS n_a\nFROM enrollments_raw\nWHERE \n",
+      "pandas": "a = enrollments_raw[enrollments_raw.grade.str.strip().str.upper() == 'A']\nresult = \n"
+    },
+    "orderMatters": false,
+    "solution": {
+      "sql": "SELECT COUNT(DISTINCT enrollment_id) AS n_a\nFROM enrollments_raw\nWHERE UPPER(TRIM(grade)) = 'A'",
+      "pandas": "a = enrollments_raw[enrollments_raw.grade.str.strip().str.upper() == 'A']\nresult = pd.DataFrame({'n_a': [a.enrollment_id.nunique()]})"
+    },
+    "expected": {
+      "columns": [
+        "n_a"
+      ],
+      "rows": [
+        [
+          235
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-9",
+    "track": "exploration",
+    "difficulty": "hard",
+    "title": "Total posted payments, cleaned",
+    "tags": [
+      "numbers stored as text",
+      "negatives",
+      "placeholders",
+      "casing",
+      "duplicates"
+    ],
+    "prompt_md": "`payments_raw` has every defect at once: amounts as `$1,234.50` / `1234.50 USD`, a few **negative** amounts, placeholders (`''`, `N/A`, `9999`, `TBD`), `status` in mixed case/whitespace, and duplicated payment rows.\n\nSum the amounts of **posted** payments (status equals `posted` after trim + lower-case) over distinct `payment_id`s, keeping only amounts that are numeric, **greater than 0**, and not the `9999` placeholder. Return one column `posted_total`, rounded to 2 decimals.",
+    "example": {
+      "input_md": "In SQLite, `amt GLOB '[0-9]*'` keeps strings that start with a digit (drops `-`, `N/A`, `TBD`, empty).",
+      "output": {
+        "columns": [
+          "posted_total"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "Clean the amount into a numeric string, then filter: digit-leading, `> 0`, `<> '9999'`.",
+      "pandas: `pd.to_numeric(cleaned, errors='coerce')`, then `(amt > 0) & (raw.strip() != '9999') & (status normalised == 'posted')`."
+    ],
+    "starter": {
+      "sql": "WITH p AS (\n  SELECT DISTINCT payment_id, amount, status FROM payments_raw\n),\nc AS (\n  SELECT REPLACE(REPLACE(REPLACE(REPLACE(TRIM(amount), '$', ''), ',', ''), 'USD', ''), ' ', '') AS amt,\n         LOWER(TRIM(status)) AS status\n  FROM p\n)\nSELECT ROUND(SUM(CAST(amt AS REAL)), 2) AS posted_total\nFROM c\nWHERE \n",
+      "pandas": "p = payments_raw.drop_duplicates('payment_id')\namt = pd.to_numeric(p.amount.str.replace(r'[$,\\sA-Za-z]', '', regex=True), errors='coerce')\nok = \nresult = pd.DataFrame({'posted_total': [round(float(amt[ok].sum()), 2)]})\n"
+    },
+    "orderMatters": false,
+    "decimals": 2,
+    "solution": {
+      "sql": "WITH p AS (\n  SELECT DISTINCT payment_id, amount, status FROM payments_raw\n),\nc AS (\n  SELECT REPLACE(REPLACE(REPLACE(REPLACE(TRIM(amount), '$', ''), ',', ''), 'USD', ''), ' ', '') AS amt,\n         LOWER(TRIM(status)) AS status\n  FROM p\n)\nSELECT ROUND(SUM(CAST(amt AS REAL)), 2) AS posted_total\nFROM c\nWHERE status = 'posted' AND amt GLOB '[0-9]*' AND CAST(amt AS REAL) > 0 AND amt <> '9999'",
+      "pandas": "p = payments_raw.drop_duplicates('payment_id')\namt = pd.to_numeric(p.amount.str.replace(r'[$,\\sA-Za-z]', '', regex=True), errors='coerce')\nok = (amt > 0) & (p.amount.str.strip() != '9999') & (p.status.str.strip().str.lower() == 'posted')\nresult = pd.DataFrame({'posted_total': [round(float(amt[ok].sum()), 2)]})"
+    },
+    "expected": {
+      "columns": [
+        "posted_total"
+      ],
+      "rows": [
+        [
+          13405175.0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-10",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Dates that are not ISO",
+    "tags": [
+      "mixed date formats",
+      "GLOB",
+      "str.match"
+    ],
+    "prompt_md": "`students_raw.birth_date` mixes `2006-09-22`, `3/13/2007`, `Jun 13, 2006`, `22-Sep-2006`, `2006/09/22`.\n\nCount the **distinct students** whose `birth_date` is **not** in ISO `YYYY-MM-DD` form. Return one column `n_non_iso`.",
+    "example": {
+      "input_md": "SQLite: `birth_date NOT GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'`. pandas: `~s.str.match(r'^\\d{4}-\\d{2}-\\d{2}$')`.",
+      "output": {
+        "columns": [
+          "n_non_iso"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "A pattern test is enough here; parsing (`pd.to_datetime(format='mixed')`) is the next step in a real clean-up.",
+      "Count distinct `student_id`."
+    ],
+    "starter": {
+      "sql": "SELECT COUNT(DISTINCT student_id) AS n_non_iso\nFROM students_raw\nWHERE \n",
+      "pandas": "non_iso = \nresult = pd.DataFrame({'n_non_iso': [students_raw[non_iso].student_id.nunique()]})\n"
+    },
+    "orderMatters": false,
+    "solution": {
+      "sql": "SELECT COUNT(DISTINCT student_id) AS n_non_iso\nFROM students_raw\nWHERE birth_date NOT GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'",
+      "pandas": "non_iso = ~students_raw.birth_date.str.match(r'^\\d{4}-\\d{2}-\\d{2}$')\nresult = pd.DataFrame({'n_non_iso': [students_raw[non_iso].student_id.nunique()]})"
+    },
+    "expected": {
+      "columns": [
+        "n_non_iso"
+      ],
+      "rows": [
+        [
+          160
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-11",
+    "track": "exploration",
+    "difficulty": "medium",
+    "title": "Rows whose columns are shifted",
+    "tags": [
+      "column shift",
+      "pattern check",
+      "data profiling"
+    ],
+    "prompt_md": "In a few rows of `students_raw` the `home_city` value is missing and every later field moved one column to the left — so `enrollment_year` holds a GPA, `gpa` holds an advisor id, and so on.\n\nFind those rows: list the distinct `student_id`s (integers) where `enrollment_year` is **not a 4-digit number**, sorted ascending. Return one column `student_id`.",
+    "example": {
+      "input_md": "`enrollment_year NOT GLOB '[0-9][0-9][0-9][0-9]'` / `~s.str.match(r'^\\d{4}$')`",
+      "output": {
+        "columns": [
+          "student_id"
+        ],
+        "rows": [
+          [
+            1026
+          ],
+          [
+            1214
+          ]
+        ],
+        "total": 4
+      }
+    },
+    "hints": [
+      "Profiling tip: test each column against the pattern it *should* have; failures are either bad values or shifted rows.",
+      "Cast the id to integer in the output."
+    ],
+    "starter": {
+      "sql": "SELECT DISTINCT CAST(student_id AS INTEGER) AS student_id\nFROM students_raw\nWHERE \nORDER BY student_id\n",
+      "pandas": "bad = \nresult = pd.DataFrame({'student_id': sorted(students_raw[bad].student_id.astype(int).unique())})\n"
+    },
+    "orderMatters": true,
+    "solution": {
+      "sql": "SELECT DISTINCT CAST(student_id AS INTEGER) AS student_id\nFROM students_raw\nWHERE enrollment_year NOT GLOB '[0-9][0-9][0-9][0-9]'\nORDER BY student_id",
+      "pandas": "bad = ~students_raw.enrollment_year.str.match(r'^\\d{4}$')\nresult = pd.DataFrame({'student_id': sorted(students_raw[bad].student_id.astype(int).unique())})"
+    },
+    "expected": {
+      "columns": [
+        "student_id"
+      ],
+      "rows": [
+        [
+          1026
+        ],
+        [
+          1214
+        ],
+        [
+          1296
+        ],
+        [
+          1367
+        ]
+      ]
+    }
+  },
+  {
+    "id": "exploration-12",
+    "track": "exploration",
+    "difficulty": "hard",
+    "title": "Advisors who do not exist",
+    "tags": [
+      "orphaned foreign keys",
+      "placeholders",
+      "LEFT JOIN",
+      "to_numeric"
+    ],
+    "prompt_md": "`students_raw.advisor_id` should reference `employees.employee_id` (the clean table is loaded). It contains real ids, empty strings, placeholders (`TBD`, `N/A`, `unknown`), and some **numeric ids that match no employee** (e.g. `9999`).\n\nCount the distinct students whose `advisor_id` is numeric but matches no employee. Placeholders and blanks are *not* orphans. Return one column `n_orphans`.",
+    "example": {
+      "input_md": "Rows where the shift moved `status` into `advisor_id` are text, so they are ignored by the numeric test — as they should be.",
+      "output": {
+        "columns": [
+          "n_orphans"
+        ],
+        "rows": [],
+        "total": 1
+      }
+    },
+    "hints": [
+      "SQL: `s.advisor_id GLOB '[0-9]*'` selects numeric-looking ids; LEFT JOIN employees on `CAST(s.advisor_id AS INTEGER)` and keep the unmatched.",
+      "pandas: `adv = pd.to_numeric(students_raw.advisor_id, errors='coerce')`; `adv.notna() & ~adv.isin(employees.employee_id)`."
+    ],
+    "starter": {
+      "sql": "SELECT COUNT(DISTINCT s.student_id) AS n_orphans\nFROM students_raw s\nLEFT JOIN employees e ON \nWHERE \n",
+      "pandas": "adv = pd.to_numeric(students_raw.advisor_id, errors='coerce')\nmask = \nresult = pd.DataFrame({'n_orphans': [students_raw[mask].student_id.nunique()]})\n"
+    },
+    "orderMatters": false,
+    "solution": {
+      "sql": "SELECT COUNT(DISTINCT s.student_id) AS n_orphans\nFROM students_raw s\nLEFT JOIN employees e ON e.employee_id = CAST(s.advisor_id AS INTEGER)\nWHERE s.advisor_id GLOB '[0-9]*' AND e.employee_id IS NULL",
+      "pandas": "adv = pd.to_numeric(students_raw.advisor_id, errors='coerce')\nmask = adv.notna() & ~adv.isin(employees.employee_id)\nresult = pd.DataFrame({'n_orphans': [students_raw[mask].student_id.nunique()]})"
+    },
+    "expected": {
+      "columns": [
+        "n_orphans"
+      ],
+      "rows": [
+        [
+          9
+        ]
+      ]
+    }
+  }
+]
