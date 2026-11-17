@@ -1,6 +1,11 @@
 // Playwright configuration for the DataLab Sandbox "definition of done" harness.
 // Run from the repo root:  npx playwright test --config tests/playwright.config.js
 import { defineConfig } from '@playwright/test';
+import os from 'node:os';
+import path from 'node:path';
+
+// Artifacts go to the OS temp dir: synced folders (OneDrive, Dropbox) lock trace files mid-write (EBUSY).
+const ARTIFACTS = process.env.CI ? '..' : path.join(os.tmpdir(), 'datalab-sandbox-tests');
 
 const PORT = process.env.PORT || 8777;
 
@@ -12,8 +17,8 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   retries: 0,
-  reporter: [['list'], ['html', { open: 'never', outputFolder: '../playwright-report' }]],
-  outputDir: '../test-results',
+  reporter: [['list'], ['html', { open: 'never', outputFolder: path.join(ARTIFACTS, 'playwright-report') }]],
+  outputDir: path.join(ARTIFACTS, 'test-results'),
   use: {
     baseURL: `http://127.0.0.1:${PORT}/`,
     headless: true,

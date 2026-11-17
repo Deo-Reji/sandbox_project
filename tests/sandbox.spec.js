@@ -16,7 +16,6 @@ const TABLES = ['colleges', 'buildings', 'departments', 'rooms', 'employees', 'f
 const summary = [];
 const record = (track, id, pass, wrongRejected, note = '') => summary.push({ track, id, pass, wrongRejected, note });
 
-test.describe.configure({ mode: 'serial' });
 
 // ----------------------------------------------------------------------------- helpers
 async function openApp(page, hash = '#sql/tutorial') {

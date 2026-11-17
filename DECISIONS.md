@@ -22,3 +22,4 @@ Decisions not covered by the brief, with the reason. Newest at the bottom.
 18. **`section_number` and `room_number` are text** (`'01'`). The pandas loader pins them to `str` so SQL and pandas answers agree.
 19. **Shifted rows in `students_raw`** keep `home_state` intact, because the shift starts at `home_city`. The ground-truth state counts therefore include them.
 20. **CI regenerates the data and diffs the CSVs** to catch non-determinism. The `.sqlite` files are excluded from the diff because SQLite page layout can differ between library versions even when the data is identical.
+21. **Local test artifacts go to the OS temp folder.** OneDrive locked Playwright trace files mid-write (EBUSY), which made the harness fail intermittently. CI still writes them to the repo root for upload. Suites are independent, so one failure no longer skips the rest.
